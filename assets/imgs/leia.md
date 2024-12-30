@@ -1,1 +1,0 @@
-<!-- Aqui vão ficar as imagens utilizadas no projecto -->
