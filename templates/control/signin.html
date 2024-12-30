@@ -4,8 +4,8 @@
 
 
 {% block head %}
-      <link rel="stylesheet" href="{% static 'css/bases/signup.css' %}">
-      <link rel="stylesheet" href="{% static 'css/bases/signin.css' %}">
+      <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
+      <link rel="stylesheet" href="{% static 'css/control/signin.css' %}">
 {% endblock head %}
 
 
@@ -20,7 +20,7 @@
       <div class="formbold-form-wrapper">
             <div class="div-logo">
                   <img class="img-logo" src="{% static 'imgs/logo.png' %}">
-                  <h5>INSTITUTO MÉDIO POLITÉCNICO SMARTBITS</h5>
+                  <h5 class="font-mono">SMARTBITS VIRTUAL LIBRARY</h5>
             </div>
             <br>
             <form action="{% url 'signin' %}" method="POST">
@@ -32,9 +32,15 @@
                         <input type="password" name="password" id="password" placeholder="senha" class="formbold-form-input"/>
                   </div>
                   <div class="formbold-mb-3">
-                        <a href="{% url 'signup' %}" class="signup-link"><em>Cadastre-se</em></a>
+                        <button class="formbold-btn formbold-form-input">Submit</button>
                   </div>
-                  <button class="formbold-btn">Submit</button>
+                  <br>
+                  <hr>
+                  <div class="formbold-mb-3 div-or">
+                        <span>Já tem uma conta?
+                              <a href="{% url 'signup' %}" class="signup-link"><b>Cadastre-se</b></a>
+                        </span>
+                  </div>
             </form>
       </div>
     </div>

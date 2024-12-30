@@ -4,7 +4,7 @@
 
 
 {% block head %}
-      <link rel="stylesheet" href="{% static 'css/bases/signup.css' %}">
+      <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
 {% endblock head %}
 
 
@@ -19,7 +19,7 @@
       <div class="formbold-form-wrapper">
             <div class="div-logo">
                   <img class="img-logo" src="{% static 'imgs/logo.png' %}">
-                  <h5>INSTITUTO MÉDIO POLITÉCNICO SMARTBITS</h5>
+                  <h5 class="font-mono">SMARTBITS VIRTUAL LIBRARY</h5>
             </div>
             <br>
         <form action="{% url 'signup' %}" method="POST">
@@ -78,7 +78,7 @@
               <input type="file" name="upload" id="upload" class="formbold-form-input formbold-form-file"/>
             </div>
       
-            <button class="formbold-btn">Submit</button>
+            <button class="formbold-btn formbold-form-input">Submit</button>
         </form>
       </div>
     </div>
