@@ -8,3 +8,13 @@
 .signup-link:hover {
       color: #0daedfb3; /* Cor ao passar o mouse */
 }
+
+.div-or {
+      display: flex;
+      justify-content: space-around;
+      margin: 5px;
+}
+
+hr {
+      border-color: #0daedf79;
+}
