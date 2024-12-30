@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Reader, User
+from django.contrib.auth import login, logout, authenticate
+from django.http import HttpResponse
 
 
 def signup(request):
@@ -14,11 +16,11 @@ def signup(request):
         process_number: int = request.POST.get('num-process')
         course: str = request.POST.get('course')
         grade: int = request.POST.get('grade')
-        group: int = request.POST.get('group')
-        email: int = request.POST.get('email')
-        password: int = request.POST.get('password')
-        confirm_password: int = request.POST.get('confirm-password')
-        profile_photo: int = request.FILES.get('upload')
+        group: str = request.POST.get('group')
+        email: str = request.POST.get('email')
+        password: str = request.POST.get('password')
+        confirm_password: str = request.POST.get('confirm-password')
+        profile_photo: str = request.FILES.get('upload')
 
         if not reader_authenticate(password, confirm_password, process_number):
             return redirect('/auth/signup?done=0')
@@ -51,7 +53,17 @@ def signin(request):
     template_name = "control/signin.html"
 
     if request.method == "POST":
-        ...
+        process_number: int = request.POST.get('num-process')
+        password: str = request.POST.get('password')
+
+        if Reader.objects.filter(process_number=process_number).exists() == False:
+            return redirect('/auth/signin?done=0')
+        
+        reader: Reader = Reader.objects.get(process_number=process_number)
+        user = authenticate(request, username=reader.user.username, password=password)
+        if user is not None:
+            login(request=request, user=user)
+            return HttpResponse(f'{user.username}-----{user.password}')        
 
     return render(request, template_name, ctx)
 

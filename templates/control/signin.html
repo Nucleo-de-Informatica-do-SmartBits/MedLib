@@ -27,10 +27,10 @@
             <form action="{% url 'signin' %}" method="POST">
                   {% csrf_token %}
                   <div class="formbold-mb-3">
-                        <input type="number" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input"/>
+                        <input type="number" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input" required/>
                   </div>
                   <div class="formbold-mb-3">
-                        <input type="password" name="password" id="password" placeholder="senha" class="formbold-form-input"/>
+                        <input type="password" name="password" id="password" placeholder="senha" class="formbold-form-input" required/>
                   </div>
                   <div class="formbold-mb-3">
                         <button class="formbold-btn formbold-form-input">Entrar</button>
