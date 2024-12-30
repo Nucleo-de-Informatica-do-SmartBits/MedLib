@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("control.urls")),
+    # novas urls aqui
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 # Servindo os arquivos de mídia e estáticos
