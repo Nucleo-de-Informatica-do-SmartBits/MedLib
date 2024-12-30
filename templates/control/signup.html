@@ -22,22 +22,22 @@
                   <h5 class="font-mono">SMARTBITS VIRTUAL LIBRARY</h5>
             </div>
             <br>
-        <form action="{% url 'signup' %}" method="POST">
+        <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="formbold-input-wrapp formbold-mb-3">    
               <div>
-                <input type="text" name="firstname" id="firstname" placeholder="Primeiro nome" class="formbold-form-input"/>
-                <input type="text" name="lastname" id="lastname" placeholder="Segundo nome" class="formbold-form-input"/>
+                <input type="text" name="firstname" id="firstname" placeholder="Primeiro nome" class="formbold-form-input" minlength="2" required/>
+                <input type="text" name="lastname" id="lastname" placeholder="Segundo nome" class="formbold-form-input" minlength="2" required/>
               </div>
             </div>
       
             <div class="formbold-mb-3">
-              <input type="number" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input"/>
+              <input type="number" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input" required/>
             </div>
       
             <div class="formbold-mb-3">
               <!-- <label class="formbold-form-label">Gender</label> -->
-              <select class="formbold-form-input" name="group" id="occupation">
+              <select class="formbold-form-input" name="course" id="occupation">
                     <option value="informatica">Informatica</option>
                     <option value="eletronica">Eletronica</option>
               </select>
@@ -45,7 +45,7 @@
 
             <div class="formbold-mb-3">
               <!-- <label class="formbold-form-label">Gender</label> -->
-              <select class="formbold-form-input" name="grade" id="occupation">
+              <select class="formbold-form-input" name="grade" id="occupation" required>
                     <option value="10">10ª</option>
                     <option value="11">11ª</option>
                     <option value="12">12ª</option>
@@ -56,15 +56,15 @@
               <div class="div-radios">
                     <div>
                           <label for="turma-A">A</label>
-                          <input type="radio" class="turma-A" name="turma" id="" value="A">
+                          <input type="radio" class="turma-A" name="group" id="" value="A" required>
                     </div>
                     <div>
                           <label for="turma-B">B</label>
-                          <input type="radio" class="turma-B" name="turma" id="" value="B">
+                          <input type="radio" class="turma-B" name="group" id="" value="B">
                     </div>
                     <div>
                           <label for="turma-C">C</label>
-                          <input type="radio" class="turma-C" name="turma" id="" value="C">
+                          <input type="radio" class="turma-C" name="group" id="" value="C">
                     </div>
               </div>
             </div>
@@ -75,18 +75,25 @@
 
             <div class="formbold-input-flex">
               <div>
-                    <input type="password" name="password" placeholder="senha" class="formbold-form-input"/>
+                    <input type="password" name="password" placeholder="senha" class="formbold-form-input" minlength="3" required/>
               </div>
               <div>
-                    <input type="password" name="confirm-password" placeholder="confirmar senha" class="formbold-form-input"/>
+                    <input type="password" name="confirm-password" placeholder="confirmar senha" class="formbold-form-input" minlength="3" required/>
               </div>
             </div>
       
             <div class="formbold-mb-3">
               <input type="file" name="upload" id="upload" class="formbold-form-input formbold-form-file"/>
             </div>
+            {% if done %}
+            <div class="formbold-mb-3">
+                  <div style="background-color: #df140db3; color: #fff; text-align: center;" class="formbold-form-input bg-danger delay-75">
+                        <em>Bad password confirmation</em>
+                  </div>
+            </div>
+            {% endif %}
       
-            <button class="formbold-btn formbold-form-input">Cadastrar</button>
+            <input type="submit" class="formbold-btn formbold-form-input" value="Cadastrar"> 
         </form>
       </div>
     </div>

@@ -28,3 +28,6 @@ class Reader(models.Model):
      group: str = models.CharField(max_length=1, choices=GROUP_CHOICES)
 
      photo: str = models.FileField(upload_to='profiles-photo/')
+
+     def __str__(self):
+          return self.user.username
