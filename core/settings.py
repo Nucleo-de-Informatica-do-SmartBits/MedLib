@@ -133,4 +133,4 @@ MEDIA_ROOT = BASE_DIR.joinpath("uploads")
 
 # Tailwind conf
 TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = "C:/Program Files/nodejs19/npm.cmd"
+NPM_BIN_PATH = env("NPM_BIN_PATH")
