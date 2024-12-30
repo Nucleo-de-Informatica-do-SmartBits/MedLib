@@ -98,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "pt-PT"
 
-TIME_ZONE = "Africa/Angola"
+TIME_ZONE = "Africa/Luanda"
 
 USE_I18N = True
 

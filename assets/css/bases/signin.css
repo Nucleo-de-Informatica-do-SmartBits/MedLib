@@ -1,0 +1,10 @@
+.signup-link {
+      display: inline-block;
+      color: #333; /* Cor do texto */
+      transition: background-color 0.3s ease; /* Transição suave */
+      margin: 0;
+}
+  
+.signup-link:hover {
+      color: #0daedfb3; /* Cor ao passar o mouse */
+}

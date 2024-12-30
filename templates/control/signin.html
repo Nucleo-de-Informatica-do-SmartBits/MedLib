@@ -1,0 +1,43 @@
+{% extends 'bases/control.html' %}
+
+{% load static %}
+
+
+{% block head %}
+      <link rel="stylesheet" href="{% static 'css/bases/signup.css' %}">
+      <link rel="stylesheet" href="{% static 'css/bases/signin.css' %}">
+{% endblock head %}
+
+
+{% block title %}
+    
+{% endblock title %}
+
+{% block content %}
+<div class="formbold-main-wrapper max-w-sm rounded overflow-hidden shadow-lg">
+      <!-- Author: FormBold Team -->
+      <!-- Learn More: https://formbold.com -->
+      <div class="formbold-form-wrapper">
+            <div class="div-logo">
+                  <img class="img-logo" src="{% static 'imgs/logo.jpg' %}">
+                  <h5>INSTITUTO MÉDIO POLITÉCNICO SMARTBITS</h5>
+            </div>
+            <br>
+            <form action="{% url 'signin' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="formbold-mb-3">
+                        <input type="text" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input"/>
+                  </div>
+                  <div class="formbold-mb-3">
+                        <input type="password" name="password" id="password" placeholder="senha" class="formbold-form-input"/>
+                  </div>
+                  <div class="formbold-mb-3">
+                        <a href="{% url 'signup' %}" class="signup-link"><em>Cadastre-se</em></a>
+                  </div>
+                  <button class="formbold-btn">Submit</button>
+            </form>
+      </div>
+    </div>
+    
+{% endblock content %}
+    

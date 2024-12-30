@@ -4,7 +4,7 @@
 
 
 {% block head %}
-
+      <link rel="stylesheet" href="{% static 'css/bases/signup.css' %}">
 {% endblock head %}
 
 
@@ -12,9 +12,76 @@
     
 {% endblock title %}
 
-
-
 {% block content %}
+<div class="formbold-main-wrapper max-w-sm rounded overflow-hidden shadow-lg">
+      <!-- Author: FormBold Team -->
+      <!-- Learn More: https://formbold.com -->
+      <div class="formbold-form-wrapper">
+            <div class="div-logo">
+                  <img class="img-logo" src="{% static 'imgs/logo.jpg' %}">
+                  <h5>INSTITUTO MÉDIO POLITÉCNICO SMARTBITS</h5>
+            </div>
+            <br>
+        <form action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="formbold-input-wrapp formbold-mb-3">    
+              <div>
+                <input type="text" name="firstname" id="firstname" placeholder="Primeiro nome" class="formbold-form-input"/>
+                <input type="text" name="lastname" id="lastname" placeholder="Segundo nome" class="formbold-form-input"/>
+              </div>
+            </div>
+      
+            <div class="formbold-mb-3">
+              <input type="text" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input"/>
+            </div>
+      
+            <div class="formbold-mb-3">
+              <!-- <label class="formbold-form-label">Gender</label> -->
+              <select class="formbold-form-input" name="grade" id="occupation">
+                    <option value="10">10ª</option>
+                    <option value="11">11ª</option>
+                    <option value="12">12ª</option>
+                    <option value="13">13ª</option>
+              </select>
+            </div>
+            <div class="formbold-mb-3">
+              <div class="div-radios">
+                    <div>
+                          <label for="turma-A">A</label>
+                          <input type="radio" class="turma-A" name="turma" id="" value="A">
+                    </div>
+                    <div>
+                          <label for="turma-B">B</label>
+                          <input type="radio" class="turma-B" name="turma" id="" value="B">
+                    </div>
+                    <div>
+                          <label for="turma-C">C</label>
+                          <input type="radio" class="turma-C" name="turma" id="" value="C">
+                    </div>
+              </div>
+            </div>
+      
+            <div class="formbold-mb-3">
+              <input type="email" name="email" id="email" placeholder="example@email.com (opt)" class="formbold-form-input"/>
+            </div>
+
+            <div class="formbold-input-flex">
+              <div>
+                    <input type="password" name="password" placeholder="senha" class="formbold-form-input"/>
+              </div>
+              <div>
+                    <input type="password" name="confirm-password" placeholder="confirmar senha" class="formbold-form-input"/>
+              </div>
+            </div>
+      
+            <div class="formbold-mb-3">
+              <input type="file" name="upload" id="upload" class="formbold-form-input formbold-form-file"/>
+            </div>
+      
+            <button class="formbold-btn">Submit</button>
+        </form>
+      </div>
+    </div>
     
 {% endblock content %}
     
