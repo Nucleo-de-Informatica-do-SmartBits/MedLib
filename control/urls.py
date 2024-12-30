@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import * #noqa
-
+from .views import signin, signup
 
 urlpatterns = [
     path("signup/", signup, name="signup"),
