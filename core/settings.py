@@ -1,6 +1,7 @@
-import environ
 from pathlib import Path
+from shutil import which
 
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -134,5 +135,5 @@ MEDIA_ROOT = BASE_DIR.joinpath("uploads")
 
 
 # Tailwind conf
-TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = env("NPM_BIN_PATH")
+TAILWIND_APP_NAME = "theme"
+NPM_BIN_PATH = str(which("npm")).lower()
