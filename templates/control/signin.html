@@ -27,13 +27,13 @@
             <form action="{% url 'signin' %}" method="POST">
                   {% csrf_token %}
                   <div class="formbold-mb-3">
-                        <input type="text" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input"/>
+                        <input type="number" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input"/>
                   </div>
                   <div class="formbold-mb-3">
                         <input type="password" name="password" id="password" placeholder="senha" class="formbold-form-input"/>
                   </div>
                   <div class="formbold-mb-3">
-                        <button class="formbold-btn formbold-form-input">Submit</button>
+                        <button class="formbold-btn formbold-form-input">Entrar</button>
                   </div>
                   <br>
                   <hr>
