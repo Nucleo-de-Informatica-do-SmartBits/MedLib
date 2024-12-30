@@ -29,8 +29,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "theme",
+    "tailwind",
     "control",
 ]
+
+# Internal IPS
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -120,3 +129,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Media Files
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.joinpath("uploads")
+
+
+# Tailwind conf
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = "C:/Program Files/nodejs19/npm.cmd"
