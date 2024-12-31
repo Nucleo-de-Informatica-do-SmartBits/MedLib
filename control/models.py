@@ -1,33 +1,38 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.utils.text import slugify
+
 # Create your models here.
 class Reader(models.Model):
-     user: User = models.ForeignKey(to=User, on_delete=models.CASCADE)
-     process_number: int = models.IntegerField(unique=True)
+    GRADE_CHOICES: dict = (
+        ('10', 'Décima'),
+        ('11', 'Décima Primeira'),
+        ('12', 'Décima Segunda'),
+    )     
+    GROUP_CHOICES: dict = {
+        ('A', 'Turma A'),
+        ('B', 'Turma B'),
+        ('C', 'Turma C'),
+        ('D', 'Turma D'),
+    }
+    COURSE_CHOICES: dict = {
+        "Informática": 'Informática',
+        "Eletrónica": 'Eletrónica'
+    }
+    user: User = models.OneToOneField(to=User, on_delete=models.CASCADE, related_name="reader")
+    process_number: int = models.IntegerField(unique=True)
+    grade: str = models.CharField("Classe", max_length=3, choices=GRADE_CHOICES)
+    course: str = models.CharField("Curso",max_length=30, choices=COURSE_CHOICES)
+    group: str = models.CharField("Turma", max_length=3, choices=GROUP_CHOICES)
+    photo: str = models.FileField("Perfil",upload_to='profiles-photo/')
+    slug = models.SlugField()
 
-     GRADE_CHOICES: dict = {
-          10: '10ª',
-          11: '11ª',
-          12: '12ª',
-          13: '13ª',
-     }
-     grade: int = models.IntegerField(choices=GRADE_CHOICES)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.user.first_name + self.user.last_name)
+            
+        super().save(*args, **kwargs)
 
-     COURSE_CHOICES: dict = {
-          "informatica": 'Informatica',
-          "eletronica": 'Eletronica'
-     }
-     course: str = models.CharField(max_length=30, choices=COURSE_CHOICES)
-
-     GROUP_CHOICES: dict = {
-          "A": 'A',
-          "B": 'B',
-          "C": 'C',
-     }
-     group: str = models.CharField(max_length=1, choices=GROUP_CHOICES)
-
-     photo: str = models.FileField(upload_to='profiles-photo/')
-
-     def __str__(self):
-          return self.user.username
+    def __str__(self):
+        return self.user.username

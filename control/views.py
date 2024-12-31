@@ -70,5 +70,4 @@ def signin(request):
 
 def reader_authenticate( password: str, confirm_password: str, process_number: int ) -> bool:
     is_process_number: bool =  Reader.objects.filter(process_number=process_number).exists()
-    print(is_process_number)
     return (password == confirm_password) and (is_process_number == False)
