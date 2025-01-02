@@ -1,12 +1,12 @@
 .signup-link {
       display: inline-block;
-      color: #333; /* Cor do texto */
-      transition: background-color 0.3s ease; /* Transição suave */
+      color: #333;
+      transition: background-color 0.3s ease;
       margin: 0;
 }
-  
+
 .signup-link:hover {
-      color: #0daedfb3; /* Cor ao passar o mouse */
+      color: #0daedfb3;
 }
 
 .div-or {
@@ -15,6 +15,49 @@
       margin: 5px;
 }
 
-hr {
-      border-color: #0daedf79;
+.pin-inputs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+}
+
+.pin {
+      width: 50px;
+      height: 50px;
+      margin: 0 5px;
+      font-size: 24px;
+      text-align: center;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+}
+
+.pin:focus {
+      border-color: #007bff;
+      outline: none;
+}
+
+button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+}
+
+button:hover {
+      background-color: #0056b3;
+}
+
+
+#password {
+      text-align: center;
+      font-size: 17px;
+}
+
+#password::placeholder {
+      text-align: center;
 }
