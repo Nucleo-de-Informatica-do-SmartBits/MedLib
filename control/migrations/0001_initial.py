@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -15,14 +14,34 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Reader',
+            name="Reader",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('process_number', models.IntegerField()),
-                ('grade', models.IntegerField(choices=[(10, '10ª'), (11, '11ª'), (12, '12ª'), (13, '13ª')], max_length=2)),
-                ('group', models.CharField(max_length=1)),
-                ('photo', models.FileField(upload_to='img/')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("process_number", models.IntegerField()),
+                (
+                    "grade",
+                    models.IntegerField(
+                        choices=[(10, "10ª"), (11, "11ª"), (12, "12ª"), (13, "13ª")],
+                        max_length=2,
+                    ),
+                ),
+                ("group", models.CharField(max_length=1)),
+                ("photo", models.FileField(upload_to="img/")),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

@@ -6,36 +6,60 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0005_alter_reader_course'),
+        ("control", "0005_alter_reader_course"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='reader',
-            name='slug',
-            field=models.SlugField(default=''),
+            model_name="reader",
+            name="slug",
+            field=models.SlugField(default=""),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='course',
-            field=models.CharField(choices=[('Informática', 'Informática'), ('Eletrónica', 'Eletrónica')], max_length=30, verbose_name='Curso'),
+            model_name="reader",
+            name="course",
+            field=models.CharField(
+                choices=[("Informática", "Informática"), ("Eletrónica", "Eletrónica")],
+                max_length=30,
+                verbose_name="Curso",
+            ),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='grade',
-            field=models.CharField(choices=[('10', 'Décima'), ('11', 'Décima Primeira'), ('12', 'Décima Segunda')], max_length=3, verbose_name='Classe'),
+            model_name="reader",
+            name="grade",
+            field=models.CharField(
+                choices=[
+                    ("10", "Décima"),
+                    ("11", "Décima Primeira"),
+                    ("12", "Décima Segunda"),
+                ],
+                max_length=3,
+                verbose_name="Classe",
+            ),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='group',
-            field=models.CharField(choices=[('A', 'Turma A'), ('B', 'Turma B'), ('C', 'Turma C'), ('D', 'Turma D')], max_length=3, verbose_name='Turma'),
+            model_name="reader",
+            name="group",
+            field=models.CharField(
+                choices=[
+                    ("A", "Turma A"),
+                    ("B", "Turma B"),
+                    ("C", "Turma C"),
+                    ("D", "Turma D"),
+                ],
+                max_length=3,
+                verbose_name="Turma",
+            ),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='user',
-            field=models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='reader', to=settings.AUTH_USER_MODEL),
+            model_name="reader",
+            name="user",
+            field=models.OneToOneField(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="reader",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -4,25 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0003_alter_reader_group'),
+        ("control", "0003_alter_reader_group"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='reader',
-            name='course',
-            field=models.CharField(choices=[('informatica', 'Informatica'), ('eletronica', 'Electronica')], default='informatica', max_length=30),
+            model_name="reader",
+            name="course",
+            field=models.CharField(
+                choices=[("informatica", "Informatica"), ("eletronica", "Electronica")],
+                default="informatica",
+                max_length=30,
+            ),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='photo',
-            field=models.FileField(upload_to='profiles-photo/'),
+            model_name="reader",
+            name="photo",
+            field=models.FileField(upload_to="profiles-photo/"),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='process_number',
+            model_name="reader",
+            name="process_number",
             field=models.IntegerField(unique=True),
         ),
     ]

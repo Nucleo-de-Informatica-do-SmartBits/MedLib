@@ -4,20 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0006_reader_slug_alter_reader_course_alter_reader_grade_and_more'),
+        ("control", "0006_reader_slug_alter_reader_course_alter_reader_grade_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reader',
-            name='group',
-            field=models.CharField(choices=[('D', 'Turma D'), ('C', 'Turma C'), ('A', 'Turma A'), ('B', 'Turma B')], max_length=3, verbose_name='Turma'),
+            model_name="reader",
+            name="group",
+            field=models.CharField(
+                choices=[
+                    ("D", "Turma D"),
+                    ("C", "Turma C"),
+                    ("A", "Turma A"),
+                    ("B", "Turma B"),
+                ],
+                max_length=3,
+                verbose_name="Turma",
+            ),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='slug',
+            model_name="reader",
+            name="slug",
             field=models.SlugField(),
         ),
     ]

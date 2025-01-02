@@ -115,7 +115,7 @@ class ReaderCreationForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["course"].choices.insert(0, ("", "Selecione o seu curso"))
         self.fields["grade"].choices.insert(0, ("", "Selecione a sua classe"))
-    
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -129,13 +129,15 @@ class ReaderCreationForm(forms.Form):
         confirm_password = cleaned_data.get("confirm_password", "").strip()
 
         if not firstname:
-           raise forms.ValidationError("Preencha o campo, por favor!")
+            raise forms.ValidationError("Preencha o campo, por favor!")
 
         if not lastname:
             raise forms.ValidationError("Preencha o campo, por favor!")
 
         if not process_number.isdigit():
-            raise forms.ValidationError("Número de processo deve conter apenas dígitos!")
+            raise forms.ValidationError(
+                "Número de processo deve conter apenas dígitos!"
+            )
 
         if Reader.objects.filter(process_number=process_number).exists():
             raise forms.ValidationError("Número de processo já registrado!")
@@ -151,13 +153,15 @@ class ReaderCreationForm(forms.Form):
 
         if not password:
             raise forms.ValidationError("Por favor, digite a palavra-passe!")
-        
+
         elif len(password) < 8:
-            raise forms.ValidationError("A palavra-passe deve ter pelo menos 8 caracteres!")
+            raise forms.ValidationError(
+                "A palavra-passe deve ter pelo menos 8 caracteres!"
+            )
 
         if not confirm_password:
             raise forms.ValidationError("Por favor, confirme a palavra-passe!")
-        
+
         elif not compare_digest(password, confirm_password):
             raise forms.ValidationError("As palavras-passe não coincidem!")
 
@@ -219,7 +223,7 @@ class ReaderAuthenticationForm(forms.Form):
                 "class": "formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
                 "minlength": 8,
                 "placeholder": "Palavra-passe",
-                "id": "password"
+                "id": "password",
             }
         ),
     )
@@ -238,7 +242,7 @@ class ReaderAuthenticationForm(forms.Form):
 
         if not process_number or not password:
             raise forms.ValidationError("Por favor, preencha todos os campos!")
-        
+
         if (not process_number.isdigit()) or int(process_number) < 0:
             raise forms.ValidationError("Número de processo inválido.")
 
@@ -252,11 +256,11 @@ class ReaderAuthenticationForm(forms.Form):
             )
 
             if not self.user:
-                raise forms.ValidationError("Número de processo ou Palavra-passe incorrectos")
+                raise forms.ValidationError(
+                    "Número de processo ou Palavra-passe incorrectos"
+                )
 
         return cleaned_data
 
     def get_user(self):
         return self.user
-        
-        

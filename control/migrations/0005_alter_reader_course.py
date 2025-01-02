@@ -4,15 +4,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0004_reader_course_alter_reader_photo_and_more'),
+        ("control", "0004_reader_course_alter_reader_photo_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reader',
-            name='course',
-            field=models.CharField(choices=[('informatica', 'Informatica'), ('eletronica', 'Electronica')], max_length=30),
+            model_name="reader",
+            name="course",
+            field=models.CharField(
+                choices=[("informatica", "Informatica"), ("eletronica", "Electronica")],
+                max_length=30,
+            ),
         ),
     ]

@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0002_alter_reader_grade'),
+        ("control", "0002_alter_reader_grade"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reader',
-            name='group',
-            field=models.CharField(choices=[('A', 'A'), ('B', 'B'), ('C', 'C')], max_length=1),
+            model_name="reader",
+            name="group",
+            field=models.CharField(
+                choices=[("A", "A"), ("B", "B"), ("C", "C")], max_length=1
+            ),
         ),
     ]

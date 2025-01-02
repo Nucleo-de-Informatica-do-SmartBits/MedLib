@@ -42,9 +42,7 @@ class Reader(models.Model):
     ]
 
     user = models.OneToOneField(
-        to=User,
-        on_delete=models.CASCADE,
-        related_name="reader"
+        to=User, on_delete=models.CASCADE, related_name="reader"
     )
     process_number = models.IntegerField(
         unique=True,
@@ -53,21 +51,11 @@ class Reader(models.Model):
         ],
         verbose_name="Número de Processo",
     )
-    grade = models.CharField(
-        verbose_name="Classe",
-        max_length=3,
-        choices=GRADE_CHOICES
-    )
+    grade = models.CharField(verbose_name="Classe", max_length=3, choices=GRADE_CHOICES)
     course = models.CharField(
-        verbose_name="Curso",
-        max_length=30,
-        choices=COURSE_CHOICES
+        verbose_name="Curso", max_length=30, choices=COURSE_CHOICES
     )
-    group = models.CharField(
-        verbose_name="Turma",
-        max_length=1,
-        choices=GROUP_CHOICES
-    )
+    group = models.CharField(verbose_name="Turma", max_length=1, choices=GROUP_CHOICES)
     uid = models.UUIDField(
         verbose_name="Identificador Universal",
         default=uuid4,

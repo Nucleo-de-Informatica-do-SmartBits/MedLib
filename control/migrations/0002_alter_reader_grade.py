@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0001_initial'),
+        ("control", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reader',
-            name='grade',
-            field=models.IntegerField(choices=[(10, '10ª'), (11, '11ª'), (12, '12ª'), (13, '13ª')]),
+            model_name="reader",
+            name="grade",
+            field=models.IntegerField(
+                choices=[(10, "10ª"), (11, "11ª"), (12, "12ª"), (13, "13ª")]
+            ),
         ),
     ]

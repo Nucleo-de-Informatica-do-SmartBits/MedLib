@@ -4,20 +4,28 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('control', '0008_alter_reader_group'),
+        ("control", "0008_alter_reader_group"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reader',
-            name='group',
-            field=models.CharField(choices=[('C', 'Turma C'), ('D', 'Turma D'), ('B', 'Turma B'), ('A', 'Turma A')], max_length=3, verbose_name='Turma'),
+            model_name="reader",
+            name="group",
+            field=models.CharField(
+                choices=[
+                    ("C", "Turma C"),
+                    ("D", "Turma D"),
+                    ("B", "Turma B"),
+                    ("A", "Turma A"),
+                ],
+                max_length=3,
+                verbose_name="Turma",
+            ),
         ),
         migrations.AlterField(
-            model_name='reader',
-            name='photo',
-            field=models.FileField(upload_to='profiles-photo/', verbose_name='Perfil'),
+            model_name="reader",
+            name="photo",
+            field=models.FileField(upload_to="profiles-photo/", verbose_name="Perfil"),
         ),
     ]

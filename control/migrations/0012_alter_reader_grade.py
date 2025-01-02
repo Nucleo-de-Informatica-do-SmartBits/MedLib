@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("control", "0011_remove_reader_photo_remove_reader_slug_reader_uid_and_more"),
     ]
