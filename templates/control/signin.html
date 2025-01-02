@@ -22,18 +22,16 @@ Iniciar Sessão - SmartBits VL
             </div>
         </div>
         <hr>
-        <form action="{% url 'signin' %}" method="POST" class="space-y-4" style="margin-top: 20px;">
+        <form method="POST" class="space-y-4" style="margin-top: 20px;">
+            {% include 'partials/forms_errors.html' with form=form %}
+            
             {% csrf_token %}
             <div class="formbold-mb-3">
-                <input type="text" name="num-process" id="num-process" placeholder="Número do Processo"
-                    class="formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required/>
+                {{ form.process_number}}
             </div>
 
             <div class="formbold-mb-3">
-                <input type="password" name="password" id="password" placeholder="Digite sua senha"
-                    class="formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required />
+                {{ form.password }}
             </div>
 
             <div class="formbold-mb-3">

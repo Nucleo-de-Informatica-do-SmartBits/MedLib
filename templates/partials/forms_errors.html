@@ -1,0 +1,29 @@
+<div id="message-container" class="fixed top-0 right-0 z-50 p-4 space-y-4">
+    {% for field, errors in form.errors.items %}
+    {% for error in errors %}
+    <div
+        class="alert p-4 mb-4 w-80 max-w-xs bg-red-100 border-l-4 border-red-500 text-red-700 rounded-lg shadow-md transition-all duration-500 opacity-100">
+        {% if field != '__all__' %}
+        <p class="font-bold text-sm text-gray-800">
+            {{ field }}
+        </p>
+        {% endif %}
+        <p>{{ error }}</p>
+    </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.alert')
+            .forEach(alert => {
+                setTimeout(() => {
+                    alert.classList.add('opacity-0');
+                    setTimeout(function () {
+                        alert.remove();
+                    }, 500);
+                }, 10000);
+            });
+    });
+</script>

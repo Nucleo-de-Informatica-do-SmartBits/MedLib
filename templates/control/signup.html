@@ -25,19 +25,18 @@ Cadastre-se - SmartBits VL
             <hr>
             <br>
             <form action="{% url 'signup' %}" method="POST">
+                  {% include 'partials/forms_errors.html' with form=form %}
+
                   {% csrf_token %}
                   <div class="formbold-input-wrapp formbold-mb-3">
                         <div>
-                              <input type="text" name="firstname" id="firstname" placeholder="Primeiro nome"
-                                    class="formbold-form-input" required />
-                              <input type="text" name="lastname" id="lastname" placeholder="Sobrenome"
-                                    class="formbold-form-input" required />
+                              {{ form.firstname }}
+                              {{ form.lastname }}
                         </div>
                   </div>
 
                   <div class="formbold-mb-3">
-                        <input type="text" name="num-process" id="num-process"
-                              placeholder="Número de processo, exemplo: 1234" class="formbold-form-input" required />
+                        {{ form.process_number }}
                   </div>
 
                   <div class="formbold-input-wrapp formbold-mb-3">
@@ -63,35 +62,22 @@ Cadastre-se - SmartBits VL
                               <legend class="text-lg font-semibold text-gray-800 mb-4" style="color: #3f4041;">Selecione
                                     a sua turma</legend>
                               <div class="flex space-x-6">
+
+                                    {% for radio in form.group %}
                                     <div class="flex items-center">
-                                          <input type="radio" class="turma-A" name="group" id="turma-A" value="A"
-                                                required>
-                                          <label for="turma-A" class="ml-2 text-gray-700">Turma A</label>
+                                          {{ radio }}
                                     </div>
-                                    <div class="flex items-center">
-                                          <input type="radio" class="turma-B" name="group" id="turma-B" value="B">
-                                          <label for="turma-B" class="ml-2 text-gray-700">Turma B</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                          <input type="radio" class="turma-C" name="group" id="turma-C" value="C">
-                                          <label for="turma-C" class="ml-2 text-gray-700">Turma C</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                          <input type="radio" class="turma-D" name="group" id="turma-D" value="D">
-                                          <label for="turma-D" class="ml-2 text-gray-700">Turma D</label>
-                                    </div>
+                                    {% endfor %}
                               </div>
                         </fieldset>
                   </div>
 
                   <div class="formbold-input-flex">
                         <div>
-                              <input type="password" name="password" placeholder="Palavra-passe"
-                                    class="formbold-form-input" minlength="3" required />
+                              {{ form.password }}
                         </div>
                         <div>
-                              <input type="password" name="confirm-password" placeholder="Confirmar Palavra-passe"
-                                    class="formbold-form-input" minlength="3" required />
+                              {{ form.confirm_password }}
                         </div>
                   </div>
                   <div class="formbold-mb-3">
@@ -103,8 +89,9 @@ Cadastre-se - SmartBits VL
                   <div class="formbold-mb-3">
                         <p class="text-sm text-gray-600 text-center mb-2">
                               Já tem conta?
-                              <a href="{% url 'signin' %}" class="text-blue-600 hover:underline font-medium">Iniciar
-                                    Sessão</a>
+                              <a href="{% url 'signin' %}" class="text-blue-600 hover:underline font-medium">
+                                    Iniciar Sessão
+                              </a>
                         </p>
                   </div>
 
@@ -114,7 +101,7 @@ Cadastre-se - SmartBits VL
 
 
 <script>
-      const firstname = document.querySelector("#firstname")
+      const firstname = document.querySelector("#id_firstname")
       firstname.addEventListener("input", (event) => {
             const value = event.data
             if (Number(value) || Number(value) === 0) {
@@ -122,7 +109,7 @@ Cadastre-se - SmartBits VL
             }
       })
 
-      const lastname = document.querySelector("#lastname")
+      const lastname = document.querySelector("#id_lastname")
       lastname.addEventListener("input", (event) => {
             const value = event.data
             if (Number(value) || Number(value) === 0) {
