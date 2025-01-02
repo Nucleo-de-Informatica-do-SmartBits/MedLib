@@ -4,98 +4,155 @@
 
 
 {% block head %}
-      <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
+<link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
 {% endblock head %}
 
 
 {% block title %}
-    
+Cadastre-se - SmartBits VL
 {% endblock title %}
 
 {% block content %}
 <div class="formbold-main-wrapper rounded">
-      <!-- Author: FormBold Team -->
-      <!-- Learn More: https://formbold.com -->
       <div class="formbold-form-wrapper max-w-sm overflow-hidden rounded shadow-lg formbold-form-input">
             <div class="div-logo">
                   <img class="img-logo" src="{% static 'imgs/logo.png' %}">
-                  <h5 class="font-mono">SMARTBITS VIRTUAL LIBRARY</h5>
-            </div>
-            <br>
-        <form action="{% url 'signup' %}" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="formbold-input-wrapp formbold-mb-3">    
-              <div>
-                <input type="text" name="firstname" id="firstname" placeholder="Primeiro nome" class="formbold-form-input" minlength="2" required/>
-                <input type="text" name="lastname" id="lastname" placeholder="Segundo nome" class="formbold-form-input" minlength="2" required/>
-              </div>
-            </div>
-      
-            <div class="formbold-mb-3">
-              <input type="number" name="num-process" id="num-process" placeholder="processo:235" class="formbold-form-input" required/>
-            </div>
-      
-            <div class="formbold-mb-3">
-              <!-- <label class="formbold-form-label">Gender</label> -->
-              <select class="formbold-form-input" name="course" id="occupation">
-                    <option value="Informática">Informática</option>
-                    <option value="Eletrónica">Eletrónica</option>
-              </select>
-            </div>
-
-            <div class="formbold-mb-3">
-              <!-- <label class="formbold-form-label">Gender</label> -->
-              <select class="formbold-form-input" name="grade" id="occupation" required>
-                    <option value="10">10ª</option>
-                    <option value="11">11ª</option>
-                    <option value="12">12ª</option>
-              </select>
-            </div>
-            <div class="formbold-mb-3">
-              <div class="div-radios">
-                    <div>
-                          <label for="turma-A">A</label>
-                          <input type="radio" class="turma-A" name="group" id="" value="A" required>
-                    </div>
-                    <div>
-                          <label for="turma-B">B</label>
-                          <input type="radio" class="turma-B" name="group" id="" value="B">
-                    </div>
-                    <div>
-                          <label for="turma-C">C</label>
-                          <input type="radio" class="turma-C" name="group" id="" value="C">
-                    </div>
-              </div>
-            </div>
-      
-            <div class="formbold-mb-3">
-              <input type="email" name="email" id="email" placeholder="example@email.com (opt)" class="formbold-form-input"/>
-            </div>
-
-            <div class="formbold-input-flex">
-              <div>
-                    <input type="password" name="password" placeholder="senha" class="formbold-form-input" minlength="3" required/>
-              </div>
-              <div>
-                    <input type="password" name="confirm-password" placeholder="confirmar senha" class="formbold-form-input" minlength="3" required/>
-              </div>
-            </div>
-      
-            <div class="formbold-mb-3">
-              <input type="file" name="upload" id="upload" class="formbold-form-input formbold-form-file"/>
-            </div>
-            {% if done %}
-            <div class="formbold-mb-3">
-                  <div style="background-color: #df140db3; color: #fff; text-align: center;" class="formbold-form-input bg-danger delay-75">
-                        <em>Bad password confirmation</em>
+                  <div class="text-center mb-6">
+                        <h1 class="text-2xl font-bold text-gray-700">Criar uma conta</h1>
+                        <p class="text-sm text-gray-500">Cadastre-se na nossa Biblioteca Virtual</p>
                   </div>
             </div>
-            {% endif %}
-      
-            <input type="submit" class="formbold-btn formbold-form-input" value="Cadastrar"> 
-        </form>
+            <hr>
+            <br>
+            <form action="{% url 'signup' %}" method="POST">
+                  {% csrf_token %}
+                  <div class="formbold-input-wrapp formbold-mb-3">
+                        <div>
+                              <input type="text" name="firstname" id="firstname" placeholder="Primeiro nome"
+                                    class="formbold-form-input" required />
+                              <input type="text" name="lastname" id="lastname" placeholder="Sobrenome"
+                                    class="formbold-form-input" required />
+                        </div>
+                  </div>
+
+                  <div class="formbold-mb-3">
+                        <input type="text" name="num-process" id="num-process"
+                              placeholder="Número de processo, exemplo: 1234" class="formbold-form-input" required />
+                  </div>
+
+                  <div class="formbold-input-wrapp formbold-mb-3">
+                        <div>
+                              <select class="formbold-form-input" name="course" id="occupation" required>
+                                    <option value="" selected disabled>Selecione o seu curso</option>
+                                    <option value="Informática">Informática</option>
+                                    <option value="Eletrónica">Eletrónica</option>
+                              </select>
+
+                              <select class="formbold-form-input" name="grade" id="occupation" required>
+                                    <option value="" selected disabled>Selecione a sua classe</option>
+                                    <option value="10">10ª classe</option>
+                                    <option value="11">11ª classe</option>
+                                    <option value="12">12ª classe</option>
+                                    <option value="13">13ª classe</option>
+                              </select>
+                        </div>
+                  </div>
+
+                  <div class="formbold-mb-3">
+                        <fieldset class="border p-4 rounded-lg">
+                              <legend class="text-lg font-semibold text-gray-800 mb-4" style="color: #3f4041;">Selecione
+                                    a sua turma</legend>
+                              <div class="flex space-x-6">
+                                    <div class="flex items-center">
+                                          <input type="radio" class="turma-A" name="group" id="turma-A" value="A"
+                                                required>
+                                          <label for="turma-A" class="ml-2 text-gray-700">Turma A</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                          <input type="radio" class="turma-B" name="group" id="turma-B" value="B">
+                                          <label for="turma-B" class="ml-2 text-gray-700">Turma B</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                          <input type="radio" class="turma-C" name="group" id="turma-C" value="C">
+                                          <label for="turma-C" class="ml-2 text-gray-700">Turma C</label>
+                                    </div>
+                                    <div class="flex items-center">
+                                          <input type="radio" class="turma-D" name="group" id="turma-D" value="D">
+                                          <label for="turma-D" class="ml-2 text-gray-700">Turma D</label>
+                                    </div>
+                              </div>
+                        </fieldset>
+                  </div>
+
+                  <div class="formbold-input-flex">
+                        <div>
+                              <input type="password" name="password" placeholder="Palavra-passe"
+                                    class="formbold-form-input" minlength="3" required />
+                        </div>
+                        <div>
+                              <input type="password" name="confirm-password" placeholder="Confirmar Palavra-passe"
+                                    class="formbold-form-input" minlength="3" required />
+                        </div>
+                  </div>
+                  <div class="formbold-mb-3">
+                        <button type="submit"
+                              class="formbold-btn w-full bg-[#55C6E8] text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl hover:bg-[#49B2D3] focus:outline-none focus:ring-2 focus:ring-[#55C6E8] focus:ring-offset-2 transition-transform duration-300 transform hover:scale-105">
+                              Cadastrar-se
+                        </button>
+                  </div>
+                  <div class="formbold-mb-3">
+                        <p class="text-sm text-gray-600 text-center mb-2">
+                              Já tem conta?
+                              <a href="{% url 'signin' %}" class="text-blue-600 hover:underline font-medium">Iniciar
+                                    Sessão</a>
+                        </p>
+                  </div>
+
+            </form>
       </div>
-    </div>
-    
+</div>
+
+
+<script>
+      const firstname = document.querySelector("#firstname")
+      firstname.addEventListener("input", (event) => {
+            const value = event.data
+            if (Number(value) || Number(value) === 0) {
+                  firstname.value = firstname.value.replace(value, "")
+            }
+      })
+
+      const lastname = document.querySelector("#lastname")
+      lastname.addEventListener("input", (event) => {
+            const value = event.data
+            if (Number(value) || Number(value) === 0) {
+                  lastname.value = lastname.value.replace(value, "")
+            }
+      })
+
+      const processNumber = document.querySelector("#num-process")
+      processNumber.addEventListener("input", (event) => {
+            const value = event.data
+
+            if (!Number(value) && Number(value) !== 0) {
+                  processNumber.value = processNumber.value.replace(value, "")
+            }
+
+            if (processNumber.value.length > 4) {
+                  processNumber.value = processNumber.value.slice(0, 4)
+            }
+
+            if (value === " ") {
+                  processNumber.value = processNumber.value.replace(value, "")
+            }
+
+            if (processNumber.value.length > 0) {
+                  processNumber.style.fontSize = '25px'
+            } else {
+                  processNumber.style.fontSize = '15px'
+            }
+      })
+
+
+</script>
 {% endblock content %}
-    

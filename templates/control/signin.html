@@ -3,61 +3,78 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
-    <link rel="stylesheet" href="{% static 'css/control/signin.css' %}">
+<link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
+<link rel="stylesheet" href="{% static 'css/control/signin.css' %}">
 {% endblock head %}
 
 {% block title %}
-    Login - SmartBits Virtual Library
+Iniciar Sessão - SmartBits VL
 {% endblock title %}
 
 {% block content %}
 <div class="formbold-main-wrapper rounded">
-    <!-- Author: FormBold Team -->
-    <!-- Learn More: https://formbold.com -->
     <div class="formbold-form-wrapper max-w-sm overflow-hidden rounded shadow-lg formbold-form-input">
-        <div class="div-logo text-center mb-6">
+        <div class="div-logo text-center">
             <img class="img-logo mx-auto mb-2" src="{% static 'imgs/logo.png' %}" alt="SmartBits Logo">
-            <h5 class="font-mono text-xl font-bold">SMARTBITS VIRTUAL LIBRARY</h5>
+            <div class="text-center mb-6">
+                <h1 class="text-2xl font-bold text-gray-700">Iniciar Sessão</h1>
+                <p class="text-sm text-gray-500">Acesse a sua conta da Biblioteca Virtual</p>
+            </div>
         </div>
-
-        <form action="{% url 'signin' %}" method="POST" class="space-y-4">
+        <hr>
+        <form action="{% url 'signin' %}" method="POST" class="space-y-4" style="margin-top: 20px;">
             {% csrf_token %}
             <div class="formbold-mb-3">
-                {% comment %} <label for="num-process" class="block text-sm font-medium text-gray-700">Número do Processo</label> {% endcomment %}
-                <input 
-                    type="number" 
-                    name="num-process" 
-                    id="num-process" 
-                    placeholder="Número do Processo" 
+                <input type="text" name="num-process" id="num-process" placeholder="Número do Processo"
                     class="formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required
-                />
+                    required/>
             </div>
 
             <div class="formbold-mb-3">
-                {% comment %} <label for="password" class="block text-sm font-medium text-gray-700">Senha</label> {% endcomment %}
-                <input 
-                    type="password" 
-                    name="password" 
-                    id="password" 
-                    placeholder="Digite sua senha" 
+                <input type="password" name="password" id="password" placeholder="Digite sua senha"
                     class="formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    required
-                />
+                    required />
             </div>
 
             <div class="formbold-mb-3">
-                <input type="submit" class="formbold-btn w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 formbold-form-input" value="Cadastrar"> 
+                <button type="submit"
+                    class="formbold-btn w-full bg-[#55C6E8] text-white py-2 px-4 rounded-full shadow-lg hover:shadow-xl hover:bg-[#49B2D3] focus:outline-none focus:ring-2 focus:ring-[#55C6E8] focus:ring-offset-2 transition-transform duration-300 transform hover:scale-105">
+                    Iniciar Sessão
+                </button>
             </div>
 
-            <div class="formbold-mb-3 text-center">
-                <p class="text-sm text-gray-600">
-                    Não tem uma conta? 
-                    <a href="{% url 'signup' %}" class="signup-link text-blue-600 hover:underline font-medium">Cadastre-se</a>
+            <div class="formbold-mb-3">
+                <p class="text-sm text-gray-600 text-center mb-2">
+                    Não tem uma conta?
+                    <a href="{% url 'signup' %}" class="text-blue-600 hover:underline font-medium">Cadastre-se</a>
                 </p>
             </div>
         </form>
     </div>
 </div>
+
+<script>
+    const processNumber = document.querySelector("#num-process")
+    processNumber.addEventListener("input", (event) => {
+        const value = event.data
+
+        if (!Number(value) && Number(value) !== 0) {
+            processNumber.value = processNumber.value.replace(value, "")
+        }
+
+        if (processNumber.value.length > 4) {
+            processNumber.value = processNumber.value.slice(0, 4)
+        }
+
+        if (value === " ") {
+            processNumber.value = processNumber.value.replace(value, "")
+        }
+
+        if (processNumber.value.length > 0) {
+            processNumber.style.fontSize = '25px'
+        } else {
+            processNumber.style.fontSize = '15px'
+        }
+    })
+</script>
 {% endblock content %}
