@@ -26,6 +26,7 @@ class Reader(models.Model):
         ("10", "Décima"),
         ("11", "Décima Primeira"),
         ("12", "Décima Segunda"),
+        ("13", "Décima Terceira"),
     ]
 
     GROUP_CHOICES = [

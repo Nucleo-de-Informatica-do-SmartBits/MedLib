@@ -1,73 +1,145 @@
-from django.shortcuts import render, redirect
+import unicodedata
+from secrets import compare_digest
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+
 from .models import Reader, User
-from django.contrib.auth import login, logout, authenticate
-from django.http import HttpResponse
 
 
+def just_not_authenticated_user(func):
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            messages.info(request, "Você já está logado!")
+            return redirect(reverse("home"))
+        
+        return func(request, *args, **kwargs)
+
+    return wrapper
+
+
+def validate_form(request):
+    firstname = request.POST.get("firstname")
+    lastname = request.POST.get("lastname")
+    process_number = request.POST.get("num-process")
+    course = request.POST.get("course")
+    grade = request.POST.get("grade")
+    group = request.POST.get("group")
+    password = request.POST.get("password")
+    confirm_password = request.POST.get("confirm-password")
+
+    if not compare_digest(password, confirm_password):
+        messages.warning(request, "As palavras-passe não coincidem!")
+        return False
+
+    elif len(firstname.strip()) == 0 or len(lastname.strip()) == 0:
+        messages.error(request, "Preencha todos os campos, por favor!")
+        return False
+
+    elif (
+        process_number.isdigit()
+        or Reader.objects.filter(process_number=process_number).exists()
+    ):
+        messages.error(request, "Número de processo inválido ou já registrado")
+        return False
+
+    elif course not in ("Informática", "Electrónica"):
+        messages.error(request, "Este curso não está disponível!")
+        return False
+
+    elif grade not in ("10", "11", "12", "13"):
+        messages.error(request, "Classe inválida!")
+        return False
+
+    elif group not in ("A", "B", "C", "D"):
+        messages.error(request, "Turma inválida")
+        return False
+
+    return True
+
+
+def create_username(firstname, lastname):
+    _base_username = unicodedata.normalize("NFKD", f"{firstname}-{lastname}".lower())
+    base_username = "".join([c for c in _base_username if not unicodedata.combining(c)])
+
+    count = User.objects.filter(username__startswith=base_username).count()
+    return f"{base_username}-{count + 1}" if count else base_username
+
+
+@just_not_authenticated_user
 def signup(request):
-    done: str = str(request.GET.get('done')) == "0" # Can change if an tailwind alert
-
-    ctx = {'done': done}
     template_name = "control/signup.html"
 
     if request.method == "POST":
-        firstname: str = request.POST.get('firstname')
-        lastname: str = request.POST.get('lastname')
-        process_number: int = request.POST.get('num-process')
-        course: str = request.POST.get('course')
-        grade: int = request.POST.get('grade')
-        group: str = request.POST.get('group')
-        email: str = request.POST.get('email')
-        password: str = request.POST.get('password')
-        confirm_password: str = request.POST.get('confirm-password')
-        profile_photo: str = request.FILES.get('upload')
+        firstname = request.POST.get("firstname")
+        lastname = request.POST.get("lastname")
+        process_number = request.POST.get("num-process")
+        course = request.POST.get("course")
+        grade = request.POST.get("grade")
+        group = request.POST.get("group")
+        password = request.POST.get("password")
 
-        if not reader_authenticate(password, confirm_password, process_number):
-            return redirect('/auth/signup?done=0')
-        
-        user: User = User.objects.create_user(
-            username=firstname+lastname, 
-            email=email, password=password, 
-            first_name=firstname, 
-            last_name=lastname
-        )
-        user.save()
+        if validate_form(request):
+            user = User.objects.create_user(
+                username=create_username(firstname=firstname, lastname=lastname),
+                first_name=firstname,
+                last_name=lastname,
+                password=password,
+            )
 
-        reader: Reader = Reader.objects.create(
-            user=user,
-            process_number=process_number,
-            grade=grade,
-            course=course,
-            group=group,
-            photo=profile_photo
-        )
-        reader.save()
+            reader = Reader.objects.create(
+                user=user,
+                process_number=process_number,
+                grade=grade,
+                course=course,
+                group=group,
+            )
+            reader.save()
 
-        return redirect('signin')
+            messages.success(request, "Os seus dados foram registrados!")
+            return redirect("signin")
 
-    return render(request, template_name, ctx)
+        return redirect(reverse("signup"))
+    return render(request, template_name)
 
 
+@just_not_authenticated_user
 def signin(request):
-    ctx = {}
     template_name = "control/signin.html"
 
     if request.method == "POST":
-        process_number: int = request.POST.get('num-process')
-        password: str = request.POST.get('password')
+        process_number = request.POST.get("num-process")
+        password = request.POST.get("password")
 
-        if Reader.objects.filter(process_number=process_number).exists() == False:
-            return redirect('/auth/signin?done=0')
-        
-        reader: Reader = Reader.objects.get(process_number=process_number)
+        if not process_number.strip() or not password.strip():
+            messages.error(request, "Por favor, preencha todos os campos1")
+            return redirect(reverse("signin"))
+
+        if not process_number.isdigit() or int(process_number) < 0:
+            messages.error(request, "Número de processo inválido.")
+            return redirect(reverse("signin"))
+
+        reader = get_object_or_404(Reader, process_number=process_number)
         user = authenticate(request, username=reader.user.username, password=password)
+
         if user is not None:
-            login(request=request, user=user)
-            return HttpResponse(f'{user.username}-----{user.password}')        
+            login(request, user)
 
-    return render(request, template_name, ctx)
+            messages.success(request, "Sessão iniciada com sucesso!")
+            return redirect(reverse("home"))
+
+        messages.warning(request, "Username ou Palavra-passe incorrectos!")
+        return redirect(reverse("signin"))
+
+    return render(request, template_name)
 
 
-def reader_authenticate( password: str, confirm_password: str, process_number: int ) -> bool:
-    is_process_number: bool =  Reader.objects.filter(process_number=process_number).exists()
-    return (password == confirm_password) and (is_process_number == False)
+@login_required
+def logout(request):
+    auth_logout(request)
+
+    messages.info(request, "Sessão fechado com sucesso!")
+    return redirect(reverse("signin"))
