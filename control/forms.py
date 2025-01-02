@@ -115,80 +115,53 @@ class ReaderCreationForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["course"].choices.insert(0, ("", "Selecione o seu curso"))
         self.fields["grade"].choices.insert(0, ("", "Selecione a sua classe"))
+    
+    def clean(self):
+        cleaned_data = super().clean()
 
-    def clean_process_number(self):
-        process_number = self.cleaned_data.get("process_number", "")
+        firstname = cleaned_data.get("firstname", "").strip()
+        lastname = cleaned_data.get("lastname", "").strip()
+        process_number = cleaned_data.get("process_number", "").strip()
+        course = cleaned_data.get("course", "").strip()
+        grade = cleaned_data.get("grade", "").strip()
+        group = cleaned_data.get("group", "").strip()
+        password = cleaned_data.get("password", "").strip()
+        confirm_password = cleaned_data.get("confirm_password", "").strip()
 
-        if (
-            not process_number.isdigit()
-            or Reader.objects.filter(process_number=process_number).exists()
-        ):
-            raise forms.ValidationError("Número de processo inválido ou já registrado")
+        if not firstname:
+           raise forms.ValidationError("Preencha o campo, por favor!")
 
-        return process_number
+        if not lastname:
+            raise forms.ValidationError("Preencha o campo, por favor!")
 
-    def clean_course(self):
-        course = self.cleaned_data.get("course", "")
+        if not process_number.isdigit():
+            raise forms.ValidationError("Número de processo deve conter apenas dígitos!")
+
+        if Reader.objects.filter(process_number=process_number).exists():
+            raise forms.ValidationError("Número de processo já registrado!")
 
         if course not in ("Informática", "Electrónica"):
             raise forms.ValidationError("Este curso não está disponível!")
 
-        return course
-
-    def clean_grade(self):
-        grade = self.cleaned_data.get("grade", "")
-
         if grade not in ("10", "11", "12", "13"):
             raise forms.ValidationError("Classe inválida!")
-
-        return grade
-
-    def clean_group(self):
-        group = self.cleaned_data.get("group", "")
 
         if group not in ("A", "B", "C", "D"):
             raise forms.ValidationError("Turma inválida")
 
-        return group
-
-    def clean_firstname(self):
-        firstname = self.cleaned_data.get("firstname", "")
-
-        if not firstname.strip():
-            raise forms.ValidationError("Preencha o campo, por favor!")
-
-        return firstname
-
-    def clean_lastname(self):
-        lastname = self.cleaned_data.get("lastname", "")
-
-        if not lastname.strip():
-            raise forms.ValidationError("Preencha o campo, por favor!")
-
-        return lastname
-
-    def clean_password(self):
-        password = self.cleaned_data.get("password", "").strip()
-
         if not password:
             raise forms.ValidationError("Por favor, digite a palavra-passe!")
-
-        if len(password) < 8:
+        
+        elif len(password) < 8:
             raise forms.ValidationError("A palavra-passe deve ter pelo menos 8 caracteres!")
-
-        return password
-
-    def clean_confirm_password(self):
-        password = self.cleaned_data.get("password", "")
-        confirm_password = self.cleaned_data.get("confirm_password", "")
 
         if not confirm_password:
             raise forms.ValidationError("Por favor, confirme a palavra-passe!")
-
-        if not compare_digest(password, confirm_password):
+        
+        elif not compare_digest(password, confirm_password):
             raise forms.ValidationError("As palavras-passe não coincidem!")
 
-        return confirm_password
+        return cleaned_data
 
     def create_username(self, firstname, lastname):
         _base_username = unicodedata.normalize(
@@ -272,7 +245,7 @@ class ReaderAuthenticationForm(forms.Form):
         reader = Reader.objects.filter(process_number=process_number).first()
 
         if not reader:
-            self.add_error("process_number", "Número de processo inválido")
+            raise forms.ValidationError("Número de processo inválido")
         else:
             self.user = authenticate(
                 self.request, username=reader.user.username, password=password
