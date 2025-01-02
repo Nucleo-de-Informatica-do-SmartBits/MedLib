@@ -1,1 +1,0 @@
-<!-- Aqui vão ficar os arquivos de mídia. -->
