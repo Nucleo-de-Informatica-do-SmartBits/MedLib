@@ -30,10 +30,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_browser_reload",
     "tailwind",
     "theme",
-    "django_browser_reload",
     "control",
+    "library",
 ]
 
 # Internal IPS
@@ -137,3 +138,8 @@ MEDIA_ROOT = BASE_DIR.joinpath("uploads")
 # Tailwind conf
 TAILWIND_APP_NAME = "theme"
 NPM_BIN_PATH = str(which("npm")).lower()
+
+
+# Authentication
+LOGIN_URL = "/auth/signin/"
+REDIRECT_FIELD_NAME = "then"
