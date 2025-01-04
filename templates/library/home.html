@@ -12,7 +12,7 @@ Página Inicial
 
 {% block content %}
 
-<section class="relative w-full overflow-hidden" style="height: 400px;user-select: none;">
+<section class="relative w-full overflow-hidden" style="height: 360px;user-select: none;">
   <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
     <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1"
       class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
@@ -30,7 +30,29 @@ Página Inicial
   </div>
 </section>
 
+<section class="books" style="margin-top: 8px;">
+  <section class="sec1">
+
+  </section>
+</section>
+
 <script>
+  for (let i = 0; i < 20; i++) {
+    document.querySelector('.sec1')
+      .innerHTML += `
+        <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="" class="imgsec">
+      </div>
+
+      <div class="sec-info">
+
+      </div>
+    </div>
+      `
+  }
+
+
   let currentIndex = 0;
   const images = document.querySelectorAll("#image-slider img");
 
