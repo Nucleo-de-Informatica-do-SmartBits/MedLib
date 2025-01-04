@@ -51,10 +51,13 @@ class Author(models.Model):
 
 class Publisher(models.Model):
     name = models.CharField(verbose_name="Nome", max_length=255, unique=True)
-
     website = models.URLField(verbose_name="Website", blank=True, null=True)
-
-    address = models.TextField(verbose_name="Endereço", blank=True, null=True)
+    address = models.CharField(
+        verbose_name="Endereço", max_length=50, blank=True, null=True
+    )
+    description = models.TextField(
+        verbose_name="Descrição", blank=True, null=True, max_length=150
+    )
 
 
 class Category(models.Model):
@@ -113,11 +116,13 @@ class Book(models.Model):
 
     pages = models.PositiveIntegerField(verbose_name="Páginas", null=True, blank=True)
 
+    edition = models.PositiveIntegerField(verbose_name="Edição", null=True, blank=True)
+
     slug = models.SlugField(unique=True, editable=False, max_length=255)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(f"{self.title}-{self.isbn}")
         super().save(*args, **kwargs)
 
     def __str__(self):
