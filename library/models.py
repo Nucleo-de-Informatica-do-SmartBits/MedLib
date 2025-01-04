@@ -59,7 +59,7 @@ class Book(models.Model):
         ("EN", "Inglês"),
     ]
 
-    cover = models.ImageField(ç
+    cover = models.ImageField(
         verbose_name="Capa", upload_to="cover-photos/", null=True, blank=True
     )
 
@@ -70,8 +70,6 @@ class Book(models.Model):
     authors = models.ManyToManyField(
         to=Author,
         related_name="books",
-        null=True,
-        blank=True,
     )
 
     summary = models.TextField(verbose_name="Resumo", null=True, blank=True)
@@ -83,7 +81,8 @@ class Book(models.Model):
     )
 
     categories = models.ManyToManyField(
-        to=Category, related_name="books", null=True, blank=True
+        to=Category,
+        related_name="books",
     )
 
     publication_date = models.DateField(
