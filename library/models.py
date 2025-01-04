@@ -35,6 +35,16 @@ class Author(models.Model):
 
     slug = models.SlugField(blank=True, null=True, unique=True)
 
+    @property
+    def get_full_name(self):
+        return f"{self.first_name.capitalize} {self.last_name.capitalize()}".strip()
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.get_full_name.lower())
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
