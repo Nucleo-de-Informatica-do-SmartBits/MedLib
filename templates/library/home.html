@@ -1,17 +1,60 @@
 {% extends 'bases/library.html' %}
+{% load static %}
 
 
 {% block title %}
-    Página Inicial
+Página Inicial
 {% endblock title %}
- 
 
 {% block head %}
-    
+<link rel="stylesheet" href="{% static 'css/library/home.css' %}">
 {% endblock head %}
-    
 
 {% block content %}
-    
+
+<section class="relative w-full overflow-hidden" style="height: 400px;user-select: none;">
+  <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
+    <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1"
+      class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+    <img src="{% static 'imgs/slide2.jpg' %}" alt="Image 2"
+      class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+    <img src="{% static 'imgs/slide3.jpg' %}" alt="Image 3"
+      class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+  </div>
+
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold p-4">
+    <span id="text" style="cursor: text;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação."</span>
+  </div>
+</section>
+
+<script>
+  let currentIndex = 0;
+  const images = document.querySelectorAll("#image-slider img");
+
+  const frasesArray = [
+    "\"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação.\"",
+    "\"A leitura nos dá asas para voar nas mais diversas imaginações.\"",
+    "\"Cada livro é uma viagem esperando para ser vivida\"",
+  ]
+
+  const totalImages = images.length;
+
+  function changeImage() {
+    let text = document.querySelector('#text')
+
+    currentIndex = (currentIndex + 1) % totalImages;
+    console.log(currentIndex)
+
+    const offset = -currentIndex * 100;
+    document.getElementById("image-slider").style.transform = `translateX(${offset}%)`;
+
+    text.innerText = frasesArray[currentIndex]
+  }
+
+  setInterval(changeImage, 3000);
+
+</script>
+
 {% endblock content %}
-    
