@@ -24,7 +24,7 @@ Iniciar Sessão - SmartBits VL
         <hr>
         <form method="POST" class="space-y-4" style="margin-top: 20px;">
             {% include 'partials/forms_errors.html' with form=form %}
-            
+
             {% csrf_token %}
             <div class="formbold-mb-3">
                 {{ form.process_number}}
