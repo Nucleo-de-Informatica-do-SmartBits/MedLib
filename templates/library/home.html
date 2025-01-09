@@ -30,29 +30,103 @@ Página Inicial
   </div>
 </section>
 
+<div class="modal" id="modal1">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
+    <h3>Book Title</h3>
+    <p>Author: Author Name</p>
+    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  </div>
+</div>
+
 <section class="books" style="margin-top: 8px;">
   <section class="sec1">
-
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+      <button class="details-btn" onclick="openModal('modal1')">Details</button>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
+    <div class="card-book">
+      <div class="sec-image">
+        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+      </div>
+      <div class="sec-info">
+        <h3 class="book-title">Book Title</h3>
+        <p class="book-author">Author Name</p>
+      </div>
+    </div>
   </section>
 </section>
 
 <script>
-  for (let i = 0; i < 20; i++) {
-    document.querySelector('.sec1')
-      .innerHTML += `
-        <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="" class="imgsec">
-      </div>
-
-      <div class="sec-info">
-
-      </div>
-    </div>
-      `
-  }
-
-
   let currentIndex = 0;
   const images = document.querySelectorAll("#image-slider img");
 
@@ -77,6 +151,15 @@ Página Inicial
   }
 
   setInterval(changeImage, 3000);
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "flex";
+  }
+
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = "none";
+  }
 
 </script>
 

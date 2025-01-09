@@ -3,20 +3,102 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.sec1 {
+/* 
+.books {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #f5f5f5;
+} */
+
+.sec1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+
+.card-book {
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-book:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sec-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.sec-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sec-info {
     padding: 10px;
 }
 
-.imgsec {
-    width: auto;
-    height: 200px;
+.book-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px 0;
+    color: #333;
 }
 
-.card-book {
-    padding: 18px;
-    border: 1px solid #dde3ec;
-    border-radius: 3px;
+.book-author {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Estilo do modal */
+.modal {
+    display: none;
+    /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fundo semitransparente */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Conteúdo do modal */
+.modal-content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+}
+
+/* Botão de fechar */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333;
 }
