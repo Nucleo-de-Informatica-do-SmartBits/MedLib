@@ -1,0 +1,86 @@
+{% extends 'bases/library.html' %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block head %}
+{% endblock head %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+            <div class="flex items-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                    class="w-10 h-10 text-indigo-600" viewBox="0 0 16 16">
+                    <path
+                        d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2" />
+                    <path
+                        d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0" />
+                </svg>
+                <h3 class="ml-4 text-xl font-semibold text-gray-700">Total de Livros</h3>
+            </div>
+            <div style="width: 100%;display: flex;justify-content: center;">
+                <p class="text-2xl font-bold text-indigo-600">98</p>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 14c1.39 0 2.58.81 3.08 1.95M12 6.5c3.03 0 5.5 1.92 5.5 4.5S15.03 15.5 12 15.5 6.5 13.58 6.5 10 8.97 6.5 12 6.5z">
+                    </path>
+                </svg>
+                <h3 class="ml-4 text-xl font-semibold text-gray-700">Total de Autores</h3>
+            </div>
+            <p class="text-2xl font-bold text-indigo-600">10</p>
+        </div>
+
+        <!-- Card de Categorias -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+                <h3 class="ml-4 text-xl font-semibold text-gray-700">Total de Categorias</h3>
+            </div>
+            <p class="text-2xl font-bold text-indigo-600">11</p>
+        </div>
+
+        <!-- Card de Editoras -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V6l-6-4zm0 0v18H6V4h8z"></path>
+                </svg>
+                <h3 class="ml-4 text-xl font-semibold text-gray-700">Total de Editoras</h3>
+            </div>
+            <p class="text-2xl font-bold text-indigo-600">11</p>
+        </div>
+    </div>
+</div>
+
+<!-- Atividades Recentes -->
+<div class="mt-10">
+    <h2 class="text-2xl font-semibold text-gray-700 mb-4">Atividades Recentes</h2>
+    <ul class="space-y-4">
+        <li class="bg-white p-4 rounded-lg shadow-md">
+            Livro 'Exemplo Livro' adicionado recentemente.
+        </li>
+        <li class="bg-white p-4 rounded-lg shadow-md">
+            Autor 'Exemplo Autor' foi cadastrado.
+        </li>
+        <li class="bg-white p-4 rounded-lg shadow-md">
+            Nova categoria 'Ficção' criada.
+        </li>
+    </ul>
+</div>
+</div>
+{% endblock content %}

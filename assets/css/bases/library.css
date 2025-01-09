@@ -105,7 +105,8 @@ nav .user-img {
     color: #3db1c8;
 }
 
-.user-img img {
+#profile-img {
+    cursor: pointer;
     border-radius: 50%;
     border: 2px solid #e2e8f0;
     padding: 3px;
@@ -163,4 +164,16 @@ input {
     width: 300px;
     border-color: #0daedfb3;
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.user-img {
+    display: flex;
+    gap: 10px;
+}
+
+#profile-menu ul li a svg {
+    transition: all .3s;
+}
+#profile-menu ul li a:hover svg {
+    color: #0daedfb3;
 }
