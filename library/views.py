@@ -46,5 +46,5 @@ def dashboard_books(request):
         ...
     else:
         ...
-
+    
     return render(request, template_name, ctx)
