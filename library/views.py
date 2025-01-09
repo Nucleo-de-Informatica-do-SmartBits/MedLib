@@ -1,17 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
-from django.contrib.auth.decorators import user_passes_test
-
-
-def is_staff(user):
-    if not user.is_staff:
-        return HttpResponseForbidden("Você não tem permissão para acessar esta página.")
-    return True
-
-
-just_staff_users = user_passes_test(is_staff)
-
+from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
 
 @login_required
 def home(request):
@@ -21,7 +11,7 @@ def home(request):
 
 
 @login_required
-@just_staff_users
+# @staff_member_required(login_url=settings.LOGIN_URL)
 def upload_books(request):
     ctx = {}
     template_name = "library/upload-books.html"
@@ -37,7 +27,7 @@ def upload_books(request):
 
 
 @login_required
-@just_staff_users
+# @staff_member_required(login_url=settings.LOGIN_URL)
 def dashboard_books(request):
     ctx = {}
     template_name = "library/dashboard.html"
