@@ -7,11 +7,10 @@ Dashboard
 {% endblock title %}
 
 {% block head %}
-
-{% compress css%}
+{% compress css %}
 <link rel="stylesheet" href="{% static 'css/library/dashboard.css' %}">
 {% endcompress %}
-{% endblock head %}
+{% endblock %}
 
 {% block content %}
 <div class="container mx-auto p-6">
@@ -19,40 +18,96 @@ Dashboard
     </div>
 </div>
 
-<div class="grid grid-cols-3 gap-6 p-6">
-    <div class="flex gap-6 p-6">
-        <div class="flex-2 bg-white p-6 rounded-lg shadow-md">
-            <canvas id="lineChart"></canvas>
-
-            <div class="flex-1 rounded-lg shadow-md">
-                <div class="flex gap-4">
-                    <canvas id="languageChart"></canvas>
-                    <canvas id="categoryChart"></canvas>
-                </div>
-            </div>
+<div class="grid grid-cols-[68%_30%] gap-[2%] p-6 h-[439px]">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="charts">
+            <!-- <div style="width: 70%;margin: 0;"> -->
+            <canvas id="lineChart" style="width: 100%;height: 350px;"></canvas>
+            <!-- </div> -->
         </div>
     </div>
 
-
     <div class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-4">Atividades Recentes</h2>
-        <ul class="space-y-4">
-            <li class="bg-gray-100 p-4 rounded-lg shadow-sm">
-                Livro 'Exemplo Livro' adicionado recentemente.
-            </li>
-            <li class="bg-gray-100 p-4 rounded-lg shadow-sm">
-                Autor 'Exemplo Autor' foi cadastrado.
-            </li>
-            <li class="bg-gray-100 p-4 rounded-lg shadow-sm">
-                Nova categoria 'Ficção' criada.
-            </li>
-        </ul>
+        <div class="charts" style="display: flex;justify-content: center;align-items: center;">
+            <div style="width: 80%;margin: 0;">
+                <canvas id="pieChart" style="width: 100%;"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
 {% compress js %}
-{% include 'partials/dashboard-main-chart.html' %}
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 {% include 'partials/dashboard-card-data.html' %}
+
+<script>
+    let ctx;
+
+    ctx = document.getElementById('pieChart').getContext('2d');
+    const pieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Romance', 'Aventura', 'Ficção Científica'], // Labels das fatias
+            datasets: [{
+                label: 'Categorias',
+                data: [60, 30, 10], // Valores para cada fatia
+                backgroundColor: ['#3498db', '#e74c3c', 'green'], // Cores das fatias
+                hoverOffset: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Número de categorias'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    const labels = ["January", "February", "March", "April", "May", "June", "July"];
+    const data = {
+        labels: labels,
+        datasets: [{
+            label: 'Livros',
+            data: [65, 59, 10, 10],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    };
+
+    const config = {
+        type: 'line',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Comportamento das models consoante o tempo'
+                }
+            }
+        }
+    };
+
+    ctx = document.getElementById('lineChart').getContext('2d');
+    new Chart(ctx, config);
+</script>
 {% endcompress %}
 
 {% endblock content %}
