@@ -1,12 +1,16 @@
 {% extends 'bases/library.html' %}
 {% load static %}
+{% load compress %}
 
 {% block title %}
 Dashboard
 {% endblock title %}
 
 {% block head %}
+
+{% compress css%}
 <link rel="stylesheet" href="{% static 'css/library/dashboard.css' %}">
+{% endcompress %}
 {% endblock head %}
 
 {% block content %}
@@ -46,8 +50,12 @@ Dashboard
     </div>
 </div>
 
+{% compress js %}
 <script src="{% static 'chart/dist/chart.umd.js' %}"></script>
+
+<!-- Another dashboard javascript -->
 {% include 'partials/dashboard-main-chart.html' %}
 {% include 'partials/dashboard-card-data.html' %}
+{% endcompress %}
 
 {% endblock content %}

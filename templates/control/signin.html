@@ -1,10 +1,15 @@
 {% extends 'bases/control.html' %}
 
 {% load static %}
+{% load compress %}
 
 {% block head %}
+
+{% compress css %}
 <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
 <link rel="stylesheet" href="{% static 'css/control/signin.css' %}">
+{% endcompress %}
+
 {% endblock head %}
 
 {% block title %}
@@ -51,28 +56,8 @@ Iniciar Sessão - SmartBits VL
     </div>
 </div>
 
-<script>
-    const processNumber = document.querySelector("#num-process")
-    processNumber.addEventListener("input", (event) => {
-        const value = event.data
+{% compress js %}
+<script src="{% static 'js/control/signin.js' %}"></script>
+{% endcompress %}
 
-        if (!Number(value) && Number(value) !== 0) {
-            processNumber.value = processNumber.value.replace(value, "")
-        }
-
-        if (processNumber.value.length > 4) {
-            processNumber.value = processNumber.value.slice(0, 4)
-        }
-
-        if (value === " ") {
-            processNumber.value = processNumber.value.replace(value, "")
-        }
-
-        if (processNumber.value.length > 0) {
-            processNumber.style.fontSize = '25px'
-        } else {
-            processNumber.style.fontSize = '15px'
-        }
-    })
-</script>
 {% endblock content %}
