@@ -7,7 +7,6 @@ Dashboard
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/library/dashboard.css' %}">
-<script src="{% static 'chart/dist/chart.umd.js' %}"></script>
 {% endblock head %}
 
 {% block content %}
@@ -17,9 +16,19 @@ Dashboard
 </div>
 
 <div class="grid grid-cols-3 gap-6 p-6">
-    <div class="col-span-2 bg-white p-6 rounded-lg shadow-md">
-        <canvas id="myChart"></canvas>
+    <div class="flex gap-6 p-6">
+        <div class="flex-2 bg-white p-6 rounded-lg shadow-md">
+            <canvas id="lineChart"></canvas>
+
+            <div class="flex-1 rounded-lg shadow-md">
+                <div class="flex gap-4">
+                    <canvas id="languageChart"></canvas>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <div class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold text-gray-700 mb-4">Atividades Recentes</h2>
@@ -37,103 +46,8 @@ Dashboard
     </div>
 </div>
 
+<script src="{% static 'chart/dist/chart.umd.js' %}"></script>
+{% include 'partials/dashboard-main-chart.html' %}
+{% include 'partials/dashboard-card-data.html' %}
 
-<script>
-    const cardData = [
-        {
-            title: 'Livros',
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8" />
-                    <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                    <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                </svg>`,
-            count: 98,
-            description: 'Todos os livros carregados'
-        },
-        {
-            title: 'Autores',
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6" viewBox="0 0 16 16">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                </svg>`,
-            count: 18,
-            description: 'Todos os autores registrados'
-        },
-        {
-            title: 'Categorias',
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6" viewBox="0 0 16 16">
-                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-            </svg>`,
-            count: 6,
-            description: 'Categorias disponíveis'
-        },
-        {
-            title: 'Editoras',
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6" viewBox="0 0 16 16">
-  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-</svg>`,
-            count: 12,
-            description: 'Editoras parceiras'
-        }
-    ];
-
-    const generateCards = () => {
-        const cardsContainer = document.getElementById('cards-container');
-
-        cardData.forEach(card => {
-            const cardElement = document.createElement('div');
-            cardElement.classList.add('bg-white', 'p-6', 'rounded-lg', 'shadow-lg', 'hover:shadow-xl', 'transition', 'duration-300', 'ease-in-out', 'card-div');
-
-            cardElement.innerHTML = `
-            <div class="main-info-card">
-                <h3 class="text-xl text-gray-800">${card.title}</h3>
-                <div class="svg-div">${card.icon}</div>
-            </div>
-            <p class="text-3xl font-bold text-gray-700">${card.count}</p>
-            <small class="text-gray-500">${card.description}</small>
-        `;
-
-            cardsContainer.appendChild(cardElement);
-        });
-    }
-
-    window.onload = generateCards;
-</script>
-
-<script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
 {% endblock content %}
