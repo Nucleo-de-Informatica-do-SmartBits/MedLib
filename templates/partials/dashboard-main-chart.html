@@ -1,0 +1,81 @@
+<script>
+
+// Gráfico de Linha Principal
+const lineCtx = document.getElementById('lineChart').getContext('2d');
+const lineChart = new Chart(lineCtx, {
+    type: 'line',
+    data: {
+        labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+        datasets: [{
+            label: 'Livros Cadastrados',
+            data: [10, 15, 20, 25, 30, 40],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.4
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        }
+    }
+});
+
+// Gráfico de Livros por Idioma
+const languageCtx = document.getElementById('languageChart').getContext('2d');
+const languageChart = new Chart(languageCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Português', 'Inglês'],
+        datasets: [{
+            data: [120, 50],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(255, 99, 132, 0.6)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        }
+    }
+});
+
+// Gráfico de Livros por Categoria
+const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+const categoryChart = new Chart(categoryCtx, {
+    type: 'pie',
+    data: {
+        labels: ['Ficção', 'Ciência', 'História', 'Tecnologia', 'Arte'],
+        datasets: [{
+            data: [40, 25, 30, 35, 20],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top'
+            }
+        }
+    }
+});
+
+
+</script>
