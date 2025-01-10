@@ -51,9 +51,6 @@ Dashboard
 </div>
 
 {% compress js %}
-<script src="{% static 'chart/dist/chart.umd.js' %}"></script>
-
-<!-- Another dashboard javascript -->
 {% include 'partials/dashboard-main-chart.html' %}
 {% include 'partials/dashboard-card-data.html' %}
 {% endcompress %}
