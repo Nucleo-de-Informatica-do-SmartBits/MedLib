@@ -59,13 +59,17 @@ class Publisher(models.Model):
         verbose_name="Descrição", blank=True, null=True, max_length=150
     )
 
+    def __str__(self):
+        return self.name
 
 class Category(models.Model):
     name = models.CharField(
         verbose_name="Nome", max_length=100, unique=True, blank=False, null=False
     )
 
-
+    def __str__(self):
+        return self.name
+    
 class Book(models.Model):
     LANGUAGE_CHOICES = [
         ("PT", "Português"),
