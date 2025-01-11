@@ -18,14 +18,25 @@
     cursor: pointer;
 }
 
-
-.svg-div {
+.svg-div,
+.add-book {
     padding: 10px;
     background-color: rgba(128, 128, 128, 0.13);
     border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
+.add-book {
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.add-book:hover {
+    cursor: pointer;
+    background-color: rgba(60, 176, 199, 0.13);
+    color: #3CB0C7;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
 
 .main-info-card {
     display: flex;
