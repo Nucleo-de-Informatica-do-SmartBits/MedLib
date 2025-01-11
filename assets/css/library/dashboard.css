@@ -6,7 +6,6 @@
 .card-div:hover .svg-div {
     background-color: rgba(60, 176, 199, 0.13);
     color: #3CB0C7;
-    transform: scale(1.1);
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -15,7 +14,6 @@
 }
 
 .card-div:hover .svg-div svg {
-    transform: scale(1.2);
     color: #3CB0C7;
     cursor: pointer;
 }
