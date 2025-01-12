@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import home, upload_books, dashboard_books
+from .views import home, dashboard, deleteBook, bookDetails
 
 urlpatterns = [
     path("books/", home, name="home"),
-    path("dashboard/", dashboard_books, name="dashboard_books"),
-    path("upload/", upload_books, name="upload_books"),
+    path("dashboard/", dashboard, name="dashboard"),
+    path("book-details/<slug:slug>/", bookDetails, name="book-details"),
+    path("delete-book/<slug:slug>/", deleteBook, name="delete-book"),
 ]
+

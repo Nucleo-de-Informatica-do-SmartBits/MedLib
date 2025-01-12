@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.http import require_http_methods
 
 from .models import Book
 
@@ -31,17 +33,29 @@ def upload_books(request):
 
 @login_required
 @staff_member_required(login_url=settings.LOGIN_URL)
-def dashboard_books(request):
+def dashboard(request):
     ctx = {}
     template_name = "library/dashboard.html"
-    
-    table_books = Book.objects.all()
+    books = Book.objects.all()
 
-    if request.method == "POST":
-        ...
-    else:
-        ...
-
-    ctx["table_books"] = table_books
+    ctx["books"] = books
     return render(request, template_name, ctx)
 
+
+@login_required
+@require_http_methods(["DELETE", "GET"])
+def deleteBook(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+    book.delete()
+
+    return JsonResponse({'msg': 'product deleted', 'status': 200})
+
+
+@login_required
+def bookDetails(request, slug):
+    ctx = {}
+    template_name = "library/book-details.html"
+    book = get_object_or_404(Book, slug=slug)
+
+    ctx["book"] = book
+    return render(request, template_name, ctx)
