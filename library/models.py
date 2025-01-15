@@ -62,6 +62,7 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
+
 class Category(models.Model):
     name = models.CharField(
         verbose_name="Nome", max_length=100, unique=True, blank=False, null=False
@@ -69,7 +70,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
 class Book(models.Model):
     LANGUAGE_CHOICES = [
         ("PT", "Português"),
@@ -120,7 +122,12 @@ class Book(models.Model):
 
     pages = models.PositiveIntegerField(verbose_name="Páginas", null=True, blank=True)
 
-    edition = models.PositiveIntegerField(verbose_name="Edição", null=True, blank=True)
+    edition = models.PositiveIntegerField(
+        verbose_name="Edição",
+        null=True,
+        blank=True,
+        help_text="Por padrão o sistema registra como a primeira edição livro",
+    )
 
     slug = models.SlugField(unique=True, editable=False, max_length=255)
 

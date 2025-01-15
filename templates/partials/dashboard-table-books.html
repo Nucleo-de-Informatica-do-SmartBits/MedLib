@@ -3,7 +3,6 @@
     <thead class="bg-[#80808021]">
         <tr>
             <th class="px-4 py-2 text-left">Title</th>
-            <th class="px-4 py-2 text-left">Author(s)</th>
             <th class="px-4 py-2 text-left">Publisher</th>
             <th class="px-4 py-2 text-left">ISBN</th>
             <th class="px-4 py-2 text-left">Language</th>
@@ -13,21 +12,13 @@
         </tr>
     </thead>
     <tbody class="divide-y divide-gray-200">
-
         {% for book in books %}
         <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.188);">
-            <td class="px-4 py-2 truncate max-w-[80px]">
+            <td class="px-4 py-2 truncate max-w-[150px]">
                 <div class="overflow-hidden whitespace-nowrap text-ellipsis">
                     <a href="{% url 'book-details' slug=book.slug %}" style="color: blue;text-decoration: underline;">
                         {{ book.title }}
                     </a>
-                </div>
-            </td>
-            <td class="px-4 py-2 truncate max-w-[110px]">
-                <div class="overflow-hidden whitespace-nowrap text-ellipsis">
-                    {% for author in book.authors.all %}
-                    <span>{{ author }}</span>{% if not forloop.last %}, {% endif %}
-                    {% endfor %}
                 </div>
             </td>
             <td class="px-4 py-2 truncate max-w-[50px]">

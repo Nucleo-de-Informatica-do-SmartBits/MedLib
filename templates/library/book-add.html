@@ -1,0 +1,106 @@
+<script>
+    function toggleModal(isOpen) {
+        const modal = document.getElementById('modal');
+        modal.classList.toggle('hidden', !isOpen);
+    }
+</script>
+
+<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+    style="z-index: 200;">
+    <div style="width: 50rem;" class="bg-white rounded-lg shadow-lg p-6">
+        <form method="post" enctype="multipart/form-data">
+            {% include 'partials/forms_errors.html' %}
+
+            {% csrf_token %}
+            
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Adicionar Livro</h2>
+            <div style="display: flex; justify-content: space-between;">
+
+                <div class="flex-1 space-y-4" style="width: 50%;">
+                    <div class="mb-4">
+                        <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
+                        {{ book_form.title }}
+                    </div>
+
+                    <!-- Capa e Arquivo do Livro -->
+                    <div class="flex-1">
+                        <label for="cover" class="block text-sm font-medium text-gray-700">Capa do Livro</label>
+                        {{ book_form.cover }}
+                    </div>
+
+
+                    <!-- Editora, Idioma e Data de Publicação -->
+                    <div class="flex space-x-4 mb-4">
+                        <div class="flex-1">
+                            <label for="publisher" class="block text-sm font-medium text-gray-700">Editora</label>
+                            {{ book_form.publisher }}
+                        </div>
+                        <div class="flex-1">
+                            <label for="language" class="block text-sm font-medium text-gray-700">Idioma</label>
+                            {{ book_form.language }}
+                        </div>
+                    </div>
+
+                    <!-- Edição e Número de Páginas -->
+                    <div class="flex space-x-4 mb-4">
+                        <div class="flex-1">
+                            <label for="edition" class="block text-sm font-medium text-gray-700">Edição</label>
+                            {{ book_form.edition }}
+                        </div>
+                        <div class="flex-1">
+                            <label for="pages" class="block text-sm font-medium text-gray-700">Número de Páginas</label>
+                            {{ book_form.pages }}
+                        </div>
+                    </div>
+
+                    <!-- Autores e Categorias -->
+                    <div class="flex space-x-4 mb-4">
+                        <div class="flex-1">
+                            <label for="authors" class="block text-sm font-medium text-gray-700">Autores</label>
+                            {{ book_form.authors }}
+                        </div>
+                        <div class="flex-1">
+                            <label for="id_categories" class="block text-sm font-medium text-gray-700">Categorias</label>
+                            <div class="mt-1">
+                                {{ book_form.categories }}
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+
+                <!-- Segunda coluna de campos -->
+                <div style="width: 50%;border-left: 2px solid #EFEFEF; margin-left: 20px;" class="pl-4 space-y-4">
+                    <div class="flex-1">
+                        <label for="isbn" class="block text-sm font-medium text-gray-700">ISBN</label>
+                        {{ book_form.isbn }}
+                    </div>
+                    <div class="flex-1">
+                        <label for="document" class="block text-sm font-medium text-gray-700">Arquivo do Livro</label>
+                        {{ book_form.document }}
+                    </div>
+                    <div class="flex-1">
+                        <label for="summary" class="block text-sm font-medium text-gray-700">Resumo</label>
+                        {{ book_form.summary }}
+                    </div>
+                    <div class="flex-1">
+                        <label for="publication_date" class="block text-sm font-medium text-gray-700">Data de
+                            Publicação</label>
+                        {{ book_form.publication_date}}
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Botões -->
+            <div class="flex justify-end space-x-2 mt-4">
+                <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                    onclick="toggleModal(false)">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Confirmar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
