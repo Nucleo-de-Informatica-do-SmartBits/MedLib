@@ -95,3 +95,10 @@ def bookDetails(request, slug):
 
     ctx["book"] = book
     return render(request, template_name, ctx)
+
+
+@login_required
+def get_book_data(request, slug):
+    book = get_object_or_404(Book, slug=slug)
+
+    return JsonResponse({'title': book.title})

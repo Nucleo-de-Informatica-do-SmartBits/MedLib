@@ -39,7 +39,7 @@ Página Inicial
   <section class="sec1">
 
     {% for book in books %}
-    <div class="card-book" data-slug="{{book.slug}}">
+    <div class="card-book" data-api-url="{% url 'get_book_data' slug=book.slug %}">
       <div class="sec-image">
         <img src="{{ book.cover.url }}" alt="Book Cover" class="imgsec">
       </div>
@@ -51,15 +51,51 @@ Página Inicial
   </section>
 </section>
 
+
+<!-- Modal -->
+<div id="bookModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <h2 id="modalTitle"></h2>
+    <p id="modalDescription"></p>
+  </div>
+</div>
+
 {% compress js %}
 
 <script>
+  async function get_book_data(url) {
+    const api = await fetch(url);
+    return api.json();
+  }
+
   document.querySelectorAll('.card-book')
     .forEach(card => {
-      card.addEventListener('click', () => {
-        console.log(card.dataset)
-      })
-    })
+      card.addEventListener('click', async () => {
+        const data = await get_book_data(card.dataset.apiUrl); // Obtém os dados da API
+
+        // Preenche o conteúdo do modal com os dados
+        document.getElementById('modalTitle').textContent = data.title; // Exemplo: Título do livro
+        document.getElementById('modalDescription').textContent = data.description; // Exemplo: Descrição do livro
+
+        // Exibe o modal
+        const modal = document.getElementById('bookModal');
+        modal.style.display = "block";
+      });
+    });
+
+  document.querySelector('.close-btn').addEventListener('click', () => {
+    const modal = document.getElementById('bookModal');
+    modal.style.display = "none";
+  });
+
+  window.addEventListener('click', (event) => {
+    const modal = document.getElementById('bookModal');
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+
 </script>
 
 <script src="{% static 'js/library/home.js' %}"></script>
