@@ -5,30 +5,16 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
 
-from .models import Book
+from .models import Book, Author, Category, Publisher
 from .forms import BookForm, AuthorForm, CategoryForm, PublisherForm
 
 
 @login_required
-def home(request):
+def home(request):  
+    ctx = {}
     template_name = "library/home.html"
 
-    return render(request, template_name)
-
-
-@login_required
-@staff_member_required(login_url=settings.LOGIN_URL)
-def upload_books(request):
-    ctx = {}
-    template_name = "library/upload-books.html"
-
-    if request.method == "POST":
-        ...
-    else:
-        ...
-
-    ctx["form"] = ""
-
+    ctx["books"] = Book.objects.all()
     return render(request, template_name, ctx)
 
 
@@ -39,28 +25,66 @@ def dashboard(request):
     template_name = "library/dashboard.html"
     books = Book.objects.all()
 
-    if request.method == "POST":
-       book_form = BookForm(request.POST)
-
-       if book_form.is_valid():
-           book_form.save()
-           return redirect("dashboard")
-       
-    else:
-       book_form = BookForm()
-
     ctx["books"] = books
-    ctx["book_form"] = book_form
+    ctx["total_books"] = books.count()
+    ctx["total_authors"] = Author.objects.all().count()
+    ctx["total_categories"] = Category.objects.all().count()
+    ctx["total_publishers"] = Publisher.objects.all().count()
     return render(request, template_name, ctx)
 
 
 @login_required
-@require_http_methods(["DELETE", "GET"])
+@require_http_methods(["DELETE"])
 def deleteBook(request, slug):
+    ctx = {}
+    partial_name = "partials/dashboard-table-books.html"
+
     book = get_object_or_404(Book, slug=slug)
     book.delete()
 
-    return JsonResponse({"msg": "product deleted", "status": 200})
+    ctx["books"] = Book.objects.all()
+    return render(request, partial_name, ctx)
+
+
+@login_required
+def addBook(request):
+    ctx = {}
+    template_name = "library/book-add.html"
+
+    if request.method == "POST":
+        book_form = BookForm(request.POST)
+
+        if book_form.is_valid():
+            book_form.save()
+
+            return redirect("dashboard")
+    else:
+        book_form = BookForm()
+
+    ctx["book_form"] = book_form
+    ctx["title"] = "Carregar Livro"
+    return render(request, template_name, ctx)
+
+
+@login_required
+def updateBook(request, slug):
+    ctx = {}
+    template_name = "library/book-add.html"
+    instance = get_object_or_404(Book, slug=slug)
+
+    if request.method == "POST":
+        book_form = BookForm(request.POST, instance=instance)
+
+        if book_form.is_valid():
+            book_form.save()
+
+            return redirect("dashboard")
+    else:
+        book_form = BookForm(instance=instance)
+
+    ctx["book_form"] = book_form
+    ctx["title"] = "Modificar Livro"
+    return render(request, template_name, ctx)
 
 
 @login_required

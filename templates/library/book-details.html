@@ -3,7 +3,7 @@
 {% load compress %}
 
 {% block title %}
-Book Details - {{ book.title }}
+{{ book.title }}
 {% endblock title %}
 
 {% block head %}
@@ -14,98 +14,13 @@ Book Details - {{ book.title }}
 
 {% block content %}
 
+
 <main id="main-book-details" class="min-h-screen bg-gray-100 py-8">
-    <div
-        class="bg-white shadow-lg rounded-lg max-w-4xl mx-auto p-6 flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-6">
-
-        <!-- Capa do Livro -->
-        <div id="img-div"
-            class="w-60 h-72 md:w-64 md:h-96 lg:w-80 lg:h-112 overflow-hidden rounded-lg shadow-lg mb-6 md:mb-0">
-            <img src="{{ book.cover.url }}" alt="{{ book.title }} cover" class="object-cover w-full h-full">
-        </div>
-
-        <!-- Detalhes do Livro -->
-        <div class="flex flex-col space-y-4 w-full">
-            <h1 class="text-4xl font-semibold text-gray-800">{{ book.title }}</h1>
-            <div class="text-gray-600 text-lg space-y-3">
-
-                <!-- Autores com ícones -->
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10.5 3a1.5 1.5 0 00-1.5 1.5v1.5h3V4.5A1.5 1.5 0 0010.5 3zM2.25 9.75h19.5M3 14.25h16.5m-8.25 5.25h5.25" />
-                    </svg>
-                    <p><strong>Author(s):</strong>
-                        {% for author in book.authors.all %}
-                        <span class="inline-block">{{ author }}</span>{% if not forloop.last %}, {% endif %}
-                        {% endfor %}
-                    </p>
-                </div>
-
-                <!-- Editora com ícones -->
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 8h10M7 12h10m-7 4h7" />
-                    </svg>
-                    <p><strong>Publisher:</strong> {{ book.publisher }}</p>
-                </div>
-
-                <!-- ISBN com ícones -->
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                    </svg>
-                    <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-                </div>
-
-                <!-- Idioma com ícones -->
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14v18H5z" />
-                    </svg>
-                    <p><strong>Language:</strong> {{ book.get_language_display }}</p>
-                </div>
-
-                <!-- Páginas com ícones -->
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M2 6h20M2 12h20M2 18h20" />
-                    </svg>
-                    <p><strong>Pages:</strong> {{ book.pages }}</p>
-                </div>
-
-                <!-- Data de publicação com ícones -->
-                <div class="flex items-center space-x-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4M12 16h.01" />
-                    </svg>
-                    <p><strong>Publication Date:</strong> {{ book.publication_date|date:"d-m-Y" }}</p>
-                </div>
-            </div>
-
-            <div class="mt-6 flex space-x-4">
-                <a href=""
-                    class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300">Edit
-                    Book</a>
-                <a href=""
-                    class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition duration-300">Delete
-                    Book</a>
-            </div>
-        </div>
-    </div>
+ 
 </main>
 
 
-
 {% compress js %}
-<!-- Seu JS aqui -->
 {% endcompress %}
+
 {% endblock content %}

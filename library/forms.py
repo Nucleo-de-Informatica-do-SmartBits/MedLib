@@ -14,7 +14,7 @@ class AuthorForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = 'name'
+        fields = ("name",)
 
 
 class PublisherForm(forms.ModelForm):
@@ -75,7 +75,7 @@ class BookForm(forms.ModelForm):
                     "class": "mt-1 block w-full text-gray-800 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 }
             ),
-            "categories": forms.CheckboxSelectMultiple(
+            "categories": forms.SelectMultiple(
                 attrs={
                     "class": "mt-1 block w-full text-gray-800 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                 }
@@ -126,10 +126,6 @@ class BookForm(forms.ModelForm):
         help_texts = {
             "edition": "Por padrão, o sistema registra como a primeira edição do livro, se não especificado.",
         }
-
-    def __init__(self):
-        super().__init__()
-        self.fields["categories"].queryset = Category.objects.all().values_list('name')
 
     def clean_isbn(self):
         isbn = self.cleaned_data.get("isbn")

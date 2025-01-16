@@ -17,7 +17,7 @@ Página Inicial
 
 {% block content %}
 
-<section class="relative w-full overflow-hidden" style="height: 360px;user-select: none;">
+<section class="relative w-full overflow-hidden" style="height: 240px;user-select: none;">
   <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
     <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1"
       class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
@@ -35,103 +35,33 @@ Página Inicial
   </div>
 </section>
 
-<div class="modal" id="modal1">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
-    <h3>Book Title</h3>
-    <p>Author: Author Name</p>
-    <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </div>
-</div>
-
-<section class="books" style="margin-top: 8px;">
+<section class="books" style="margin-top: 5px;">
   <section class="sec1">
-    <div class="card-book">
+
+    {% for book in books %}
+    <div class="card-book" data-slug="{{book.slug}}">
       <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
+        <img src="{{ book.cover.url }}" alt="Book Cover" class="imgsec">
       </div>
       <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-      <button class="details-btn" onclick="openModal('modal1')">Details</button>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
+        <h3 class="book-title">{{ book.title }}</h3>
       </div>
     </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
-    <div class="card-book">
-      <div class="sec-image">
-        <img src="{% static 'imgs/ex.jpg' %}" alt="Book Cover" class="imgsec">
-      </div>
-      <div class="sec-info">
-        <h3 class="book-title">Book Title</h3>
-        <p class="book-author">Author Name</p>
-      </div>
-    </div>
+    {% endfor %}
   </section>
 </section>
 
 {% compress js %}
+
+<script>
+  document.querySelectorAll('.card-book')
+    .forEach(card => {
+      card.addEventListener('click', () => {
+        console.log(card.dataset)
+      })
+    })
+</script>
+
 <script src="{% static 'js/library/home.js' %}"></script>
 {% endcompress %}
 

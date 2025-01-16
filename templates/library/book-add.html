@@ -1,19 +1,34 @@
-<script>
-    function toggleModal(isOpen) {
-        const modal = document.getElementById('modal');
-        modal.classList.toggle('hidden', !isOpen);
-    }
-</script>
+{% extends 'bases/library.html' %}
+{% load static %}
+{% load compress %}
 
-<div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
-    style="z-index: 200;">
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block head %}
+{% compress css %}
+<link rel="stylesheet" href="{% static 'css/library/book-details.css' %}">
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+
+<main style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
+">
+
     <div style="width: 50rem;" class="bg-white rounded-lg shadow-lg p-6">
         <form method="post" enctype="multipart/form-data">
             {% include 'partials/forms_errors.html' %}
 
             {% csrf_token %}
-            
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Adicionar Livro</h2>
+
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ title }}</h2>
             <div style="display: flex; justify-content: space-between;">
 
                 <div class="flex-1 space-y-4" style="width: 50%;">
@@ -60,11 +75,12 @@
                             {{ book_form.authors }}
                         </div>
                         <div class="flex-1">
-                            <label for="id_categories" class="block text-sm font-medium text-gray-700">Categorias</label>
+                            <label for="id_categories"
+                                class="block text-sm font-medium text-gray-700">Categorias</label>
                             <div class="mt-1">
                                 {{ book_form.categories }}
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
 
@@ -93,14 +109,16 @@
 
             <!-- Botões -->
             <div class="flex justify-end space-x-2 mt-4">
-                <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
-                    onclick="toggleModal(false)">
+                <a href="{% url 'dashboard' %}" " class=" px-4 py-2 bg-gray-300 text-gray-700 rounded
+                    hover:bg-gray-400">
                     Cancelar
-                </button>
+                </a>
                 <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                     Confirmar
                 </button>
             </div>
         </form>
     </div>
-</div>
+    </div>
+</main>
+{% endblock %}
