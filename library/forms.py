@@ -2,7 +2,10 @@ import datetime
 
 from django import forms
 
-from .models import Author, Book, Category, Publisher
+from .models import Author, Book, Category, Publisher, Sugestion
+from django.contrib.auth.models import User
+from django.utils import timezone
+
 
 
 class AuthorForm(forms.ModelForm):
@@ -128,7 +131,7 @@ class BookForm(forms.ModelForm):
         }
 
     def clean_isbn(self):
-        isbn = self.cleaned_data.get("isbn")
+        isbn = self.data.get("isbn")
 
         if len(isbn) != 13:
             raise forms.ValidationError("O ISBN deve ter 13 caracteres.")
@@ -136,7 +139,7 @@ class BookForm(forms.ModelForm):
         return isbn
 
     def clean_publication_date(self):
-        publication_date = self.cleaned_data.get("publication_date")
+        publication_date = self.data.get("publication_date")
 
         if publication_date and publication_date > datetime.date.today():
             raise forms.ValidationError("A data de publicação não pode ser no futuro.")
@@ -144,7 +147,7 @@ class BookForm(forms.ModelForm):
         return publication_date
 
     def clean_edition(self):
-        edition = self.cleaned_data.get("edition")
+        edition = self.data.get("edition")
 
         if edition is not None and edition <= 0:
             raise forms.ValidationError("A edição deve ser um número positivo.")
@@ -152,7 +155,71 @@ class BookForm(forms.ModelForm):
         return edition
 
     def clean_pages(self):
-        pages = self.cleaned_data.get("pages")
+        pages = self.data.get("pages")
         if pages <= 0:
             raise forms.ValidationError("O número de páginas deve ser maior que 0.")
         return pages
+
+class SugestionForm(forms.Form):
+    about = forms.CharField(
+        max_length=50,
+        widget=forms.TextInput(
+            attrs={
+                "class": "formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
+                "placeholder": "Assunto",
+                "id": "about",
+                "name": "about",
+            }
+        )
+    )
+
+    sugestion = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "rows": 6,
+                "cols": 30,
+                "class": "formbold-form-input mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
+                "placeholder": "Sugestão",
+                "id": "sugestion",
+                "name": "sugestion",
+            }
+        )
+    )
+
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super(SugestionForm, self).clean()
+
+        about = self.cleaned_data.get("about", "").strip()
+        sugestion = self.cleaned_data.get("sugestion", "").strip() 
+
+        if not about:
+            raise forms.ValidationError(message="Campo (Sobre) não foi preechido!")
+        
+        if not sugestion:
+            raise forms.ValidationError(message="Campo (sugestão) não foi preechido")
+
+        return self.cleaned_data
+    
+    def save(self):
+        """
+        Save the Sugestion Form in the database Sugestion
+
+        attr:
+            - user: Is the Reader, mean the User loged
+                * give it: request.user
+        """
+        self.clean()
+
+        sugestion = Sugestion(
+            user=self.request.user,
+            about=self.cleaned_data['about'],
+            text=self.cleaned_data['sugestion'],
+            date_sugested=timezone.now()
+        )
+
+        sugestion.save()
+

@@ -63,7 +63,7 @@ Dashboard
     <div class="bg-white p-6 rounded-lg shadow-md">
         <div class="flex"
             style="width: 100%;display: flex;align-items: center;justify-content: space-between;margin-bottom: 8px;">
-            <h1>Actividades Recentes</h1>
+            <h1>Sugestões Propostas</h1>
             <a href="#" class="add-book">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser"
                     viewBox="0 0 16 16">
@@ -74,8 +74,9 @@ Dashboard
         </div>
         <hr>
         <hr>
-        <div style="height: 100%; display: flex;justify-content: center;align-items: center;">
-            <div style="width: 80%;">
+        <div class="container mx-auto h-[400px] overflow-hidden">
+            <div class="overflow-y-auto h-full" id="div-table">
+                {% include 'partials/dashboard-table-sugestions.html' %}
             </div>
         </div>
     </div>

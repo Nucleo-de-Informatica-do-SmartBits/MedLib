@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 # TODO: add doc
 
@@ -65,7 +66,7 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
-
+# Better input a Multiple Choices Category in Book, it making it difficult to work 
 class Category(models.Model):
     name = models.CharField(
         verbose_name="Nome", max_length=100, unique=True, blank=False, null=False
@@ -141,3 +142,12 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class Sugestion(models.Model):
+    user = models.ForeignKey(verbose_name="sugestion", to=User, on_delete=models.CASCADE)
+    about = models.CharField(verbose_name="Assunto", max_length=50)
+    text = models.TextField(verbose_name="Sugestão", max_length=500)
+    date_sugested = models.DateTimeField(verbose_name="data")
+
+    def __str__(self):
+        return self.user.username+" "+f"({self.about})"
