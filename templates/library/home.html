@@ -51,7 +51,52 @@ Página Inicial
             <p class="book-author">{{author}}</p>
           {% endfor %}
         </div>
+        <hr>
         <button class="details-btn" onclick="openModal('modal{{book.id}}')">Details</button>
+      </div>
+
+      <div class="modal" id="modal{{book.id}}">
+        
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close-btn" onclick="closeModal('modal{{book.id}}')">X</button>
+          </div>
+          <hr>
+          
+          <div class="modal-body">
+            <div class="modal-body-img">
+              <img src="/media/{{book.cover}}" alt="Book Cover" class="imgsec">
+            </div>
+            <br>
+            <div class="modal-body-details">
+              <ul>
+                <li>Título</li>
+                <li>Editora</li>
+                <li>Idioma</li>
+                <li>Edição</li>
+                <li>Número de Páginas</li>
+                <li>Autores</li>
+                <li>Categorias</li>
+                <li>ISBN</li>
+                <li>Publicação</li>
+                <li>Data de</li>
+              </ul>
+              <ul>
+                <em><li>{{book.title}}</li></em>
+                <em><li>{{book.publisher}}</li></em>
+                <em><li>{{book.language}}</li></em>
+                <em><li>{{book.edition}}ª</li></em>
+                <em><li>{{book.pages}}</li></em>
+                <em><li>{{book.authors.first}}</li></em>
+                <em><li>{{book.categories.first}}</li></em>
+                <em><li>{{book.isbn}}</li></em>
+                <em><li>{{book.publication_date}}</li></em>
+                <em><li>{{book.created_at.date}}</li></em>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     {% endfor %}
   </section>
