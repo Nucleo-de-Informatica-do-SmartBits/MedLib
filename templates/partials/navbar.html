@@ -47,19 +47,22 @@
     <div class="user-img">
         <div>
             <div class="relative flex items-center">
-                <input type="text"
-                    class="w-full pr-10 px-5 rounded-sm border-[#dde3ec] bg-white text-sm font-medium text-[#536387] placeholder:text-[#53638780] transition-all duration-300 ease-in-out w-12 focus:w-64 absolute right-0"
-                    id="formbold-form-input" placeholder="Livros, autores, categorias..."
-                    onfocus="this.classList.remove('w-12');"
-                    onblur="if(this.value === '') { this.classList.remove('w-64'); this.classList.add('w-12'); }"
-                    style="border-radius: 3px; outline: none;resize: none;">
-                <button type="submit" class="absolute right-0 top-0 mt-3 mr-4" id="btn-search" disabled>
-                    <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path
-                            d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z">
-                        </path>
-                    </svg>
-                </button>
+                <form method="GET" action="{% url 'home' %}">
+                    <input type="text"
+                        class="w-full pr-10 px-5 rounded-sm border-[#dde3ec] bg-white text-sm font-medium text-[#536387] placeholder:text-[#53638780] transition-all duration-300 ease-in-out w-12 focus:w-64 absolute right-0"
+                        id="formbold-form-input" placeholder="Livros, autores, categorias..."
+                        onfocus="this.classList.remove('w-12');"
+                        onblur="if(this.value === '') { this.classList.remove('w-64'); this.classList.add('w-12'); }"
+                        style="border-radius: 3px; outline: none;resize: none;"
+                        name="search">
+                    <button type="submit" class="absolute right-0 top-0 mt-3 mr-4" id="btn-search">
+                        <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path
+                                d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z">
+                            </path>
+                        </svg>
+                    </button>
+                </form>
             </div>
 
         </div>
