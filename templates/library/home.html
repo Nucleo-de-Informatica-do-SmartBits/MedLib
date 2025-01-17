@@ -21,9 +21,9 @@ Página Inicial
   <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
     <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1"
       class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
-    <img src="{% static 'imgs/slide2.jpg' %}" alt="Image 2"
+    <img src="{% static 'imgs/slide2.jpeg' %}" alt="Image 2"
       class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
-    <img src="{% static 'imgs/slide3.jpg' %}" alt="Image 3"
+    <img src="{% static 'imgs/slide3.jpeg' %}" alt="Image 3"
       class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
   </div>
 
@@ -37,16 +37,22 @@ Página Inicial
 
 <section class="books" style="margin-top: 5px;">
   <section class="sec1">
-
     {% for book in books %}
-    <div class="card-book" data-slug="{{book.slug}}">
-      <div class="sec-image">
-        <img src="{{ book.cover.url }}" alt="Book Cover" class="imgsec">
+      <div class="card-book">
+        <div class="sec-image">
+          <a href="/media/{{book.document}}" target="_blank">
+          <img src="/media/{{book.cover}}" alt="Book Cover" class="imgsec">
+          </a>
+        </div>
+        <div class="sec-info">
+          <h3 class="book-title">{{book.title}}</h3>
+          {% for author in book.authors.all %}
+            {% comment %} Ajeitar o card quando tiver mais de 3 author {% endcomment %}
+            <p class="book-author">{{author}}</p>
+          {% endfor %}
+        </div>
+        <button class="details-btn" onclick="openModal('modal{{book.id}}')">Details</button>
       </div>
-      <div class="sec-info">
-        <h3 class="book-title">{{ book.title }}</h3>
-      </div>
-    </div>
     {% endfor %}
   </section>
 </section>

@@ -35,14 +35,17 @@ class Author(models.Model):
 
     slug = models.SlugField(blank=True, null=True, unique=True)
 
+    full_name = models.CharField(max_length=200)
+
     @property
     def get_full_name(self):
-        return f"{self.first_name.capitalize} {self.last_name.capitalize()}".strip()
+        return f"{str(self.first_name).capitalize()} {str(self.last_name).capitalize()}".strip()
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.get_full_name.lower())
-
+        if not self.full_name:
+            self.full_name = self.first_name+self.last_name
         super().save(*args, **kwargs)
 
     def __str__(self):

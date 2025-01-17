@@ -23,6 +23,7 @@ function changeImage() {
 
 setInterval(changeImage, 3000);
 function openModal(modalId) {
+    alert(modalId)
     const modal = document.getElementById(modalId);
     modal.style.display = "flex";
 }
