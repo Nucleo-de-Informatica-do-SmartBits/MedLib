@@ -37,7 +37,7 @@ class Author(models.Model):
 
     @property
     def get_full_name(self):
-        return f"{self.first_name.capitalize} {self.last_name.capitalize()}".strip()
+        return f"{self.first_name.capitalize()} {self.last_name.capitalize()}".strip()
 
     def save(self, *args, **kwargs):
         if not self.slug:

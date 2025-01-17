@@ -101,4 +101,16 @@ def bookDetails(request, slug):
 def get_book_data(request, slug):
     book = get_object_or_404(Book, slug=slug)
 
-    return JsonResponse({'title': book.title})
+    return JsonResponse({
+        'cover': book.cover.url,
+        'title': book.title,
+        'summary': book.summary,
+        'pages': book.pages,
+        'language': book.get_language_display(),
+        'categories': [category.name for category in book.categories.all()],
+        'authors': [author.get_full_name for author in book.authors.all()],
+        'isbn': book.isbn,
+        'publisher': book.publisher.name,
+        'publication_date': book.publication_date,
+        'edition': book.edition
+    })
