@@ -27,6 +27,7 @@ def home(request):
 
     ctx.update({"books": books}) 
 
+  
     return render(request, template_name, ctx)
 
 

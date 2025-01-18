@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "theme",
     "control",
     "library",
+    "courses",
 ]
 
 # Internal IPS
