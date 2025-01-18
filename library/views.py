@@ -6,14 +6,8 @@ from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_http_methods
 
-<<<<<<< HEAD
-from .forms import BookForm
+from .forms import BookForm, SugestionForm
 from .models import Author, Book, Category, Publisher
-=======
-from .models import Book, Author, Category, Publisher, Sugestion
-from .forms import BookForm, AuthorForm, CategoryForm, PublisherForm, SugestionForm
-from django.contrib import messages
->>>>>>> 5c3cb4b10f6c49db59d3f9bcdbf18d2cafab6f1c
 
 
 @login_required
@@ -111,9 +105,6 @@ def bookDetails(request, slug):
 
 
 @login_required
-<<<<<<< HEAD
-def getBookData(request, slug):
-=======
 def sugest(request):
     template_name = "library/sugestion-form.html"
     ctx = {}
@@ -129,9 +120,9 @@ def sugest(request):
     ctx.update({"forms": forms})
     return render(request=request, template_name=template_name, context=ctx)
 
+
 @login_required
-def get_book_data(request, slug):
->>>>>>> 5c3cb4b10f6c49db59d3f9bcdbf18d2cafab6f1c
+def getBookData(request, slug):
     book = get_object_or_404(Book, slug=slug)
 
     return JsonResponse(
