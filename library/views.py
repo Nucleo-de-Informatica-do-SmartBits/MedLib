@@ -7,7 +7,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_http_methods
 
 from .forms import BookForm, SugestionForm
-from .models import Author, Book, Category, Publisher
+from .models import Author, Book, Category, Publisher, Sugestion
 
 
 @login_required
