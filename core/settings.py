@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # "crispy_forms",
+    # "crispy_tailwind",
     "django_browser_reload",
     "compressor",
     "tailwind",
@@ -43,6 +45,11 @@ INSTALLED_APPS = [
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# Crispy Configuration
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
 
 
 MIDDLEWARE = [

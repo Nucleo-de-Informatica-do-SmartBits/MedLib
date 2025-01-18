@@ -1,0 +1,26 @@
+{% extends 'bases/library.html' %}
+{% load static %}
+{% load compress %}
+
+{% block title %}
+{{ book.title }}
+{% endblock title %}
+
+{% block head %}
+{% compress css %}
+<link rel="stylesheet" href="{% static 'css/library/book-details.css' %}">
+{% endcompress %}
+{% endblock %}
+
+{% block content %}
+
+
+<main id="main-book-details" class="min-h-screen bg-gray-100 py-8">
+ 
+</main>
+
+
+{% compress js %}
+{% endcompress %}
+
+{% endblock content %}

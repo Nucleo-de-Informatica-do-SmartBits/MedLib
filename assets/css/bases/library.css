@@ -25,7 +25,7 @@ nav {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100;
 }
 
 nav .logo-container,
@@ -128,7 +128,8 @@ nav .user-img {
     width: 100%;
 }
 
-input {
+
+/* input {
     position: absolute;
     right: 0;
     top: 50%;
@@ -136,11 +137,11 @@ input {
     transition: width 0.3s ease-in-out;
     padding-right: 40px;
     width: 100%;
-}
+} */
+
 
 #btn-search {
     position: absolute;
-    /* right: 10px;  */
     top: 50%;
     transform: translateY(-20px);
     background-color: transparent;
@@ -174,6 +175,7 @@ input {
 #profile-menu ul li a svg {
     transition: all .3s;
 }
+
 #profile-menu ul li a:hover svg {
     color: #0daedfb3;
 }

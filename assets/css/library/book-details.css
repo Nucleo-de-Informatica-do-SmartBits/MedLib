@@ -1,0 +1,17 @@
+
+#main-book-details {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-details {
+    display: flex;
+}
+
+#img-div {
+    border-radius: 3px;
+    padding: 10px;
+
+}
