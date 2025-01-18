@@ -39,20 +39,22 @@ Página Inicial
   <section class="sec1">
     {% for book in books %}
       <div class="card-book">
-        <div class="sec-image">
+        <div class="sec-image" title="Abir o livro">
           <a href="/media/{{book.document}}" target="_blank">
           <img src="/media/{{book.cover}}" alt="Book Cover" class="imgsec">
           </a>
         </div>
         <div class="sec-info">
-          <h3 class="book-title">{{book.title}}</h3>
+          <h3 class="book-title">{{book.title|truncatechars:20}}</h3>
           {% for author in book.authors.all %}
             {% comment %} Ajeitar o card quando tiver mais de 3 author {% endcomment %}
             <p class="book-author">{{author}}</p>
           {% endfor %}
         </div>
         <hr>
-        <button class="details-btn" onclick="openModal('modal{{book.id}}')">Details</button>
+        <div class="bg-[#3DB1C8]">
+        <button title="Ver mais detalhes" class="details-btn text-white width-full" onclick="openModal('modal{{book.id}}')">Details</button>
+        </div>
       </div>
 
       <div class="modal" id="modal{{book.id}}">
@@ -74,24 +76,24 @@ Página Inicial
                 <li>Editora</li>
                 <li>Idioma</li>
                 <li>Edição</li>
-                <li>Número de Páginas</li>
+                <li>Nº Páginas</li>
                 <li>Autores</li>
                 <li>Categorias</li>
                 <li>ISBN</li>
                 <li>Publicação</li>
-                <li>Data de</li>
+                <li>Data Upload</li>
               </ul>
               <ul>
-                <em><li>{{book.title}}</li></em>
-                <em><li>{{book.publisher}}</li></em>
+                <em><li>{{book.title|truncatechars:20}}</li></em>
+                <em><li>{{book.publisher|truncatechars:20}}</li></em>
                 <em><li>{{book.language}}</li></em>
                 <em><li>{{book.edition}}ª</li></em>
                 <em><li>{{book.pages}}</li></em>
                 <em><li>{{book.authors.first}}</li></em>
                 <em><li>{{book.categories.first}}</li></em>
                 <em><li>{{book.isbn}}</li></em>
-                <em><li>{{book.publication_date}}</li></em>
-                <em><li>{{book.created_at.date}}</li></em>
+                <em><li>{{book.publication_date|date:"d-m-Y"}}</li></em>
+                <em><li>{{book.created_at.date|date:"d-m-Y"}}</li></em>
               </ul>
             </div>
           </div>
