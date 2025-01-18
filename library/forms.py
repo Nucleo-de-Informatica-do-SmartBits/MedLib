@@ -212,13 +212,11 @@ class SugestionForm(forms.Form):
             - user: Is the Reader, mean the User loged
                 * give it: request.user
         """
-        self.clean()
 
         sugestion = Sugestion(
             user=self.request.user,
-            about=self.cleaned_data['about'],
-            text=self.cleaned_data['sugestion'],
-            date_sugested=timezone.now()
+            about=self.cleaned_data.get('about'),
+            text=self.cleaned_data('sugestion'),
         )
 
         sugestion.save()
