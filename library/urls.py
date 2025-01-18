@@ -1,13 +1,21 @@
 from django.urls import path
-from .views import home, dashboard, deleteBook, bookDetails, updateBook, addBook, get_book_data
+from .views import (
+    home,
+    dashboard,
+    deleteBook,
+    bookDetails,
+    manageBook,
+    getBookData,
+    readBook
+)
 
 urlpatterns = [
     path("books/", home, name="home"),
     path("dashboard/", dashboard, name="dashboard"),
-    path("book/add", addBook, name="book-add"),
-    path("book/delete/<slug:slug>/", deleteBook, name="book-delete"),
-    path("book/update/<slug:slug>/", updateBook, name="book-update"),
-    path("book/<slug:slug>/", bookDetails, name="book-details"),
-    path("book/get-data/<slug:slug>", get_book_data, name="get_book_data"),
+    path("book/add/", manageBook, name="books-add"),
+    path("book/<slug:slug>/edit/", manageBook, name="books-edit"),
+    path("book/<slug:slug>/delete/", deleteBook, name="books-delete"),
+    path("book/<slug:slug>/", bookDetails, name="books-details"),
+    path("book/<slug:slug>/data/", getBookData, name="books-get-data"),
+    path("book/<slug:slug>/read/", readBook, name="books-read"),
 ]
-
