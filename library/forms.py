@@ -193,8 +193,8 @@ class SugestionForm(forms.Form):
     def clean(self):
         cleaned_data = super(SugestionForm, self).clean()
 
-        about = self.cleaned_data.get("about", "").strip()
-        sugestion = self.cleaned_data.get("sugestion", "").strip() 
+        about = cleaned_data.get("about", "").strip()
+        sugestion = cleaned_data.get("sugestion", "").strip() 
 
         if not about:
             raise forms.ValidationError(message="Campo (Sobre) não foi preechido!")
@@ -202,7 +202,7 @@ class SugestionForm(forms.Form):
         if not sugestion:
             raise forms.ValidationError(message="Campo (sugestão) não foi preechido")
 
-        return self.cleaned_data
+        return cleaned_data
     
     def save(self):
         """
