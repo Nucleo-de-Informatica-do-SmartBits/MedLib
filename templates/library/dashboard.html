@@ -10,9 +10,16 @@
     {% endcompress %}
 {% endblock %}
 {% block content %}
+<<<<<<< HEAD
     <div class="container mx-auto p-6">
         <div id="cards-container"
              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+=======
+
+<div class="container mx-auto p-6">
+    <h1>
+    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+>>>>>>> 5c3cb4b10f6c49db59d3f9bcdbf18d2cafab6f1c
     </div>
     <div class="grid grid-cols-[68%_30%] gap-[2%] p-6 h-[439px]">
         <div class="bg-white p-6 rounded-lg shadow-md">
@@ -88,10 +95,41 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     {% compress js %}
         <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
         {% include 'partials/dashboard-card-data.html' %}
         <script>
+=======
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <div class="flex"
+            style="width: 100%;display: flex;align-items: center;justify-content: space-between;margin-bottom: 8px;">
+            <h1>Sugestões Propostas</h1>
+            <a href="#" class="add-book">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eraser"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z" />
+                </svg>
+            </a>
+        </div>
+        <hr>
+        <hr>
+        <div class="container mx-auto h-[400px] overflow-hidden">
+            <div class="overflow-y-auto h-full" id="div-table">
+                {% include 'partials/dashboard-table-sugestions.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% compress js %}
+<script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+{% include 'partials/dashboard-card-data.html' %}
+
+<script>
+>>>>>>> 5c3cb4b10f6c49db59d3f9bcdbf18d2cafab6f1c
     let ctx;
 
     ctx = document.getElementById('pieChart').getContext('2d');

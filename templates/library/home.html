@@ -10,6 +10,7 @@
     {% endcompress %}
 {% endblock head %}
 {% block content %}
+<<<<<<< HEAD
     <section class="relative w-full overflow-hidden"
              style="height: 240px;
                     user-select: none">
@@ -24,6 +25,128 @@
             <img src="{% static 'imgs/slide3.jpg' %}"
                  alt="Image 3"
                  class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+=======
+
+<section class="relative w-full overflow-hidden" style="height: 240px;user-select: none;">
+  <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
+    <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1"
+      class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+    <img src="{% static 'imgs/slide2.jpg' %}" alt="Image 2"
+      class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+    <img src="{% static 'imgs/slide3.jpg' %}" alt="Image 3"
+      class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105">
+  </div>
+
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+
+  <div class="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold p-4">
+    <span id="text" style="cursor: text;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da
+      imaginação."</span>
+  </div>
+</section>
+
+<section class="books" style="margin-top: 5px;">
+  <section class="sec1">
+    {% for book in books %}
+      <div class="card-book">
+        <div class="sec-image" title="Abir o livro">
+          <a href="/media/{{book.document}}" target="_blank">
+          <img src="/media/{{book.cover}}" alt="Book Cover" class="imgsec">
+          </a>
+        </div>
+        <div class="sec-info">
+          <h3 class="book-title">{{book.title|truncatechars:20}}</h3>
+          {% for author in book.authors.all %}
+            {% comment %} Ajeitar o card quando tiver mais de 3 author {% endcomment %}
+            <p class="book-author">{{author}}</p>
+          {% endfor %}
+        </div>
+        <hr>
+        <div class="bg-[#3DB1C8]">
+        <button title="Ver mais detalhes" class="details-btn text-white width-full" onclick="openModal('modal{{book.id}}')">Details</button>
+        </div>
+      </div>
+
+      <div class="modal" id="modal{{book.id}}">
+        
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close-btn" onclick="closeModal('modal{{book.id}}')">X</button>
+          </div>
+          <hr>
+          
+          <div class="modal-body">
+            <div class="modal-body-img">
+              <img src="/media/{{book.cover}}" alt="Book Cover" class="imgsec">
+            </div>
+            <br>
+            <div class="modal-body-details">
+              <ul>
+                <li>Título</li>
+                <li>Editora</li>
+                <li>Idioma</li>
+                <li>Edição</li>
+                <li>Nº Páginas</li>
+                <li>Autores</li>
+                <li>Categorias</li>
+                <li>ISBN</li>
+                <li>Publicação</li>
+                <li>Data Upload</li>
+              </ul>
+              <ul>
+                <em><li>{{book.title|truncatechars:20}}</li></em>
+                <em><li>{{book.publisher|truncatechars:20}}</li></em>
+                <em><li>{{book.language}}</li></em>
+                <em><li>{{book.edition}}ª</li></em>
+                <em><li>{{book.pages}}</li></em>
+                <em><li>{{book.authors.first}}</li></em>
+                <em><li>{{book.categories.first}}</li></em>
+                <em><li>{{book.isbn}}</li></em>
+                <em><li>{{book.publication_date|date:"d-m-Y"}}</li></em>
+                <em><li>{{book.created_at.date|date:"d-m-Y"}}</li></em>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    {% endfor %}
+  </section>
+</section>
+
+
+<div id="bookModal" class="modal" style="z-index: 300;">
+  <div class="modal-content">
+    <div style="display: flex;flex-direction: row;gap: 1%;">
+      <div id="img-div"
+        style="height: 400px; width: 40%;display: flex;justify-content: center;align-items: center;background-color: rgba(203, 202, 202, 0.301);border-radius: 8px;">
+        <img src="" alt="" id="book-cover-modal">
+      </div>
+      <div style="width: 54%;display: flex;justify-content: space-between;flex-direction: column;">
+        <div>
+          <div>
+            <div>
+              <div style="display: flex;justify-content: space-between;align-items: center;">
+                <h2 id="modalTitle" style="font-size: 30px;"></h2>
+                <button style="background-color: #3DB1C8;color: white;border-radius: 5px;padding: 10px;width: 50px;">Ler</button>
+              </div>
+            </div>
+            <span class="close-btn">&times;</span>
+          </div>
+          Por <span id="modalAuthors" style="color: #3EB3CA;text-decoration: underline;cursor: pointer;"></span>
+          <br>
+          Editora <span id="modalPublisher"></span>
+          <br>
+          Edição <span id="modalEdition" style="font-size: 18px;"></span>
+          <br>
+          <p id="modalCategories"></p>
+          <span id="modalPublicationDate" style="font-size: 18px;"></span>
+          <br>
+
+          <hr>
+          <p id="modalDescription" style="text-align: left;"></p>
+
+>>>>>>> 5c3cb4b10f6c49db59d3f9bcdbf18d2cafab6f1c
         </div>
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="absolute inset-0 flex items-center justify-center text-white text-4xl font-bold p-4">

@@ -142,7 +142,7 @@ class ReaderCreationForm(forms.Form):
         if Reader.objects.filter(process_number=process_number).exists():
             raise forms.ValidationError("Número de processo já registrado!")
 
-        if course not in ("Informática", "Electrónica"):
+        if course not in ("Informática", "Eletrónica"):
             raise forms.ValidationError("Este curso não está disponível!")
 
         if grade not in ("10", "11", "12", "13"):
