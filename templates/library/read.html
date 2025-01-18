@@ -1,0 +1,22 @@
+{% extends 'bases/library.html' %}
+
+{% load static %}
+{% load compress %}
+
+{% block title %}
+Ler Livro
+{% endblock title %}
+
+{% block head %}
+
+{% compress css %}
+<link rel="stylesheet" href="{% static 'css/library/home.css' %}">
+{% endcompress %}
+
+{% endblock head %}
+
+{% block content %}
+
+
+
+{% endblock content %}
