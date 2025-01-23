@@ -49,7 +49,11 @@ class Author(models.Model):
     def __str__(self):
         return self.get_full_name
 
+
 class Publisher(models.Model):
+    photo = models.ImageField(
+        verbose_name="Foto", upload_to="publisher-photos", null=True, blank=True
+    )
     name = models.CharField(verbose_name="Nome", max_length=255, unique=True)
     website = models.URLField(verbose_name="Website", blank=True, null=True)
     address = models.CharField(
