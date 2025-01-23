@@ -44,7 +44,7 @@ Página Inicial
   </section>
 </section>
 
-<div id="bookModal" class="modal" style="z-index: 3000;">
+<!-- <div id="bookModal" class="modal" style="z-index: 3000;">
   <div class="modal-content"
     style="border-radius: 10px; padding: 20px; background-color: #fff; width: 600px; max-width: 100%; margin: auto;">
 
@@ -52,9 +52,9 @@ Página Inicial
       style="position: absolute; top: 10px; right: 15px; font-size: 24px; font-weight: bold; cursor: pointer;">&times;</span>
     <div style="display: flex; flex-direction: row; gap: 10px;margin-top: 30px;">
       <div id="img-div"
-        style="flex: 1; height: 300px; display: flex; justify-content: center; align-items: center; background-color: rgba(203, 202, 202, 0.301); border-radius: 10px;">
+        style="flex: 1; height: 350px; display: flex; justify-content: center; align-items: center; background-color: rgba(203, 202, 202, 0.301); border-radius: 10px;">
         <img src="" alt="" id="book-cover-modal"
-          style="max-height: 100%; max-width: 100%; object-fit: cover; border-radius: 10px;">
+          style="max-height: 100%; min-width: 250px; object-fit: cover; border-radius: 10px;">
       </div>
 
       <div style="flex: 2; display: flex; flex-direction: column; justify-content: space-between;">
@@ -73,7 +73,6 @@ Página Inicial
       </div>
     </div>
 
-    <!-- Rodapé com ícones -->
     <div style="margin-top: 20px; display: flex; justify-content: center; gap: 15px;">
       <div style="width: 40px; height: 40px; background-color: rgba(0, 0, 0, 0.1); border-radius: 50%;"></div>
       <div style="width: 40px; height: 40px; background-color: rgba(0, 0, 0, 0.1); border-radius: 50%;"></div>
@@ -83,8 +82,47 @@ Página Inicial
 
 
   </div>
-</div>
+</div> -->
 
+<div id="bookModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close-btn">&times;</span>
+    </div>
+    <div style="display: flex;justify-content: space-between;gap: 8px;">
+      <div id="img-div"
+        style="flex: 1; height: 350px; display: flex; justify-content: center; align-items: center; background-color: rgba(203, 202, 202, 0.301); border-radius: 10px;padding-left: 22px;padding-right: 28px;padding-top: 20px;
+        padding-bottom: 20px;">
+        <img src="" alt="" id="book-cover-modal"
+          style="max-height: 100%; min-width: 200px; object-fit: cover; border-radius: 10px;">
+      </div>
+      <div>
+        <div>
+          <div style="display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-direction: row;
+          padding-right: 20px;">
+            <h2 id="modalTitle" style="font-size: 30px;color: #333;">O Velho e o Mar</h2>
+            <button class="read-button">Ler</button>
+          </div>
+          <span id="modalAuthors"></span>
+          <hr>
+          <p id="modalDescription">Cuba, início dos anos 1950. Santiago, o pequeno rapaz, continua a acreditar nele
+            apesar dos obstáculos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+  </div>
+</div>
 
 {% compress js %}
 <script>
@@ -98,7 +136,7 @@ Página Inicial
       card.addEventListener('click', async () => {
         const data = await get_book_data(card.dataset.apiUrl);
 
-        document.getElementById('book-cover-modal').setAttribute('src', 'http://127.0.0.1:8000/media/cover-photos/ex_rWWUHq1.jpg')
+        document.getElementById('book-cover-modal').setAttribute('src', data.cover)
         document.getElementById('modalTitle').textContent = data.title;
         document.getElementById('modalDescription').textContent = data.summary;
         // document.getElementById('modalPages').textContent = data.pages;
@@ -107,7 +145,7 @@ Página Inicial
         // document.getElementById('modalEdition').textContent = `${data.edition}ª Edição`;
         // document.getElementById('modalPublisher').textContent = data.publisher;
         // document.getElementById('modalCategories').textContent = data.categories.join(', ');
-        // document.getElementById('modalAuthors').textContent = data.authors.join(', ');
+        document.getElementById('modalAuthors').textContent = data.authors.join(', ');
         // document.getElementById('modalPublicationDate').textContent = data.publication_date;
         // document.getElementById('read-link').setAttribute('href', data.read_link)
 
