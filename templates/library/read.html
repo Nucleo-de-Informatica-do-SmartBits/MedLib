@@ -3,7 +3,7 @@
 {% load compress %}
 
 {% block title %}
-    {{ book.title }}
+{{ book.title }}
 {% endblock title %}
 
 {% block head %}
@@ -16,7 +16,8 @@
 {% block content %}
 <main>
     <section
-        style="padding: 10px; position: fixed; top: 10px; left: 10px; height: 50px; background-color: #58BDD1; display: flex; justify-content: center; align-items: center; border-radius: 5px; z-index: 1000;">
+        style="display: flex;padding: 10px; position: fixed; top: 10px; left: 10px; height: 50px; background-color: #58BDD1; justify-content: center; align-items: center; border-radius: 5px; z-index: 1000;visibility: hidden;"
+        id="timer-sec">
         <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-stopwatch"
                 viewBox="0 0 16 16" style="color: white;">
@@ -40,14 +41,13 @@
     let seconds = 0;
     let minutes = 0;
     let timerElement = document.getElementById('timer');
-    document.querySelector('.logo-container').innerHTML = ""
     let userTime = 0;
 
     Swal.fire({
         title: 'Qual o tempo de leitura?',
         input: 'text',
         inputLabel: 'Informe o tempo em minutos',
-        inputValue: 30, 
+        inputValue: 30,
         showCancelButton: true,
         confirmButtonText: 'Confirmar',
         cancelButtonText: 'Cancelar',
@@ -62,8 +62,41 @@
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            userTime = parseInt(result.value) * 60;
-            startTimer(userTime);
+            document.querySelector('.logo-container').innerHTML = ``
+
+            document.querySelector('#timer-sec')
+                .style.visibility = 'visible'
+
+            setTimeout(() => {
+                userTime = parseInt(result.value) * 60;
+                startTimer(userTime);
+            }, 1000)
+
+            document.querySelector('nav').style.backgroundColor = "#3DB1C8"
+            document.querySelector('nav').style.height = "70px"
+            document.querySelector('.div-middle').style.display = "flex"
+            document.querySelector('.div-middle').style.flexDirection = "column"
+            document.querySelector('.div-middle').innerHTML = `<span style="color: white;font-size: 20px;">Você está em modo de leitura.</span><span style="text-align: center;font-style: italic;color: white;">Mantenha o foto, e aproveite!</span>`
+            document.querySelector('.user-img').innerHTML = `
+                <button style="background-color: red;color: white;border-radius: 5px;width: 80px;padding: 10px;" id="btn-stop">Parar</button>
+            `
+            document.querySelector('#btn-stop')
+                .addEventListener('click', () => {
+                    let modal = Swal.fire({
+                        title: 'Tem certeza que quer parar de ler?',
+                        showCancelButton: true,
+                        confirmButtonText: 'Confirmar',
+                        cancelButtonText: 'Cancelar',
+                        backdrop: 'static',
+                        allowOutsideClick: false
+                    })
+                    modal.then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{% url 'home' %}"
+                        }
+                    })
+                })
+
         } else {
             window.location.href = "{% url 'home' %}"
         }
