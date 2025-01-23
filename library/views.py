@@ -141,7 +141,7 @@ def getBookData(request, slug):
             "pages": book.pages,
             "language": book.get_language_display(),
             "categories": [category.name for category in book.categories.all()],
-            "authors": [[author.photo.url, author.get_full_name] for author in book.authors.all()],
+            "authors": [[author.photo.url, author.get_full_name] for author in book.authors.all() if author.photo],
             "isbn": book.isbn,
             "publisher": book.publisher.name,
             "publication_date": book.publication_date,
