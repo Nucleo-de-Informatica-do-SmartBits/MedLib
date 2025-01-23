@@ -40,27 +40,6 @@ Página Inicial
         <h3 class="book-title">{{book.title|truncatechars:20}}</h3>
       </div>
     </div>
-
-    <div class="modal" id="modal">
-
-      <div class="modal-content">
-        <div class="modal-header">
-          <button class="close-btn" onclick="closeModal('modal')">X</button>
-        </div>
-        <hr>
-
-        <div class="modal-body">
-          <div class="modal-body-img">
-            <img id="book-cover-modal" alt="Book Cover" class="imgsec">
-          </div>
-          <br>
-          <div class="modal-body-details">
-
-          </div>
-        </div>
-      </div>
-
-    </div>
     {% endfor %}
   </section>
 </section>
@@ -118,9 +97,8 @@ Página Inicial
     .forEach(card => {
       card.addEventListener('click', async () => {
         const data = await get_book_data(card.dataset.apiUrl);
-        console.log(data)
 
-        document.getElementById('book-cover-modal').setAttribute('src', data.cover)
+        document.getElementById('book-cover-modal').setAttribute('src', 'http://127.0.0.1:8000/media/cover-photos/ex_rWWUHq1.jpg')
         document.getElementById('modalTitle').textContent = data.title;
         document.getElementById('modalDescription').textContent = data.summary;
         // document.getElementById('modalPages').textContent = data.pages;
