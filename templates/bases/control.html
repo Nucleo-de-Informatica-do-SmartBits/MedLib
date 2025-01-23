@@ -2,6 +2,7 @@
 
 {% load static tailwind_tags %}
 
+{% load compress %}
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -10,6 +11,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
+
+    {% compress css %}
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('{% static "fonts/Roboto-Medium.ttf" %}');
+        }
+
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    {% endcompress %}
 
     {% tailwind_css %}
 
