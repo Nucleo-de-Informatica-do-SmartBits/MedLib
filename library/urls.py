@@ -7,7 +7,7 @@ from .views import (
     manageBook,
     getBookData,
     readBook,
-    sugest
+    sugest,
 )
 
 urlpatterns = [
