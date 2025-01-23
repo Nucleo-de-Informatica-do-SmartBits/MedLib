@@ -143,8 +143,8 @@ def getBookData(request, slug):
             "categories": [category.name for category in book.categories.all()],
             "authors": [[author.photo.url, author.get_full_name] for author in book.authors.all() if author.photo],
             "isbn": book.isbn,
-            "publisher": book.publisher.name,
-            "publication_date": book.publication_date,
+            "publisher": [book.publisher.photo.url, book.publisher.name] if book.publisher.photo else book.publisher.name,
+            "publication_date": book.publication_date.strftime("%Y"),
             "edition": book.edition,
             "read_link": reverse("books-read", args=[book.slug]),
         }

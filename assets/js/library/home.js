@@ -13,7 +13,6 @@ function changeImage() {
     let text = document.querySelector('#text')
 
     currentIndex = (currentIndex + 1) % totalImages;
-    console.log(currentIndex)
 
     const offset = -currentIndex * 100;
     document.getElementById("image-slider").style.transform = `translateX(${offset}%)`;
@@ -22,8 +21,8 @@ function changeImage() {
 }
 
 setInterval(changeImage, 3000);
-function openModal(modalId) {
 
+function openModal(modalId) {
     const modal = document.getElementById(modalId);
     modal.style.display = "flex";
 }
