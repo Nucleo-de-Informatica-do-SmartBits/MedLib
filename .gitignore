@@ -13,7 +13,7 @@ media
 *.jpg
 *.jpeg
 *.png
-uploads/
+/uploads/
 theme/static_src/node_modules
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
@@ -270,6 +270,3 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django
-
-books/
-uploads/
