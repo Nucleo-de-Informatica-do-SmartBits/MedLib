@@ -1,4 +1,5 @@
 {% load static %}
+{% load compress %}
 
 <nav>
     <div class="logo-container">
@@ -60,13 +61,19 @@
             <li>
                 <a href="" class="js-link" tabindex="-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8"></path>
-                        <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"></path>
-                        <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"></path>
+                        <path fill-rule="evenodd"
+                            d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8">
+                        </path>
+                        <path
+                            d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2">
+                        </path>
+                        <path
+                            d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z">
+                        </path>
                     </svg>
-                    
+
                     <span class="nav-text">Cursos</span>
-                    
+
                 </a>
             </li>
         </ul>
@@ -81,8 +88,7 @@
                         id="formbold-form-input" placeholder="Livros, autores, categorias..."
                         onfocus="this.classList.remove('w-12');"
                         onblur="if(this.value === '') { this.classList.remove('w-64'); this.classList.add('w-12'); }"
-                        style="border-radius: 3px; outline: none;resize: none;"
-                        name="search">
+                        style="border-radius: 3px; outline: none;resize: none;" name="search">
                     <button type="submit" class="absolute right-0 top-0 mt-3 mr-4" id="btn-search">
                         <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path
@@ -131,80 +137,82 @@
     </div>
 </nav>
 
-<script>
-    function typeWriter(element, text, speed, callback) {
-        let index = 0;
-        const elementText = text;
+{% compress js %}
+    <script>
+        function typeWriter(element, text, speed, callback) {
+            let index = 0;
+            const elementText = text;
 
-        function typingEffect() {
-            if (index < elementText.length) {
-                element.textContent += elementText.charAt(index);
-                index++;
-                setTimeout(typingEffect, speed);
-            } else if (callback) {
-                setTimeout(callback, 10);
+            function typingEffect() {
+                if (index < elementText.length) {
+                    element.textContent += elementText.charAt(index);
+                    index++;
+                    setTimeout(typingEffect, speed);
+                } else if (callback) {
+                    setTimeout(callback, 10);
+                }
             }
+
+            typingEffect();
         }
 
-        typingEffect();
-    }
+        function deleteText(element, speed, callback) {
+            let text = element.textContent;
 
-    function deleteText(element, speed, callback) {
-        let text = element.textContent;
-
-        function erase() {
-            if (text.length > 0) {
-                text = text.slice(0, -1);
-                element.textContent = text;
-                setTimeout(erase, speed);
-            } else if (callback) {
-                setTimeout(callback, 500);
+            function erase() {
+                if (text.length > 0) {
+                    text = text.slice(0, -1);
+                    element.textContent = text;
+                    setTimeout(erase, speed);
+                } else if (callback) {
+                    setTimeout(callback, 500);
+                }
             }
+
+            erase();
         }
 
-        erase();
-    }
+        const typewriterElement = document.getElementById('typewriter');
+        const text = 'SmartBits Virtual MedLib';
 
-    const typewriterElement = document.getElementById('typewriter');
-    const text = 'SmartBits Virtual MedLib';
+        function startTypingEffect() {
+            typeWriter(typewriterElement, text, 50, () => {
+                setTimeout(() => {
+                    deleteText(typewriterElement, 30, startTypingEffect);
+                }, 1000);
+            });
+        }
 
-    function startTypingEffect() {
-        typeWriter(typewriterElement, text, 50, () => {
-            setTimeout(() => {
-                deleteText(typewriterElement, 30, startTypingEffect);
-            }, 1000);
+        setTimeout(() => {
+            startTypingEffect();
+        }, 800)
+
+
+        const profileImg = document.getElementById('profile-img');
+        const profileMenu = document.getElementById('profile-menu');
+
+        profileImg.addEventListener('click', () => {
+            if (profileMenu.classList.contains('hidden')) {
+                profileMenu.classList.remove('hidden');
+                setTimeout(() => {
+                    profileMenu.classList.remove('scale-95', 'opacity-0');
+                    profileMenu.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            } else {
+                profileMenu.classList.remove('scale-100', 'opacity-100');
+                profileMenu.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => profileMenu.classList.add('hidden'), 200);
+            }
         });
-    }
-
-    setTimeout(() => {
-        startTypingEffect();
-    }, 800)
 
 
-    const profileImg = document.getElementById('profile-img');
-    const profileMenu = document.getElementById('profile-menu');
+        document.addEventListener('click', (event) => {
+            if (!profileImg.contains(event.target) && !profileMenu.contains(event.target)) {
+                profileMenu.classList.remove('scale-100', 'opacity-100');
+                profileMenu.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => profileMenu.classList.add('hidden'), 200);
+            }
+        });
 
-    profileImg.addEventListener('click', () => {
-        if (profileMenu.classList.contains('hidden')) {
-            profileMenu.classList.remove('hidden');
-            setTimeout(() => {
-                profileMenu.classList.remove('scale-95', 'opacity-0');
-                profileMenu.classList.add('scale-100', 'opacity-100');
-            }, 10);
-        } else {
-            profileMenu.classList.remove('scale-100', 'opacity-100');
-            profileMenu.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => profileMenu.classList.add('hidden'), 200);
-        }
-    });
-
-
-    document.addEventListener('click', (event) => {
-        if (!profileImg.contains(event.target) && !profileMenu.contains(event.target)) {
-            profileMenu.classList.remove('scale-100', 'opacity-100');
-            profileMenu.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => profileMenu.classList.add('hidden'), 200);
-        }
-    });
-
-</script>
+    </script>
+{% endcompress %}

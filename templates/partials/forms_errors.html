@@ -1,3 +1,5 @@
+{% load compress %}
+
 <div id="message-container" class="fixed top-0 right-0 z-50 p-4 space-y-4" style="z-index: 200;">
     {% for field, errors in form.errors.items %}
     {% for error in errors %}
@@ -14,10 +16,11 @@
     {% endfor %}
 </div>
 
+{% compress js %}
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll('.alert')
-            .forEach(alert => {
+        .forEach(alert => {
                 setTimeout(() => {
                     alert.classList.add('opacity-0');
                     setTimeout(function () {
@@ -27,3 +30,4 @@
             });
     });
 </script>
+{% endcompress %}
