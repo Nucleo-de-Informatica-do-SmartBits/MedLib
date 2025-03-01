@@ -44,7 +44,7 @@ class BookForm(forms.ModelForm):
             "edition",
         ]
         widgets = {
-            "cover": forms.ClearableFileInput(
+            "cover": forms.FileInput(
                 attrs={
                     "class": "w-full text-gray-400 text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-800 rounded"
                 }
@@ -193,8 +193,8 @@ class SugestionForm(forms.Form):
     def clean(self):
         cleaned_data = super(SugestionForm, self).clean()
 
-        about = self.cleaned_data.get("about", "").strip()
-        sugestion = self.cleaned_data.get("sugestion", "").strip() 
+        about = cleaned_data.get("about", "").strip()
+        sugestion = cleaned_data.get("sugestion", "").strip() 
 
         if not about:
             raise forms.ValidationError(message="Campo (Sobre) não foi preechido!")
@@ -202,7 +202,7 @@ class SugestionForm(forms.Form):
         if not sugestion:
             raise forms.ValidationError(message="Campo (sugestão) não foi preechido")
 
-        return self.cleaned_data
+        return cleaned_data
     
     def save(self):
         """
@@ -212,13 +212,11 @@ class SugestionForm(forms.Form):
             - user: Is the Reader, mean the User loged
                 * give it: request.user
         """
-        self.clean()
 
         sugestion = Sugestion(
             user=self.request.user,
-            about=self.cleaned_data['about'],
-            text=self.cleaned_data['sugestion'],
-            date_sugested=timezone.now()
+            about=self.cleaned_data.get('about'),
+            text=self.cleaned_data('sugestion'),
         )
 
         sugestion.save()

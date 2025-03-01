@@ -34,13 +34,13 @@
                 <div class="flex-1 space-y-4" style="width: 50%;">
                     <div class="mb-4">
                         <label for="title" class="block text-sm font-medium text-gray-700">Título</label>
-                        {{ book_form.title }}
+                        {{ form.title }}
                     </div>
 
                     <!-- Capa e Arquivo do Livro -->
                     <div class="flex-1">
                         <label for="cover" class="block text-sm font-medium text-gray-700">Capa do Livro</label>
-                        {{ book_form.cover }}
+                        {{ form.cover }}
                     </div>
 
 
@@ -48,11 +48,11 @@
                     <div class="flex space-x-4 mb-4">
                         <div class="flex-1">
                             <label for="publisher" class="block text-sm font-medium text-gray-700">Editora</label>
-                            {{ book_form.publisher }}
+                            {{ form.publisher }}
                         </div>
                         <div class="flex-1">
                             <label for="language" class="block text-sm font-medium text-gray-700">Idioma</label>
-                            {{ book_form.language }}
+                            {{ form.language }}
                         </div>
                     </div>
 
@@ -60,11 +60,11 @@
                     <div class="flex space-x-4 mb-4">
                         <div class="flex-1">
                             <label for="edition" class="block text-sm font-medium text-gray-700">Edição</label>
-                            {{ book_form.edition }}
+                            {{ form.edition }}
                         </div>
                         <div class="flex-1">
                             <label for="pages" class="block text-sm font-medium text-gray-700">Número de Páginas</label>
-                            {{ book_form.pages }}
+                            {{ form.pages }}
                         </div>
                     </div>
 
@@ -72,13 +72,13 @@
                     <div class="flex space-x-4 mb-4">
                         <div class="flex-1">
                             <label for="authors" class="block text-sm font-medium text-gray-700">Autores</label>
-                            {{ book_form.authors }}
+                            {{ form.authors }}
                         </div>
                         <div class="flex-1">
                             <label for="id_categories"
                                 class="block text-sm font-medium text-gray-700">Categorias</label>
                             <div class="mt-1">
-                                {{ book_form.categories }}
+                                {{ form.categories }}
                             </div>
                         </div>
                     </div>
@@ -88,20 +88,20 @@
                 <div style="width: 50%;border-left: 2px solid #EFEFEF; margin-left: 20px;" class="pl-4 space-y-4">
                     <div class="flex-1">
                         <label for="isbn" class="block text-sm font-medium text-gray-700">ISBN</label>
-                        {{ book_form.isbn }}
+                        {{ form.isbn }}
                     </div>
                     <div class="flex-1">
                         <label for="document" class="block text-sm font-medium text-gray-700">Arquivo do Livro</label>
-                        {{ book_form.document }}
+                        {{ form.document }}
                     </div>
                     <div class="flex-1">
                         <label for="summary" class="block text-sm font-medium text-gray-700">Resumo</label>
-                        {{ book_form.summary }}
+                        {{ form.summary }}
                     </div>
                     <div class="flex-1">
                         <label for="publication_date" class="block text-sm font-medium text-gray-700">Data de
                             Publicação</label>
-                        {{ book_form.publication_date}}
+                        {{ form.publication_date}}
                     </div>
                 </div>
 

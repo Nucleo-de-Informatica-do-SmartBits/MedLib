@@ -13,6 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
 
+    {% compress css %}
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('{% static "fonts/Roboto-Medium.ttf" %}');
+        }
+
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    {% endcompress %}
+    
     {% compress js %}
     <script src="https://unpkg.com/htmx.org@2.0.4"
         integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
