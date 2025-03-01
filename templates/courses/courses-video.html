@@ -1,0 +1,22 @@
+{% extends "bases/library.html" %}
+{% load static %}
+{% load compress %}
+
+{% block title %}Cursos{% endblock title %}
+
+{% block head %}
+      {% compress css %}
+      <link rel="stylesheet" href="{% static 'css/library/home.css' %}">
+      {% endcompress %}
+{% endblock head %}
+
+{% block content %}
+
+      {% for video in videos %}
+            <div class="div-card-video" style="max-width: 500px; height: auto; margin: 3px; background-color: #333; color: #fff;">
+                  <video src="/media/{{video.path}}" controls></video>
+                  <h1 align="center">{{video}}</h1>
+            </div>
+      {% endfor %}
+
+{% endblock content %}
