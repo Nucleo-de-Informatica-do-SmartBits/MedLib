@@ -216,7 +216,7 @@ class SugestionForm(forms.Form):
         sugestion = Sugestion(
             user=self.request.user,
             about=self.cleaned_data.get('about'),
-            text=self.cleaned_data('sugestion'),
+            text=self.cleaned_data.get('sugestion'),
         )
 
         sugestion.save()
