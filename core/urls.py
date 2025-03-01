@@ -7,6 +7,7 @@ from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path("library/", include("library.urls")),
+    path("courses/", include("courses.urls")),
     path("auth/", include("control.urls")),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
