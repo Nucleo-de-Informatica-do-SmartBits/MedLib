@@ -115,8 +115,8 @@ class Book(models.Model):
         verbose_name="Data de Publicação",
     )
 
-    document = models.FileField(
-        verbose_name="Documento", upload_to="books/", null=True, blank=True
+    document = CloudinaryField(
+        resource_type="raw", folder="books/", null=True, blank=True,
     )
 
     created_at = models.DateTimeField(
