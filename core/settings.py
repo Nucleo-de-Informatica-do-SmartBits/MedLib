@@ -165,3 +165,20 @@ REDIRECT_FIELD_NAME = "then"
 
 # Frame control
 X_FRAME_OPTIONS = "SAMEORIGIN"
+
+
+COMPRESS_ENABLED = True
+COMPRESS_STORAGE = STATICFILES_STORAGE
+COMPRESS_OFFLINE = True  # Faz a compressão antecipada dos arquivos
+
+# Configuração dos filtros de compressão
+COMPRESS_CSS_FILTERS = [
+    "compressor.filters.css_default.CssAbsoluteFilter",
+    "compressor.filters.cssmin.CSSMinFilter",
+]
+COMPRESS_JS_FILTERS = [
+    "compressor.filters.jsmin.JSMinFilter",
+]
+
+# Usar Brotli para compressão mais eficiente
+COMPRESS_STORAGE = "compressor.storage.BrotliCompressorFileStorage"
