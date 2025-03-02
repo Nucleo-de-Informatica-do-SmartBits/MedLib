@@ -10,10 +10,5 @@ urlpatterns = [
     path("courses/", include("courses.urls")),
     path("auth/", include("control.urls")),
     path("admin/", admin.site.urls),
-    path("__reload__/", include("django_browser_reload.urls")),
     path("", RedirectView.as_view(url=reverse_lazy('home'))) 
 ]
-
-# Servindo os arquivos de mídia e estáticos
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

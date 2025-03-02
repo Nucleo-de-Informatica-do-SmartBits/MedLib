@@ -1,0 +1,57 @@
+.card-div {
+    user-select: none;
+    cursor: pointer;
+}
+
+.card-div:hover .svg-div {
+    background-color: rgba(60, 176, 199, 0.13);
+    color: #3CB0C7;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.svg-div svg {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.card-div:hover .svg-div svg {
+    color: #3CB0C7;
+    cursor: pointer;
+}
+
+.svg-div,
+.add-book {
+    padding: 10px;
+    background-color: #80808021;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.add-book {
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.add-book:hover {
+    cursor: pointer;
+    background-color: rgba(60, 176, 199, 0.13);
+    color: #3CB0C7;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.main-info-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.text-gray-800 {
+    color: #333;
+}
+
+.text-gray-700 {
+    color: #333333c2;
+}
+
+.text-gray-500 {
+    color: #777;
+}

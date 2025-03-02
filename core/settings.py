@@ -7,7 +7,7 @@ import environ
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 
-environ.Env.read_env(BASE_DIR.joinpath("core", "secrets", ".env"))
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -16,7 +16,7 @@ environ.Env.read_env(BASE_DIR.joinpath("core", "secrets", ".env"))
 SECRET_KEY = env("SECRET_KET", default="unsafe-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -33,14 +33,14 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     # "crispy_forms",
     # "crispy_tailwind",
-    "django_browser_reload",
+    # "django_browser_reload",
     "compressor",
     "tailwind",
     "theme",
     "control",
     "library",
     "courses",
-    "colorfield"
+    "colorfield",
 ]
 
 # Internal IPS
@@ -57,11 +57,12 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -91,10 +92,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR.joinpath("core", "secrets", "db.sqlite3"),
-    }
+    "default": env.db("DATABASE_URL"),
 }
 
 
@@ -135,13 +133,14 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = (BASE_DIR.joinpath("assets"),)
 STATIC_ROOT = BASE_DIR.joinpath("staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Compressor
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 )
 
 
@@ -165,4 +164,4 @@ LOGIN_URL = "/auth/signin/"
 REDIRECT_FIELD_NAME = "then"
 
 # Frame control
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = "SAMEORIGIN"
