@@ -1,13 +1,17 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_http_methods
 
 from .forms import BookForm, SugestionForm
-from .models import Author, Book, Category, Publisher, Sugestion
+from .models import Author, Book, Category, Publisher, Sugestion, Comment
 
 
 @login_required
@@ -124,30 +128,37 @@ def sugest(request):
             return redirect(to="sugestion")
     else:
         forms = SugestionForm()
-        
+
     ctx.update({"forms": forms})
     return render(request=request, template_name=template_name, context=ctx)
 
 
 @login_required
-def getBookData(request, slug):
-    book = get_object_or_404(Book, slug=slug)
+@require_http_methods(["POST"])
+def add_comment(request):
+    data = json.loads(request.body)
+    book_slug = data.get("book_slug")
+    content = data.get("content")
+
+    if not content:
+        return JsonResponse({"error": "no content"}, status=400)
+
+    if not book_slug:
+        return JsonResponse({"error": "no book_slug"}, status=400)
+
+    book = get_object_or_404(Book, slug=book_slug)
+    user = get_user(request)
+
+    comment = Comment.objects.create(user=user, book=book, content=content)
 
     return JsonResponse(
         {
-            "cover": book.cover.url if book.cover else "",
-            "title": book.title,
-            "summary": book.summary,
-            "pages": book.pages,
-            "language": book.get_language_display(),
-            "categories": [category.name for category in book.categories.all()],
-            "authors": [[author.photo.url, author.get_full_name] for author in book.authors.all() if author.photo],
-            "isbn": book.isbn,
-            "publisher": [book.publisher.photo.url, book.publisher.name] if book.publisher.photo else book.publisher.name,
-            "publication_date": book.publication_date.strftime("%Y"),
-            "edition": book.edition,
-            "read_link": reverse("books-read", args=[book.slug]),
-        }
+            "userId": comment.user.id,
+            "username": comment.user.username,
+            "book": comment.book.slug,
+            "content": comment.content,
+        },
+        status=201,
     )
 
 
