@@ -132,3 +132,113 @@ hr {
 .book-summary {
     line-height: 1.6;
 }
+
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: #333;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 4px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.comment {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.comment-input input:focus {
+    border: 1px solid #3CB0C7;
+    box-shadow: 0 0 5px rgba(60, 176, 199, 0.5);
+}
+
+.submit-btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #3CB0C7;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.submit-btn:hover {
+    box-shadow: 0px 0px 20px 3px #3cb0c751;
+
+}
+
+.comment-author {
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(0, 132, 255);
+    margin-bottom: 5px;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.likes,
+.dislikes {
+    cursor: pointer;
+    user-select: none;
+}
+
+.likes:hover,
+.dislikes:hover {
+    opacity: 0.7;
+}
+
+.loader {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid white;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

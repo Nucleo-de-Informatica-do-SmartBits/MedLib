@@ -18,7 +18,7 @@
     <div class="container">
       <div class="book-cover">
         <img src="{{ book.cover.url }}" alt="{{ book.title }}" />
-        <br><hr>
+        <br /><hr />
       </div>
       <div class="book-layout">
         <div class="book-info">
@@ -32,8 +32,13 @@
             {% endfor %}
           </p>
 
-          <div class="book-rating">
-            
+          <div>
+            <div class="book-rating" style="margin-top: 10px;margin-bottom:15px;">
+              {% for category in book.categories.all %}
+                <span class="badge" style="background-color: {{ category.color }};" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">{{ category.name }}</span>
+              {% endfor %}
+            </div>
+            <div class="book-stars"></div>
           </div>
           <hr />
           <p class="book-summary">{{ book.summary }}</p>
@@ -70,10 +75,48 @@
       <div class="comments">
         <h1>Comentários</h1>
         <hr />
+        <div class="comment-input">
+          <input type="text" placeholder="Escreva um comentário..." />
+          <button class="submit-btn">Enviar</button>
+        </div>
+        <hr />
+        <div class="comment">
+          <h3 class="comment-author">João Silva</h3> <!-- Nome do autor -->
+          <p class="comment-text">Gostei muito desse artigo, foi muito útil!</p> <!-- Texto do comentário -->
+          <div class="comment-actions">
+            <span class="likes">👍 12</span> <!-- Número de likes -->
+            <span class="dislikes">👎 2</span> <!-- Número de dislikes -->
+          </div>
+        </div>
+
+        <div class="comment">
+          <h3 class="comment-author">Maria Oliveira</h3>
+          <p class="comment-text">Achei interessante, mas poderia ter mais detalhes.</p>
+          <div class="comment-actions">
+            <span class="likes">👍 8</span>
+            <span class="dislikes">👎 1</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </div>  
   </main>
 
   {% compress js %}
+  <script>
+    document.querySelector('.submit-btn').addEventListener('click', function () {
+      let button = this
+    
+      let loader = document.createElement('span')
+      loader.classList.add('loader')
+    
+      button.innerHTML = 'Enviando'
+      button.appendChild(loader)
+    
+      setTimeout(() => {
+        button.innerHTML = 'Enviar'
+      }, 2000)
+    })
+  </script>
+
   {% endcompress %}
 {% endblock %}
