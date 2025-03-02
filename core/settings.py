@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KET", default="unsafe-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -169,7 +169,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 
 COMPRESS_ENABLED = True
 COMPRESS_STORAGE = STATICFILES_STORAGE
-COMPRESS_OFFLINE = True
+COMPRESS_OFFLINE = False
 
 # Configuração dos filtros de compressão
 COMPRESS_CSS_FILTERS = [
