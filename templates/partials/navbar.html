@@ -80,7 +80,7 @@
     </div>
 
     <div class="user-img">
-        <div>
+        {% comment %} <div>
             <form method="GET" action="{% url 'home' %}">
                 <div class="relative flex items-center">
                     <input type="text"
@@ -99,7 +99,7 @@
                 </div>
             </form>
 
-        </div>
+        </div> {% endcomment %}
         <div>
 
             <img src="{% static 'imgs/user.png' %}" alt="User Default Image" class="logo h-10" id="profile-img">
