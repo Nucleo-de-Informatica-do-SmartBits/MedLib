@@ -26,7 +26,6 @@
       <h1 class="text-6xl font-bold mb-4 text-center">Bem-vindo à Biblioteca Digital</h1>
       <p class="text-xl text-center mb-8 max-w-2xl">Explore um universo de conhecimento e imaginação. Encontre os melhores livros, autores e histórias que vão inspirar você.</p>
 
-      <!-- Campo de Pesquisa -->
       <div class="w-full max-w-md relative">
         <input type="text" placeholder="Pesquisar livros..." class="w-full px-4 py-3 rounded-full bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70" />
         <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all">
@@ -37,12 +36,10 @@
       </div>
     </div>
 
-    <!-- Texto Inspirador -->
     <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-xl text-center">
       <span id="text" style="cursor: text;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação."</span>
     </div>
 
-    <!-- Powered By IPPS -->
     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-opacity-70 text-sm">Powered By IPPS</div>
   </section>
 
@@ -56,7 +53,6 @@
           <div class="sec-info">
             <h3 class="book-title">{{ book.title|truncatechars:20 }}</h3>
             <p class="book-author">{{ book.author|default:'Autor Desconhecido' }}</p>
-            <p class="book-year">{{ book.publication_date|date:'Y' }}</p>
           </div>
         </div>
       {% endfor %}
