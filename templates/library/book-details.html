@@ -3,24 +3,98 @@
 {% load compress %}
 
 {% block title %}
-{{ book.title }}
-{% endblock title %}
+  {{ book.title }}
+{% endblock %}
 
 {% block head %}
-{% compress css %}
-<link rel="stylesheet" href="{% static 'css/library/book-details.css' %}">
-{% endcompress %}
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
+  {% endcompress %}
 {% endblock %}
 
 {% block content %}
+  <main id="main-book-details" class="min-h-screen bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl mx-auto">
+        <div class="flex flex-col md:flex-row">
+          <!-- Capa do Livro -->
+          <div class="md:w-1/3 p-6">
+            <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="w-full h-auto rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" />
+          </div>
+          <!-- Detalhes do Livro -->
+          <div class="md:w-2/3 p-6">
+            <h1 class="text-4xl font-bold text-[#333] mb-4">{{ book.title }}</h1>
 
+            <!-- Autores -->
+            <div class="mb-6">
+              <h2 class="text-xl font-semibold text-[#333]">Autores</h2>
+              <ul class="mt-2">
+                {% for author in book.authors.all %}
+                  <li class="text-[#555]">{{ author.get_full_name }}</li>
+                {% endfor %}
+              </ul>
+            </div>
 
-<main id="main-book-details" class="min-h-screen bg-gray-100 py-8">
-      
-</main>
+            <!-- Resumo -->
+            <div class="mb-6">
+              <h2 class="text-xl font-semibold text-[#333]">Resumo</h2>
+              <p class="mt-2 text-[#555] leading-relaxed">{{ book.summary }}</p>
+            </div>
 
+            <!-- Informações Adicionais -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <!-- Editora -->
+              <div>
+                <h2 class="text-xl font-semibold text-[#333]">Editora</h2>
+                <p class="mt-2 text-[#555]">{{ book.publisher.name }}</p>
+              </div>
 
-{% compress js %}
-{% endcompress %}
+              <!-- Categorias -->
+              <div>
+                <h2 class="text-xl font-semibold text-[#333]">Categorias</h2>
+                <ul class="mt-2">
+                  {% for category in book.categories.all %}
+                    <li class="text-[#555]">{{ category.name }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
 
-{% endblock content %}
+              <!-- Data de Publicação -->
+              <div>
+                <h2 class="text-xl font-semibold text-[#333]">Data de Publicação</h2>
+                <p class="mt-2 text-[#555]">{{ book.publication_date }}</p>
+              </div>
+
+              <!-- Idioma -->
+              <div>
+                <h2 class="text-xl font-semibold text-[#333]">Idioma</h2>
+                <p class="mt-2 text-[#555]">{{ book.get_language_display }}</p>
+              </div>
+
+              <!-- Páginas -->
+              <div>
+                <h2 class="text-xl font-semibold text-[#333]">Páginas</h2>
+                <p class="mt-2 text-[#555]">{{ book.pages }}</p>
+              </div>
+
+              <!-- Edição -->
+              <div>
+                <h2 class="text-xl font-semibold text-[#333]">Edição</h2>
+                <p class="mt-2 text-[#555]">{{ book.edition }}</p>
+              </div>
+            </div>
+
+            <!-- Botão "Ler Livro" -->
+            <div class="mt-6">
+              <a href="{{ book.document.url }}" class="inline-block bg-[#3DB1C8] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2C8A9E] transition-colors duration-300">Ler Livro</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  {% compress js %}
+  <!-- Adicione scripts JS aqui, se necessário -->
+  {% endcompress %}
+{% endblock %}
