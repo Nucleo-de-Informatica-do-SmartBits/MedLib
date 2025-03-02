@@ -2,13 +2,13 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from colorfield.fields import ColorField
-
+from cloudinary.models import CloudinaryField
 # TODO: add doc
 
 
 class Author(models.Model):
-    photo = models.ImageField(
-        verbose_name="Foto", upload_to="author-photos/", null=True, blank=True
+    photo = CloudinaryField(
+        verbose_name="Foto", folder="author-photos/", null=True, blank=True
     )
 
     first_name = models.CharField(
@@ -52,8 +52,8 @@ class Author(models.Model):
 
 
 class Publisher(models.Model):
-    photo = models.ImageField(
-        verbose_name="Foto", upload_to="publisher-photos", null=True, blank=True
+    photo = CloudinaryField(
+        verbose_name="Foto", folder="publisher-photos/", null=True, blank=True
     )
     name = models.CharField(verbose_name="Nome", max_length=255, unique=True)
     website = models.URLField(verbose_name="Website", blank=True, null=True)
@@ -85,8 +85,8 @@ class Book(models.Model):
         ("EN", "Inglês"),
     ]
 
-    cover = models.ImageField(
-        verbose_name="Capa", upload_to="cover-photos/", null=True, blank=True
+    cover = CloudinaryField(
+        verbose_name="Capa", folder="cover-photos/", null=True, blank=True
     )
 
     title = models.CharField(

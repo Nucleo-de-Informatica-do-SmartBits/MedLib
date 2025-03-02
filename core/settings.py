@@ -150,9 +150,22 @@ STATICFILES_FINDERS = (
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Media Files
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR.joinpath("uploads")
+import cloudinary #noqa
+import cloudinary.uploader #noqa
+import cloudinary.api #noqa
 
+# Configuração do Cloudinary
+cloudinary.config(
+    cloud_name="dlnqu4z4m",
+    api_key="556983966797867",
+    api_secret="8NvyBb6kbpnH4gpnI6-tYOq2VlI",
+    secure=True,
+)
+
+# Definir Cloudinary como armazenamento de mídia
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+MEDIA_URL = "https://res.cloudinary.com/dlnqu4z4m/"
 
 # Tailwind conf
 TAILWIND_APP_NAME = "theme"
