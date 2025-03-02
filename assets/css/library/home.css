@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 #text {
     font-style: italic;
     font-family: 'Roboto', sans-serif;
@@ -13,8 +15,9 @@
 
 
 .card-book {
-    background-color: #ffffff;
-    border-radius: 4px;
+    background-color: white;
+    font-family: 'Roboto';
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     width: 200px;
@@ -27,20 +30,32 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+.book-author {
+    font-style: italic;
+}
+
 .sec-image {
-    width: auto;
-    height: 300px;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+.sec-image img {
+    width: 100px;
+    height: auto;
 }
 
 .sec-info {
-    padding: 4px;
+    padding: 0px 0px 18px 20px;
+    text-align: left;
 }
 
 .book-title {
     font-size: 16px;
     font-weight: bold;
-    margin: 8px 0;
     color: #333;
 }
 
