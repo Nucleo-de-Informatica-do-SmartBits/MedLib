@@ -8,93 +8,72 @@
 
 {% block head %}
   {% compress css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
   {% endcompress %}
 {% endblock %}
 
 {% block content %}
-  <main id="main-book-details" class="min-h-screen bg-gray-50 py-12">
-    <div class="container mx-auto px-4">
-      <div class="bg-white rounded-xl shadow-lg overflow-hidden max-w-4xl mx-auto">
-        <div class="flex flex-col md:flex-row">
-          <!-- Capa do Livro -->
-          <div class="md:w-1/3 p-6">
-            <img src="{{ book.cover.url }}" alt="{{ book.title }}" class="w-full h-auto rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300" />
+  <main id="book-details">
+    <div class="container">
+      <div class="book-cover">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}" />
+        <br><hr>
+      </div>
+      <div class="book-layout">
+        <div class="book-info">
+          <div style="display: flex;justify-content: space-between;align-items: center;">
+            <h1 class="book-title">{{ book.title }}</h1>
+            <a href=""><button class="bn53"><span>Ler Livro</span></button></a>
           </div>
-          <!-- Detalhes do Livro -->
-          <div class="md:w-2/3 p-6">
-            <h1 class="text-4xl font-bold text-[#333] mb-4">{{ book.title }}</h1>
+          <p class="book-author">
+            by{% for author in book.authors.all %}
+              <a href="" class="author_link">{{ author.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </p>
 
-            <!-- Autores -->
-            <div class="mb-6">
-              <h2 class="text-xl font-semibold text-[#333]">Autores</h2>
-              <ul class="mt-2">
-                {% for author in book.authors.all %}
-                  <li class="text-[#555]">{{ author.get_full_name }}</li>
-                {% endfor %}
-              </ul>
+          <div class="book-rating">
+            
+          </div>
+          <hr />
+          <p class="book-summary">{{ book.summary }}</p>
+          <hr />
+          <div class="book-details">
+            <div class="detail">
+              <span>Data de Publicação</span>
+              <i class="bi bi-calendar2-week"></i>
+              <span class="detail-value">{{ book.publication_date }}</span>
             </div>
-
-            <!-- Resumo -->
-            <div class="mb-6">
-              <h2 class="text-xl font-semibold text-[#333]">Resumo</h2>
-              <p class="mt-2 text-[#555] leading-relaxed">{{ book.summary }}</p>
+            <div class="detail">
+              <span>Idioma</span>
+              <i class="bi bi-globe-americas"></i>
+              <span class="detail-value">{{ book.get_language_display }}</span>
             </div>
-
-            <!-- Informações Adicionais -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <!-- Editora -->
-              <div>
-                <h2 class="text-xl font-semibold text-[#333]">Editora</h2>
-                <p class="mt-2 text-[#555]">{{ book.publisher.name }}</p>
-              </div>
-
-              <!-- Categorias -->
-              <div>
-                <h2 class="text-xl font-semibold text-[#333]">Categorias</h2>
-                <ul class="mt-2">
-                  {% for category in book.categories.all %}
-                    <li class="text-[#555]">{{ category.name }}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-
-              <!-- Data de Publicação -->
-              <div>
-                <h2 class="text-xl font-semibold text-[#333]">Data de Publicação</h2>
-                <p class="mt-2 text-[#555]">{{ book.publication_date }}</p>
-              </div>
-
-              <!-- Idioma -->
-              <div>
-                <h2 class="text-xl font-semibold text-[#333]">Idioma</h2>
-                <p class="mt-2 text-[#555]">{{ book.get_language_display }}</p>
-              </div>
-
-              <!-- Páginas -->
-              <div>
-                <h2 class="text-xl font-semibold text-[#333]">Páginas</h2>
-                <p class="mt-2 text-[#555]">{{ book.pages }}</p>
-              </div>
-
-              <!-- Edição -->
-              <div>
-                <h2 class="text-xl font-semibold text-[#333]">Edição</h2>
-                <p class="mt-2 text-[#555]">{{ book.edition }}</p>
-              </div>
+            <div class="detail">
+              <span>Páginas</span>
+              <i class="bi bi-file-earmark-text"></i>
+              <span class="detail-value">{{ book.pages }}</span>
             </div>
-
-            <!-- Botão "Ler Livro" -->
-            <div class="mt-6">
-              <a href="{{ book.document.url }}" class="inline-block bg-[#3DB1C8] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#2C8A9E] transition-colors duration-300">Ler Livro</a>
+            <div class="detail">
+              <span>Editora</span>
+              <i class="bi bi-buildings"></i>
+              <span class="detail-value">{{ book.publisher.name }}</span>
+            </div>
+            <div class="detail">
+              <span>ISBN-13</span>
+              <i class="bi bi-upc-scan"></i>
+              <span class="detail-value">{{ book.isbn }}</span>
             </div>
           </div>
         </div>
+      </div>
+      <div class="comments">
+        <h1>Comentários</h1>
+        <hr />
       </div>
     </div>
   </main>
 
   {% compress js %}
-  <!-- Adicione scripts JS aqui, se necessário -->
   {% endcompress %}
 {% endblock %}

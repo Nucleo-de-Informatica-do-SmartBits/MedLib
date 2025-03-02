@@ -1,17 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-#main-book-details {
-    height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #ffffff;
+}
+
+main {
+    font-family: 'Roboto';
+    min-height: 100dvh;
+    width: 100%;
+}
+
+.container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 30px;
+    padding: 50px;
+}
+
+.book-cover img {
+    width: 250px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.book-layout {
+    width: 60%;
+}
+
+.book-title {
+    font-size: 45px;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.comments {
+    width: 30%;
 }
 
 .book-details {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    text-align: center;
+    margin-top: 20px;
 }
 
-#img-div {
-    border-radius: 3px;
+.detail {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(246, 244, 244, 0.59);
     padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.detail i {
+    font-size: 24px;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.detail span {
+    font-size: 14px;
+    color: #333;
+}
+
+.detail-value {
+    font-weight: 600;
+    color: #000;
+}
+
+.comments {
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.24);
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.comments:hover {
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.24);
+}
+
+.comments h1 {
+    font-size: 30px;
+}
+
+.read-button {
+    padding: 10px;
+    background-color: #3CB0C7;
+    color: white;
+    border-radius: 5px;
+}
+
+.bn53 {
+    background-color: #3CB0C7;
+    color: white;
+    padding: 10px;
+    width: 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.bn53:hover {
+    box-shadow: 0px 0px 10px 10px #3cb0c751;
+    transition: all .3s;
+
+}
+
+.bn53:hover span {
+    text-shadow: 0px 0px 5px white, 0px 0px 10px white, 0px 0px 15px white;
+}
+
+.author_link {
+    color: rgb(0, 132, 255);
+    text-decoration: underline;
+}
+
+.book-summary {
+    line-height: 1.6;
 }
