@@ -169,7 +169,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 
 COMPRESS_ENABLED = True
 COMPRESS_STORAGE = STATICFILES_STORAGE
-COMPRESS_OFFLINE = True  # Faz a compressão antecipada dos arquivos
+COMPRESS_OFFLINE = True
 
 # Configuração dos filtros de compressão
 COMPRESS_CSS_FILTERS = [

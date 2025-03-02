@@ -1,38 +1,35 @@
 {% load static %}
+{% load compress %}
 
 {% load static tailwind_tags %}
 
-
 <!DOCTYPE html>
 <html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
-
+    {% compress css %}
     {% tailwind_css %}
+    {% endcompress %}
 
     {% block head %}
 
-    {% endblock head %}
+    {% endblock %}
 
     <title>
+      {% block title %}
 
-        {% block title %}
-
-        {% endblock title %}
-
+      {% endblock %}
     </title>
-</head>
+  </head>
 
-<body>
+  <body>
     {% include 'partials/messages.html' %}
 
     {% block content %}
-      
-    {% endblock content %}
 
-</body>
-
+    {% endblock %}
+  </body>
 </html>
