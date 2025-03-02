@@ -73,7 +73,7 @@ class Category(models.Model):
     name = models.CharField(
         verbose_name="Nome", max_length=100, unique=True, blank=False, null=False
     )
-    color = ColorField(default="#efefef")
+    color = ColorField(default="#efefef", null=True, blank=True)
 
     def __str__(self):
         return self.name
