@@ -6,17 +6,29 @@
 
 {% block head %}
       {% compress css %}
-      <link rel="stylesheet" href="{% static 'css/library/home.css' %}">
+      {% comment %} #Put here the css links {% endcomment %}
       {% endcompress %}
 {% endblock head %}
 
 {% block content %}
 
-      {% for video in videos %}
-            <div class="div-card-video" style="max-width: 500px; height: auto; margin: 3px; background-color: #333; color: #fff;">
-                  <video src="/media/{{video.path}}" controls></video>
-                  <h1 align="center">{{video}}</h1>
+      <div style="display:flex; width: 100%; cursor: pointer; justify-content: space-evenly;  flex-wrap: wrap; " class="">
+            
+            {% for video in videos %}
+            <div style="width: 20rem; margin: 5px;" class="bg-white rounded-lg shadow-lg ">
+                  <a href="{% url 'courses_watch' video.slug %}">
+                        <div class="flex-1 space-y-4 rounded-lg" style="width: 100%;">
+                              <div>
+                                    <video style="height: 200px; width: 100%" src="{{video.path.url}}"></video>
+                              </div>
+                              <hr>
+                              <div class="">
+                                    <h1 align="center">{{video}}</h1>
+                              </div>
+                        </div>
+                  </a>
             </div>
-      {% endfor %}
+                  {% endfor %}
+      </div>
 
 {% endblock content %}

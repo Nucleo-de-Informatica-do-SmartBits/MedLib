@@ -1,0 +1,110 @@
+{% extends "bases/library.html" %}
+{% load static %}
+{% load compress %}
+
+{% block title %}Cursos-Watch{% endblock title %}
+
+{% block head %}
+      {% compress css %}
+      <link rel="stylesheet" href="{% static 'css/courses/course-watch.css' %}">
+      {% endcompress %}
+{% endblock head %}
+{% block content %}
+<div class="bg-white rounded-lg shadow-lg div-master">
+      <div class="div-main">
+            <div class="main-vid-coments bg-white ">
+                  <div class="flex-1 space-y-4 rounded-lg shadow-lg">
+                        <video style="width: 100%; height: 500px;" src="{{video_main.path.url}}" controls></video>
+                        <div class="description" align="center">
+                              <em>{{video_main.title}}</em><br>
+                              <em><b>{{video_main.curso.teacher.first_name}} {{video_main.curso.teacher.last_name}}</b></em>
+                        </div>
+                  </div>
+                  <hr>
+                  <div class="div-coment  flex-1 space-y-4 rounded-lg shadow-lg" style="padding: 5px;">
+                        <!-- CHAT -->
+                        <div class="container">
+                              <span class="time-right">Samuel Zaya</span>
+                              <p style="width: 80%; text-align: justify;">Hey! I'm fine. Thanks for asking! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos eaque obcaecati ipsum. Sapiente id voluptatem, minima obcaecati omnis corporis iusto labore. Laboriosam nam quam dolorum doloribus amet neque distinctio beatae!</p>
+                              <span class="time-right">11:01</span>
+                        </div>
+                            
+                        <div class="container darker">
+                              <span class="time-right">Manuel Silva</span>
+                              <p style="width: 80%; text-align: justify;">Hey! I'm fine. Thanks for asking! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos eaque obcaecati ipsum. Sapiente id voluptatem, minima obcaecati omnis corporis iusto labore. Laboriosam nam quam dolorum doloribus amet neque distinctio beatae!</p>
+                              <span class="time-right">11:01</span>
+                        </div>
+                            
+                            
+                        <div class="container">
+                              <span class="time-right">Samuel Zaya</span>
+                              <p style="width: 80%; text-align: justify;">Hey! I'm fine. Thanks for asking! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos eaque obcaecati ipsum. Sapiente id voluptatem, minima obcaecati omnis corporis iusto labore. Laboriosam nam quam dolorum doloribus amet neque distinctio beatae!</p>
+                              <span class="time-right">11:01</span>
+                        </div>
+                  </div>
+                  <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group" style="margin: 4px; padding: 3px; ">
+                        <form method="GET" action="{% url 'home' %}">
+                              <div class="relative flex items-center">
+                                  <input type="text"
+                                    class="w-full pr-10 px-5 bg-white text-sm font-medium placeholder:text-[#53638780] w-12 right-0"
+                                    placeholder="Livros, autores, categorias..."
+                                    style="border-radius: 3px; border-color: #318da0; outline: none; resize: none;" name="search"
+                                    >
+                                    <div class="ml-4" style="color: #318da0; font-size: 20pt;">
+                                          <button class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-teal px-4 py-1 flex-shrink-0">
+                                              <!-- <span>Send</span> -->
+                                              <span class="ml-2">
+                                                  <svg class="w-4 h-4 transform rotate-45 -mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                                                  </svg>
+                                              </span>
+                                          </button>
+                                      </div>
+                              </div>
+                        </form>
+                  </div>
+            </div>
+
+            <div class="other-video">
+                  <ul>
+                        {% for video in paginator %}
+                                    <a href="{% url 'courses_watch' video.slug %}">
+                                          <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group" style="width: 100%; margin: 4px; padding: 3px;">
+                                                <div>
+                                                      <video style="height: 200px; width: 100%" src="{{video.path.url}}"></video>
+                                                </div>
+                                                <hr>
+                                                <div class="">
+                                                      <h1 align="center">{{video}}</h1>
+                                                </div>
+                                          </div>
+                                    </a>
+                        {% endfor %}
+                        
+                  </ul>
+
+                  
+
+                  <div class="btn-paginator" align="center">
+                        <ul>
+                              
+                              <li>
+                                    {% if paginator.has_previous %}
+                                          <a href="?page={{paginator.previous_page_number}}">back</a>
+                                    {% endif %}
+                              </li>
+                              <li><span class="current">
+                                    <em  align="center">Page {{ paginator.number }} of {{ paginator.paginator.num_pages }}.</em>
+                              </span></li>
+                              <li>
+                                    {% if paginator.has_next %}
+                                          <a href="?page={{paginator.next_page_number}}">next</a>
+                                    {% endif %}
+                              </li>
+                        </ul>
+
+                  </div>
+            </div>
+      </div>
+</div>
+{% endblock content %}
