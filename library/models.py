@@ -157,3 +157,17 @@ class Sugestion(models.Model):
 
     def __str__(self):
         return f"{self.user.username} ({self.date_sugested})"
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(
+        User,
+        related_name="books_comment",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    book = models.ForeignKey(Book, related_name="comments", on_delete=models.CASCADE)
+    content = models.TextField()
+    likes = models.ManyToManyField(User, related_name="comments_liked")
+    dislikes = models.ManyToManyField(User, related_name="comments_disliked")
