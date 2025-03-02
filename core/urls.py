@@ -11,4 +11,4 @@ urlpatterns = [
     path("auth/", include("control.urls")),
     path("admin/", admin.site.urls),
     path("", RedirectView.as_view(url=reverse_lazy('home'))) 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
