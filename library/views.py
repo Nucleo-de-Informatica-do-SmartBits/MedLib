@@ -2,6 +2,7 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.contrib.auth import get_user
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -157,6 +158,7 @@ def add_comment(request):
             "username": comment.user.username,
             "book": comment.book.slug,
             "content": comment.content,
+            "created_at": naturaltime(comment.created_at),
         },
         status=201,
     )

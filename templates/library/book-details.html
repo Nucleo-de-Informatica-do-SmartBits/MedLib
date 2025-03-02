@@ -1,6 +1,7 @@
 {% extends 'bases/library.html' %}
 {% load static %}
 {% load compress %}
+{% load humanize %}
 
 {% block title %}
   {{ book.title }}
@@ -76,46 +77,111 @@
         <h1>Comentários</h1>
         <hr />
         <div class="comment-input">
-          <input type="text" placeholder="Escreva um comentário..." />
+          <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+          <input type="text" placeholder="Escreva um comentário..." id="js-comment-input" />
           <button class="submit-btn">Enviar</button>
         </div>
         <hr />
-        <div class="comment">
-          <h3 class="comment-author">João Silva</h3> <!-- Nome do autor -->
-          <p class="comment-text">Gostei muito desse artigo, foi muito útil!</p> <!-- Texto do comentário -->
-          <div class="comment-actions">
-            <span class="likes">👍 12</span> <!-- Número de likes -->
-            <span class="dislikes">👎 2</span> <!-- Número de dislikes -->
+        <div id="js-comments">
+          {% for comment in book.comments.all %}
+          <div class="comment">
+            <div class="comment-info">
+              <h3 class="comment-author">{{ comment.user.username }}</h3>
+              <span style="color: gray;">{{ comment.created_at|naturaltime }}</span>
+            </div>
+            <p class="comment-text">{{ comment.content }}</p>
           </div>
-        </div>
-
-        <div class="comment">
-          <h3 class="comment-author">Maria Oliveira</h3>
-          <p class="comment-text">Achei interessante, mas poderia ter mais detalhes.</p>
-          <div class="comment-actions">
-            <span class="likes">👍 8</span>
-            <span class="dislikes">👎 1</span>
-          </div>
+          {% empty %}
+          <div style="text-align: center;color: gray;margin-top: 2rem;" id="no-comments">Sem comentários até agora.</div>
+          {% endfor %}
         </div>
       </div>
-    </div>  
+    </div>
   </main>
 
   {% compress js %}
+  <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/date-fns/locale/pt-BR"></script>
   <script>
-    document.querySelector('.submit-btn').addEventListener('click', function () {
-      let button = this
-    
-      let loader = document.createElement('span')
-      loader.classList.add('loader')
-    
-      button.innerHTML = 'Enviando'
-      button.appendChild(loader)
-    
-      setTimeout(() => {
-        button.innerHTML = 'Enviar'
-      }, 2000)
-    })
+    document.querySelector('.submit-btn').addEventListener('click', async function () {
+      let button = this;
+  
+      // Remove qualquer loader existente antes de adicionar um novo
+      let existingLoader = button.querySelector('.loader');
+      if (existingLoader) {
+          existingLoader.remove();
+      }
+  
+      // Cria e adiciona o loader ao lado do texto "Enviando..."
+      let loader = document.createElement('span');
+      loader.classList.add('loader');
+      loader.style.marginLeft = '8px';
+      loader.innerHTML = '⏳'; // Pode ser substituído por um ícone de loading
+  
+      button.textContent = 'Enviando';
+      button.appendChild(loader);
+  
+      const commentInput = document.querySelector('#js-comment-input');
+      const content = commentInput.value.trim(); // Remove espaços em branco extras
+  
+      if (!content) {
+          alert("O comentário não pode estar vazio.");
+          resetButton(button);
+          return;
+      }
+  
+      const csrfToken = document.querySelector('#csrf_token').value;
+  
+      try {
+          const response = await fetch("{% url 'add-comment' %}", {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': csrfToken
+              },
+              body: JSON.stringify({
+                  book_slug: '{{ book.slug }}',
+                  content: content
+              })
+          });
+  
+          if (response.ok) {
+              const data = await response.json();
+
+              setTimeout(() => {
+                resetButton(button);
+                
+                const p = document.querySelector("#no-comments")
+                
+                if (p) {
+                  p.remove()
+                }
+                
+                document.querySelector('#js-comments').insertAdjacentHTML('afterbegin', `
+                <div class="comment">
+                  <div class="comment-info">
+                    <h3 class="comment-author" data-user-id="${data.userId}">${data.username}</h3>
+                    <span style="color: gray;">${data.created_at}</span>
+                  </div>
+                  <p class="comment-text">${data.content}</p>
+                </div>
+                `)
+                }, 1000)
+  
+              commentInput.value = "";
+          } else {
+              const errorData = await response.json();
+              alert("Erro: " + (errorData.error || "Não foi possível enviar o comentário."));
+          }
+      } catch (error) {
+          alert("Erro ao enviar comentário. Tente novamente.");
+      }
+  
+  });
+  
+  function resetButton(button) {
+      button.textContent = 'Enviar';
+  }
   </script>
 
   {% endcompress %}

@@ -170,3 +170,6 @@ class Comment(models.Model):
     book = models.ForeignKey(Book, related_name="comments", on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    class Meta:
+        ordering = ('-created_at',)
