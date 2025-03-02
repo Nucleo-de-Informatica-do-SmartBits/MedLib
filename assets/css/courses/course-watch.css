@@ -1,0 +1,68 @@
+.div-master {
+      /* background-color: #318da0; */
+      margin: 4px;
+}
+
+.div-main {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px;
+}
+
+.div-main .main-vid-coments {
+      width: 70%;      
+      padding: 5px;
+      border-radius: 15px;
+}
+
+.div-main .other-video  {
+      height: auto;
+      width: 400px;
+      margin: 4px;
+}
+
+.div-main .other-video .video-group {
+      background-color: #fff;
+}
+
+/* Chat containers */
+.container {
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+      width: 70%;
+    }
+    
+    /* Darker chat container */
+    .darker {
+      border-color: #3CB0C7;
+      background-color: #3CB0C7;
+      color: #fff;
+    }
+    
+    /* Clear floats */
+    .container::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    
+    
+    /* Style time text */
+    .time-right {
+      float: right;
+      color: #333;
+    }
+    
+    /* Style time text */
+    .time-left {
+      float: left;
+      color: #ffff;
+    }
+
+.btn-paginator ul{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+}
