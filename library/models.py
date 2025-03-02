@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from colorfield.fields import ColorField
 
 # TODO: add doc
 
@@ -72,6 +73,7 @@ class Category(models.Model):
     name = models.CharField(
         verbose_name="Nome", max_length=100, unique=True, blank=False, null=False
     )
+    color = ColorField(default="#efefef")
 
     def __str__(self):
         return self.name
