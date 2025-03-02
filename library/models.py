@@ -169,5 +169,3 @@ class Comment(models.Model):
     )
     book = models.ForeignKey(Book, related_name="comments", on_delete=models.CASCADE)
     content = models.TextField()
-    likes = models.ManyToManyField(User, related_name="comments_liked")
-    dislikes = models.ManyToManyField(User, related_name="comments_disliked")
