@@ -46,13 +46,19 @@
   <section class="books" style="margin-top: 5px;">
     <section class="sec1">
       {% for book in books %}
-        <div class="card-book" style="cursor: pointer;" data-book-slug="{{ book.slug }}">
+        <div class="card-book" style="cursor: pointer;" data-book-slug="{{ book.slug }}" data-book-isbn="{{ book.isbn }}">
           <div class="sec-image" title="Abrir o livro">
             <img src="{{ book.cover.url }}" alt="Capa do Livro" class="imgsec" />
           </div>
           <div class="sec-info">
             <h3 class="book-title">{{ book.title|truncatechars:20 }}</h3>
-            <p class="book-author">{{ book.author|default:'Autor Desconhecido' }}</p>
+            
+            <p class="book-author">  
+              {% for author in book.authors.all %}
+              {{ author  }}
+              {% endfor %}
+            </p>
+              
           </div>
         </div>
       {% endfor %}

@@ -18,28 +18,34 @@
   <main id="book-details">
     <div class="container">
       <div class="book-cover">
-        <img src="{{ book.cover.url }}" alt="{{ book.title }}" />
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}" id="cover"/>
         <br /><hr />
+        <div class="extra-images">
+          {% for extra_img in book.extra_images.all %}
+          <img src="{{ extra_img.img.url }}" alt="Extra Image">
+          {% endfor %}
+        </div>
+          
       </div>
       <div class="book-layout">
         <div class="book-info">
-          <div style="display: flex;justify-content: space-between;align-items: center;">
-            <h1 class="book-title">{{ book.title }}</h1>
-            <a href=""><button class="bn53"><span>Ler Livro</span></button></a>
-          </div>
+          <h1 class="book-title">{{ book.title }}</h1>
           <p class="book-author">
             by{% for author in book.authors.all %}
               <a href="" class="author_link">{{ author.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
             {% endfor %}
           </p>
 
-          <div>
+          <div style="display: flex;
+          justify-content: space-between;align-items: center;">
             <div class="book-rating" style="margin-top: 10px;margin-bottom:15px;">
               {% for category in book.categories.all %}
                 <span class="badge" style="background-color: {{ category.color }};" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">{{ category.name }}</span>
               {% endfor %}
             </div>
-            <div class="book-stars"></div>
+            <div class="book-read" style="margin-top: 10px;margin-bottom:15px;">
+              <a href="{% url 'read-book' slug=book.slug isbn=book.isbn %}"><button class="bn53"><span>Ler Livro</span></button></a>
+            </div>
           </div>
           <hr />
           <p class="book-summary">{{ book.summary }}</p>

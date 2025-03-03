@@ -105,10 +105,10 @@ def manageBook(request, slug=None):
 
 
 @login_required
-def bookDetails(request, slug):
+def bookDetails(request, slug, isbn):
     ctx = {}
     template_name = "library/book-details.html"
-    book = get_object_or_404(Book, slug=slug)
+    book = get_object_or_404(Book, slug=slug, isbn=isbn)
 
     ctx["book"] = book
     return render(request, template_name, ctx)
@@ -166,10 +166,10 @@ def add_comment(request):
 
 @login_required
 @xframe_options_exempt
-def readBook(request, slug):
+def readBook(request, slug, isbn):
     ctx = {}
     template_name = "library/read.html"
-    book = get_object_or_404(Book, slug=slug)
+    book = get_object_or_404(Book, slug=slug, isbn=isbn)
 
     ctx["book"] = book
     return render(request, template_name, ctx)

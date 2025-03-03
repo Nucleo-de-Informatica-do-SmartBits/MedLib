@@ -1,129 +1,52 @@
-{% extends 'bases/library.html' %}
+{% extends 'bases/control.html' %}
 {% load static %}
 {% load compress %}
 
 {% block title %}
-{{ book.title }}
-{% endblock title %}
+  {{ book.title }}
+{% endblock %}
 
 {% block head %}
-{% compress css %}
-<link rel="stylesheet" href="{% static 'css/library/home.css' %}">
-<link rel="stylesheet" href="{% static 'css/library/read.css' %}">
-{% endcompress %}
-{% endblock head %}
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/library/read.css' %}" />
+  {% endcompress %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+{% endblock %}
 
 {% block content %}
-<main>
-    <section
-        style="display: flex;padding: 10px; position: fixed; top: 10px; left: 10px; height: 50px; background-color: #58BDD1; justify-content: center; align-items: center; border-radius: 5px; z-index: 1000;visibility: hidden;"
-        id="timer-sec">
-        <div style="display: flex; gap: 8px; align-items: center; justify-content: center;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-stopwatch"
-                viewBox="0 0 16 16" style="color: white;">
-                <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5z" />
-                <path
-                    d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3" />
-            </svg>
-            <p id="timer" style="color: white; font-size: 28px;">00:00</p>
-        </div>
-    </section>
+  
+  <div class="reader-container">
+    <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 5px">
+      <h2 class="book-title">{{ book.title }}</h2>
+      <div style="display: flex;justify-content: center;" class="time-stop">
+        <div id="timer" style="user-select: none;">00:00</div>
+        <button id="stop-reading">
+          {% comment %} <i class="fa-solid fa-stop-circle"></i> {% endcomment %}
+          <i class="fa-solid fa-stop" style="font-size: 25px;"></i>
+        </button>
+      </div>
+    </div>
 
-    <div id="pdf-view" style="height: 100vh;"></div>
-</main>
-
-{% compress js %}
-<script src="https://unpkg.com/pdfobject"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    PDFObject.embed("{{ book.document.url }}", "#pdf-view");
-    let seconds = 0;
-    let minutes = 0;
-    let timerElement = document.getElementById('timer');
-    let userTime = 0;
-
-    Swal.fire({
-        title: 'Qual o tempo de leitura?',
-        input: 'text',
-        inputLabel: 'Informe o tempo em minutos',
-        inputValue: 30,
-        showCancelButton: true,
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar',
-        backdrop: 'static',
-        allowOutsideClick: false,
-        inputValidator: (value) => {
-            if (!value || value <= 0) {
-                return 'Por favor, informe um tempo válido!';
-            } else if (value > 60) {
-                return 'Por favor, informe um tempo menor!';
-            }
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.querySelector('.logo-container').innerHTML = ``
-
-            document.querySelector('#timer-sec')
-                .style.visibility = 'visible'
-
-            setTimeout(() => {
-                userTime = parseInt(result.value) * 60;
-                startTimer(userTime);
-            }, 1000)
-
-            document.querySelector('nav').style.backgroundColor = "#3DB1C8"
-            document.querySelector('nav').style.height = "70px"
-            document.querySelector('.div-middle').style.display = "flex"
-            document.querySelector('.div-middle').style.flexDirection = "column"
-            document.querySelector('.div-middle').innerHTML = `<span style="color: white;font-size: 20px;">Você está em modo de leitura.</span><span style="text-align: center;font-style: italic;color: white;">Mantenha o foto, e aproveite!</span>`
-            document.querySelector('.user-img').innerHTML = `
-                <button style="background-color: red;color: white;border-radius: 5px;width: 80px;padding: 10px;" id="btn-stop">Parar</button>
-            `
-            document.querySelector('#btn-stop')
-                .addEventListener('click', () => {
-                    let modal = Swal.fire({
-                        title: 'Tem certeza que quer parar de ler?',
-                        showCancelButton: true,
-                        confirmButtonText: 'Confirmar',
-                        cancelButtonText: 'Cancelar',
-                        backdrop: 'static',
-                        allowOutsideClick: false
-                    })
-                    modal.then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "{% url 'home' %}"
-                        }
-                    })
-                })
-
-        } else {
-            window.location.href = "{% url 'home' %}"
-        }
-    });
-
-    function startTimer(time) {
-        let remainingTime = time;
-        let countdownInterval = setInterval(function () {
-            remainingTime--;
-            let minutesLeft = Math.floor(remainingTime / 60);
-            let secondsLeft = remainingTime % 60;
-            timerElement.textContent = (minutesLeft < 10 ? "0" : "") + minutesLeft + ":" + (secondsLeft < 10 ? "0" : "") + secondsLeft;
-
-            if (remainingTime <= 0) {
-                clearInterval(countdownInterval);
-                Swal.fire({
-                    title: 'Tempo esgotado!',
-                    text: 'O tempo de leitura acabou!',
-                    icon: 'warning',
-                    confirmButtonText: 'Ok',
-                    backdrop: 'static',
-                    allowOutsideClick: false
-                }).then(() => {
-                    window.location.href = "{% url 'logout' %}";
-                });
-            }
-        }, 1000);
-    }
-</script>
-{% endcompress %}
-{% endblock content %}
+    <div class="pdf-container">
+      <canvas id="pdf-render"></canvas>
+    </div>
+    <div class="nav-buttons">
+      <button onclick="prevPage()"><i class="fas fa-arrow-left"></i></button>
+      <div id="page-info">
+        <span id="current-page" style="user-select: none;">1</span> de <span id="total-pages">?</span>
+      </div>
+      <button onclick="nextPage()"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+  {% compress js %}
+  <script>
+    const url = '{{ book.document.url }}'
+    const slug = '{{ book.slug }}'
+    const isbn = '{{ book.isbn }}'
+  </script>
+  <script src="{% static 'js/library/read.js' %}"></script>
+  {% endcompress %}
+{% endblock %}
