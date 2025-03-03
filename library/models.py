@@ -136,15 +136,23 @@ class Book(models.Model):
         help_text="Por padrão o sistema registra como a primeira edição livro",
     )
 
-    slug = models.SlugField(unique=True, editable=False, max_length=255)
+    slug = models.SlugField(unique=True, max_length=255, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f"{self.title}-{self.isbn}")
+            self.slug = slugify({self.title})
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
+
+class BookExtraImage(models.Model):
+    book = models.ForeignKey(
+        Book, related_name="extra_images", on_delete=models.CASCADE
+    )
+    img = models.ImageField(upload_to="book-extra-images/", null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
 class Sugestion(models.Model):
@@ -172,4 +180,4 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ("-created_at",)

@@ -124,17 +124,6 @@ nav .user-img {
 }
 
 
-/* input {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    transition: width 0.3s ease-in-out;
-    padding-right: 40px;
-    width: 100%;
-} */
-
-
 #btn-search {
     position: absolute;
     top: 50%;
@@ -173,4 +162,18 @@ nav .user-img {
 
 #profile-menu ul li a:hover svg {
     color: #0daedfb3;
+}
+
+.when-middle-off {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .div-middle {
+        display: none;
+    }
+
+    .when-middle-off {
+        display: block;
+    }
 }

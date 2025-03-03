@@ -22,6 +22,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -31,13 +32,14 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     # "crispy_forms",
     # "crispy_tailwind",
-    # "django_browser_reload",
+    #"django_browser_reload",
     "compressor",
     "tailwind",
     "theme",
     "control",
     "library",
     "courses",
+    "colorfield",
     "colorfield",
 ]
 
@@ -83,8 +85,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+# WSGI_APPLICATION = "core.wsgi.application"
+ASGI_APPLICATION = "core.asgi.application"
 
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels_redis.core.RedisChannelLayer"}}
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -177,21 +182,4 @@ LOGIN_URL = "/auth/signin/"
 REDIRECT_FIELD_NAME = "then"
 
 # Frame control
-X_FRAME_OPTIONS = "SAMEORIGIN"
-
-
-COMPRESS_ENABLED = True
-COMPRESS_STORAGE = STATICFILES_STORAGE
-COMPRESS_OFFLINE = False
-
-# Configuração dos filtros de compressão
-COMPRESS_CSS_FILTERS = [
-    "compressor.filters.css_default.CssAbsoluteFilter",
-    "compressor.filters.cssmin.CSSMinFilter",
-]
-COMPRESS_JS_FILTERS = [
-    "compressor.filters.jsmin.JSMinFilter",
-]
-
-# Usar Brotli para compressão mais eficiente
-COMPRESS_STORAGE = "compressor.storage.BrotliCompressorFileStorage"
+X_FRAME_OPTIONS = 'SAMEORIGIN'

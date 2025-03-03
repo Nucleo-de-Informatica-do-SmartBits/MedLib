@@ -1,19 +1,22 @@
 {% extends "bases/library.html" %}
 {% load static %}
 {% load compress %}
+{% load humanize %}
 
 {% block title %}Cursos-Watch{% endblock title %}
 
 {% block head %}
       {% compress css %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+      <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
       <link rel="stylesheet" href="{% static 'css/courses/course-watch.css' %}">
       {% endcompress %}
 {% endblock head %}
 {% block content %}
-<div class="bg-white rounded-lg shadow-lg div-master">
-      <div class="div-main">
-            <div class="main-vid-coments bg-white ">
-                  <div class="flex-1 space-y-4 rounded-lg shadow-lg">
+<div class="bg-white rounded-lg shadow-lg div-master comments" style="width: 100%">
+      <div class="div-main " >
+            <div class="main-vid-coments bg-white">
+                  <div class="flex-1 space-y-4 rounded-lg shadow-lg comments" style="width: 100%">
                         <video style="width: 100%; height: 500px;" src="{{video_main.path.url}}" controls></video>
                         <div class="description" align="center">
                               <em>{{video_main.title}}</em><br>
@@ -21,28 +24,30 @@
                         </div>
                   </div>
                   <hr>
-                  <div class="div-coment  flex-1 space-y-4 rounded-lg shadow-lg" style="padding: 5px;">
-                        <!-- CHAT -->
-                        <div class="container">
-                              <span class="time-right">Samuel Zaya</span>
-                              <p style="width: 80%; text-align: justify;">Hey! I'm fine. Thanks for asking! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos eaque obcaecati ipsum. Sapiente id voluptatem, minima obcaecati omnis corporis iusto labore. Laboriosam nam quam dolorum doloribus amet neque distinctio beatae!</p>
-                              <span class="time-right">11:01</span>
+                  <div class="comments" style="width: 100%">
+                        <h1>Comentários</h1>
+                        <hr />
+                        <div class="comment-input">
+                          <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                          <input type="text" placeholder="Escreva um comentário..." id="js-comment-input" />
+                          <button class="submit-btn bi bi-send font-16"></button>
                         </div>
-                            
-                        <div class="container darker">
-                              <span class="time-right">Manuel Silva</span>
-                              <p style="width: 80%; text-align: justify;">Hey! I'm fine. Thanks for asking! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos eaque obcaecati ipsum. Sapiente id voluptatem, minima obcaecati omnis corporis iusto labore. Laboriosam nam quam dolorum doloribus amet neque distinctio beatae!</p>
-                              <span class="time-right">11:01</span>
+                        <hr />
+                        <div id="js-comments">
+                          {% for comment in book.comments.all %}
+                          <div class="comment">
+                            <div class="comment-info">
+                              <h3 class="comment-author">{{ comment.user.username }}</h3>
+                              <span style="color: gray;">{{ comment.created_at|naturaltime }}</span>
+                            </div>
+                            <p class="comment-text">{{ comment.content }}</p>
+                          </div>
+                          {% empty %}
+                          <div style="text-align: center;color: gray;margin-top: 2rem;" id="no-comments">Sem comentários até agora.</div>
+                          {% endfor %}
                         </div>
-                            
-                            
-                        <div class="container">
-                              <span class="time-right">Samuel Zaya</span>
-                              <p style="width: 80%; text-align: justify;">Hey! I'm fine. Thanks for asking! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos eaque obcaecati ipsum. Sapiente id voluptatem, minima obcaecati omnis corporis iusto labore. Laboriosam nam quam dolorum doloribus amet neque distinctio beatae!</p>
-                              <span class="time-right">11:01</span>
-                        </div>
-                  </div>
-                  <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group" style="margin: 4px; padding: 3px; ">
+                      </div>
+                  {% comment %} <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group" style="margin: 4px; padding: 3px; ">
                         <form method="GET" action="{% url 'home' %}">
                               <div class="relative flex items-center">
                                   <input type="text"
@@ -62,43 +67,43 @@
                                       </div>
                               </div>
                         </form>
-                  </div>
+                  </div> {% endcomment %}
             </div>
 
             <div class="other-video">
                   <ul>
                         {% for video in paginator %}
-                                    <a href="{% url 'courses_watch' video.slug %}">
-                                          <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group" style="width: 100%; margin: 4px; padding: 3px;">
-                                                <div>
-                                                      <video style="height: 200px; width: 100%" src="{{video.path.url}}"></video>
-                                                </div>
-                                                <hr>
-                                                <div class="">
-                                                      <h1 align="center">{{video}}</h1>
-                                                </div>
+                              <a href="{% url 'courses_watch' video.slug %}">
+                                    <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group comments" style="width: 100%; margin: 4px; padding: 3px;">
+                                          <div>
+                                                <video style="height: 200px; width: 100%" src="{{video.path.url}}"></video>
                                           </div>
-                                    </a>
+                                          <hr>
+                                          <div class="">
+                                                <h1 align="center">{{video}}</h1>
+                                          </div>
+                                    </div>
+                              </a>
                         {% endfor %}
                         
                   </ul>
 
                   
 
-                  <div class="btn-paginator" align="center">
+                  <div class="btn-paginator" align="center" style="width: 100%">
                         <ul>
-                              
                               <li>
                                     {% if paginator.has_previous %}
-                                          <a href="?page={{paginator.previous_page_number}}">back</a>
+                                          <a href="?page={{paginator.previous_page_number}}">
+                                                <span style="color: teal; font-size: 20pt" class="bi bi-arrow-left-circle-fill"></span>
+                                          </a>
                                     {% endif %}
                               </li>
-                              <li><span class="current">
-                                    <em  align="center">Page {{ paginator.number }} of {{ paginator.paginator.num_pages }}.</em>
-                              </span></li>
                               <li>
                                     {% if paginator.has_next %}
-                                          <a href="?page={{paginator.next_page_number}}">next</a>
+                                          <a href="?page={{paginator.next_page_number}}">
+                                                <span style="color: teal; font-size: 20pt" class="bi bi-arrow-right-circle-fill"></span>
+                                          </a>
                                     {% endif %}
                               </li>
                         </ul>
