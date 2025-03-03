@@ -111,63 +111,12 @@
   </div>
 </main>
 
-<<<<<<< Updated upstream
 {% compress js %}
 <script>
   function formatTime(timestamp) {
     const now = new Date();
     const date = new Date(timestamp);
     const diffInSeconds = Math.floor((now - date) / 1000);
-=======
-<script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/date-fns/locale/pt-BR"></script>
-  {% compress js %}
-  <script>
-    document.querySelector('.submit-btn').addEventListener('click', async function () {
-      let button = this;
-  
-      // Remove qualquer loader existente antes de adicionar um novo
-      let existingLoader = button.querySelector('.loader');
-      if (existingLoader) {
-          existingLoader.remove();
-      }
-  
-      // Cria e adiciona o loader ao lado do texto "Enviando..."
-      let loader = document.createElement('span');
-      loader.classList.add('loader');
-      loader.style.marginLeft = '8px';
-      loader.innerHTML = '⏳'; // Pode ser substituído por um ícone de loading
-  
-      button.textContent = 'Enviando';
-      button.appendChild(loader);
-  
-      const commentInput = document.querySelector('#js-comment-input');
-      const content = commentInput.value.trim(); // Remove espaços em branco extras
-  
-      if (!content) {
-          alert("O comentário não pode estar vazio.");
-          resetButton(button);
-          return;
-      }
-  
-      const csrfToken = document.querySelector('#csrf_token').value;
-  
-      try {
-          const response = await fetch("{% url 'add-comment' %}", {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': csrfToken
-              },
-              body: JSON.stringify({
-                  book_slug: '{{ book.slug }}',
-                  content: content
-              })
-          });
-  
-          if (response.ok) {
-              const data = await response.json();
->>>>>>> Stashed changes
 
     if (diffInSeconds < 60) {
         return `há ${Math.abs(diffInSeconds)} segundos`;
