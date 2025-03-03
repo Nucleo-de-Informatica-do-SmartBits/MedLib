@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv("SECRET_KET", default="unsafe-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["biblioteca-virtual-smartbits.onrender.com"]
 
 
 # Application definition
@@ -86,6 +86,7 @@ TEMPLATES = [
 
 # WSGI_APPLICATION = "core.wsgi.application"
 ASGI_APPLICATION = "core.asgi.application"
+ASGI_ALLOWED_HOSTS = ALLOWED_HOSTS
 
 # CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 CHANNEL_LAYERS = {
@@ -194,3 +195,9 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 CSRF_TRUSTED_ORIGINS = [
     "https://biblioteca-virtual-smartbits.onrender.com"
 ]
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
