@@ -15,19 +15,14 @@
 
 
 .card-book {
-    background-color: white;
     font-family: 'Roboto';
+    padding: 5px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 200px;
+    width: 220px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-}
-
-.card-book:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .book-author {
@@ -44,7 +39,7 @@
 }
 
 .sec-image img {
-    width: 100px;
+    width: 250px;
     height: auto;
 }
 

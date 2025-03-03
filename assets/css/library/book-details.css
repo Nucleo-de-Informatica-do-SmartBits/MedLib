@@ -21,7 +21,7 @@ main {
     padding: 50px;
 }
 
-.book-cover img {
+#cover {
     width: 250px;
     height: auto;
     margin-right: 20px;
@@ -230,4 +230,18 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.extra-images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.extra-images img {
+    border: 2px solid #000000b2;
+    border-radius: 5px;
+    width: 80px;
+    height: auto;
 }

@@ -26,9 +26,10 @@ document.querySelectorAll(".card-book")
     .forEach(card => {
         card.addEventListener('click', (e) => {
             const slug = card.dataset.bookSlug
+            const isbn = card.dataset.bookIsbn
 
             if (slug) {
-                window.location.href = '/library/book/' + slug + '/'
+                window.location.href = '/library/book/' + slug + '/' + isbn + '/'
             }
         })
 
