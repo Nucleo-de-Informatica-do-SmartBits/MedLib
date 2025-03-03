@@ -24,9 +24,20 @@ dependencies = [
     "brotli (>=1.1.0,<2.0.0)",
     "dj-database-url (>=2.3.0,<3.0.0)",
     "cloudinary (>=1.42.2,<2.0.0)",
+    "django-browser-reload (>=1.18.0,<2.0.0)",
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.14.1"
+
+
+[tool.taskipy.tasks]
+run = "python manage.py runserver"
+mg = "python manage.py migrate"
+mkmg = "python manage.py makemigrations"
+cs = "python manage.py createsuperuser"
