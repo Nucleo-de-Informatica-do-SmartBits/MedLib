@@ -151,7 +151,7 @@ class BookExtraImage(models.Model):
     book = models.ForeignKey(
         Book, related_name="extra_images", on_delete=models.CASCADE
     )
-    img = models.ImageField(upload_to="book-extra-images/", null=True, blank=True)
+    img = CloudinaryField(folder="book-extra-images/", null=True, blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
 
