@@ -6,20 +6,20 @@
 
 {% block head %}
       {% compress css %}
-      <link rel="stylesheet" href="{% static 'css/library/home.css' %}">
-      <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}">
-
+      <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
       {% endcompress %}
 {% endblock head %}
 
 {% block content %}
 
-<div style="width: 50rem;" class="bg-white rounded-lg shadow-lg p-6">
-      <div style="display: flex; justify-content: space-between;">
+<div class="bg-white rounded-lg shadow-lg p-6">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
       {% for course in courses %}
-            <a href="{% url "courses_video" course.slug %}">
-            <h1>{{course}}</h1>
+      <div class="comments" style="padding: 5px; height: fit-content; margin: 5px;" align="center">
+            <a href="{% url 'courses_video' course.slug %}" style="background-color: red;">
+                  <h1>{{course}}</h1>
             </a>
+      </div>
       {% endfor %}
       </div>
 </div>
