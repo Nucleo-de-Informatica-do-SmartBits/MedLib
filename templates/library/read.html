@@ -19,12 +19,11 @@
 {% block content %}
   
   <div class="reader-container">
-    <div style="display: flex;justify-content: space-between;align-items: center;margin-bottom: 5px">
+    <div class="reader-header">
       <h2 class="book-title">{{ book.title }}</h2>
-      <div style="display: flex;justify-content: center;" class="time-stop">
-        <div id="timer" style="user-select: none;">00:00</div>
+      <div class="time-stop">
+        <div id="timer">00:00</div>
         <button id="stop-reading">
-          {% comment %} <i class="fa-solid fa-stop-circle"></i> {% endcomment %}
           <i class="fa-solid fa-stop" style="font-size: 25px;"></i>
         </button>
       </div>
@@ -36,16 +35,17 @@
     <div class="nav-buttons">
       <button onclick="prevPage()"><i class="fas fa-arrow-left"></i></button>
       <div id="page-info">
-        <span id="current-page" style="user-select: none;">1</span> de <span id="total-pages">?</span>
+        <span id="current-page">1</span> de <span id="total-pages">?</span>
       </div>
       <button onclick="nextPage()"><i class="fas fa-arrow-right"></i></button>
     </div>
   </div>
+  
   {% compress js %}
   <script>
-    const url = '{{ book.document.url }}'
-    const slug = '{{ book.slug }}'
-    const isbn = '{{ book.isbn }}'
+    const url = '{{ book.document.url }}';
+    const slug = '{{ book.slug }}';
+    const isbn = '{{ book.isbn }}';
   </script>
   <script src="{% static 'js/library/read.js' %}"></script>
   {% endcompress %}

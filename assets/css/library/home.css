@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+#text-div-home {
+    width: 80%;
+}
+
 #text {
     font-style: italic;
     font-family: 'Roboto', sans-serif;
+    font-size: 18px;
 }
 
 .sec1 {
@@ -57,4 +62,10 @@
 .book-author {
     font-size: 14px;
     color: #666;
+}
+
+@media (max-width: 800px) {
+    #text-div-home {
+        width: 90%;
+    }
 }
