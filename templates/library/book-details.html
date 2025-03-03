@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block head %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  {% compress css %}
-  <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
-  {% endcompress %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+{% compress css %}
+<link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
+{% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -111,9 +111,17 @@
   </div>
 </main>
 
+<<<<<<< Updated upstream
+{% compress js %}
+<script>
+  function formatTime(timestamp) {
+    const now = new Date();
+    const date = new Date(timestamp);
+    const diffInSeconds = Math.floor((now - date) / 1000);
+=======
+<script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/date-fns/locale/pt-BR"></script>
   {% compress js %}
-  <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/date-fns/locale/pt-BR"></script>
   <script>
     document.querySelector('.submit-btn').addEventListener('click', async function () {
       let button = this;
@@ -159,42 +167,91 @@
   
           if (response.ok) {
               const data = await response.json();
+>>>>>>> Stashed changes
 
-              setTimeout(() => {
-                resetButton(button);
-                
-                const p = document.querySelector("#no-comments")
-                
-                if (p) {
-                  p.remove()
-                }
-                
-                document.querySelector('#js-comments').insertAdjacentHTML('afterbegin', `
-                <div class="comment">
-                  <div class="comment-info">
-                    <h3 class="comment-author" data-user-id="${data.userId}">${data.username}</h3>
-                    <span style="color: gray;">${data.created_at}</span>
-                  </div>
-                  <p class="comment-text">${data.content}</p>
-                </div>
-                `)
-                }, 1000)
-  
-              commentInput.value = "";
-          } else {
-              const errorData = await response.json();
-              alert("Erro: " + (errorData.error || "Não foi possível enviar o comentário."));
-          }
-      } catch (error) {
-          alert("Erro ao enviar comentário. Tente novamente.");
-      }
-  
-  });
-  
-  function resetButton(button) {
-      button.textContent = 'Enviar';
+    if (diffInSeconds < 60) {
+        return `há ${Math.abs(diffInSeconds)} segundos`;
+    }
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
+        return `há ${Math.abs(diffInMinutes)} minutos`;
+    }
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
+        return `há ${Math.abs(diffInHours)} horas`;
+    }
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays === 1) {
+        return "ontem";
+    } else if (diffInDays < 30) {
+        return `há ${Math.abs(diffInDays)} dias`;
+    }
+
+    return date.toLocaleDateString("pt-PT");
   }
-  </script>
+
+  function update_time(timestamp, elementId) {
+      function update() {
+          const formattedTime = formatTime(timestamp);
+          const element = document.querySelector(`#comment-${elementId}`);
+          if (element) {
+              element.innerText = formattedTime;
+          }
+      }
+      update(); // Atualiza imediatamente ao inserir o comentário
+      setInterval(update, 30000); // Atualiza a cada 30 segundos
+  }
+
+  const ws = new WebSocket(`ws://${window.location.host}/ws/comment-consumer/{{ book.slug }}/`)
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data)
+
+    console.log(data)
+    
+    const p = document.querySelector("#no-comments")
+
+    if (p) {
+      p.remove()
+    }
+
+    document.querySelector('#js-comments')
+    .insertAdjacentHTML('afterbegin', `
+    <div class="comment">
+        <div class="comment-info">
+          <h3 class="comment-author" data-user-id="${data.userId}">${data.username}</h3>
+          <span style="color: gray;" id="comment-${data.id}">${formatTime(data.created_at)}</span>
+        </div>
+        <p class="comment-text">${data.content}</p>
+      </div>
+    `)
+    update_time(data.created_at, data.id);
+  } 
+
+  document.querySelector('.submit-btn')
+    .addEventListener('click', function () {
+      const commentInput = document.querySelector('#js-comment-input');
+      const content = commentInput.value.trim();
+
+      if (!content) {
+        alert("O comentário não pode estar vazio.");
+        return;
+      }
+
+      commentInput.value = "";
+
+      ws.send(JSON.stringify({
+        content: content
+      }))
+      
+    })
+
+    
+  
+</script>
 
 {% endcompress %}
 {% endblock %}
