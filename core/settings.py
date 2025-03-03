@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "library",
     "courses",
     "colorfield",
-    "colorfield",
 ]
 
 # Internal IPS
