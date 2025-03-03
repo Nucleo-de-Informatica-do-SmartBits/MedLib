@@ -103,7 +103,7 @@ CHANNEL_LAYERS = {
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL", "sqlite:///db.sqlite3")
+        default=os.getenv("DATABASE_URL")
     ),
 }
 
@@ -190,3 +190,7 @@ REDIRECT_FIELD_NAME = "then"
 
 # Frame control
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://biblioteca-virtual-smartbits.onrender.com"
+]

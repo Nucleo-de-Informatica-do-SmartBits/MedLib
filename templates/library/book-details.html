@@ -154,7 +154,8 @@
       setInterval(update, 30000); // Atualiza a cada 30 segundos
   }
 
-  const ws = new WebSocket(`ws://${window.location.host}/ws/comment-consumer/{{ book.slug }}/`)
+  const protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+  const ws = new WebSocket(`${protocol}://${window.location.host}/ws/comment-consumer/{{ book.slug }}/`)
 
   ws.onmessage = (event) => {
     const data = JSON.parse(event.data)
