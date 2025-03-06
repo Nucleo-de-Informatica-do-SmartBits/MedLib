@@ -10,29 +10,69 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
       <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
       <link rel="stylesheet" href="{% static 'css/courses/course-watch.css' %}">
+      <style>
+            video::-webkit-media-controls-timeline {
+                  /* background-color: #318da0; */
+                  padding-top: 3px;
+                  padding-bottom: 3px;
+                  padding-left: 0;
+                  padding-right: 0;
+                  margin: 4px;
+                  border-radius: 30px;
+            }
+            video::-webkit-media-controls-fullscreen-button {
+                  background-color: #318da0; /* Roxo */
+                  border-radius: 30px;
+                  margin-left: 2px;
+            }
+            video::-webkit-media-controls-play-button {
+                  background-color: #318da0;
+                  border-radius: 30px;
+                  margin-left: 2px;
+            }
+            video::-webkit-media-controls-mute-button {
+                  background-color: #318da0;
+                  border-radius: 30px;
+                  margin-left: 2px;
+            }
+            video::-webkit-media-controls-current-time-display {
+                  color: #318da0;
+                  margin-left: 2px;
+            }
+            video::-webkit-media-controls-time-remaining-display {
+            color: #318da0;
+            }
+            
+            
+      </style>
       {% endcompress %}
 {% endblock head %}
 {% block content %}
-<div class="bg-white rounded-lg shadow-lg div-master comments" style="width: 100%">
-      <div class="div-main " >
-            <div class="main-vid-coments bg-white">
-                  <div class="flex-1 space-y-4 rounded-lg shadow-lg comments" style="width: 100%">
-                        <video style="width: 100%; height: 500px;" src="{{video_main.path.url}}" controls></video>
-                        <div class="description" align="center">
-                              <em>{{video_main.title}}</em><br>
-                              <em><b>{{video_main.curso.teacher.first_name}} {{video_main.curso.teacher.last_name}}</b></em>
-                        </div>
+<div class="bg-white rounded-lg div-master" style="width: 100%">
+      <br>
+      <div class="div-main" >
+            <div class="main-vid-coments bg-white" style="width: 100%">
+                  <div class="flex-1 round-lg shadow-lg">
+                        <video style="width: 100%; height: 500px; border-radius: 5px; border-width: 1px"
+                        src="{{video_main.path.url}}" controls
+                        >
+                        </video>    
+                  </div>
+                  <div class="description">
+                        <h1 style="font-size: 30px">{{video_main.title}}</h1>
+                        <em><b>{{video_main.curso.teacher.first_name}} {{video_main.curso.teacher.last_name}}</b></em>
                   </div>
                   <hr>
-                  <div class="comments" style="width: 100%">
-                        <h1>Comentários</h1>
-                        <hr />
+                  <div class="" style="width: 100%">
                         <div class="comment-input">
                           <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
                           <input type="text" placeholder="Escreva um comentário..." id="js-comment-input" />
-                          <button class="submit-btn bi bi-send font-16"></button>
+                          
+                          <button class="submit-btn bi bi-send-fill" style="font-size: 20px; border-radius: 30px"></button>
                         </div>
-                        <hr />
+                        <hr/>
+                        <h1>Comentários</h1>
+                        <hr/>
                         <div id="js-comments">
                           {% for comment in book.comments.all %}
                           <div class="comment">
@@ -46,41 +86,20 @@
                           <div style="text-align: center;color: gray;margin-top: 2rem;" id="no-comments">Sem comentários até agora.</div>
                           {% endfor %}
                         </div>
-                      </div>
-                  {% comment %} <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group" style="margin: 4px; padding: 3px; ">
-                        <form method="GET" action="{% url 'home' %}">
-                              <div class="relative flex items-center">
-                                  <input type="text"
-                                    class="w-full pr-10 px-5 bg-white text-sm font-medium placeholder:text-[#53638780] w-12 right-0"
-                                    placeholder="Livros, autores, categorias..."
-                                    style="border-radius: 3px; border-color: #318da0; outline: none; resize: none;" name="search"
-                                    >
-                                    <div class="ml-4" style="color: #318da0; font-size: 20pt;">
-                                          <button class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-teal px-4 py-1 flex-shrink-0">
-                                              <!-- <span>Send</span> -->
-                                              <span class="ml-2">
-                                                  <svg class="w-4 h-4 transform rotate-45 -mt-px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                                                  </svg>
-                                              </span>
-                                          </button>
-                                      </div>
-                              </div>
-                        </form>
-                  </div> {% endcomment %}
+                  </div>
             </div>
 
-            <div class="other-video">
+            <div class="other-video" style="padding-right: 3px">
                   <ul>
                         {% for video in paginator %}
                               <a href="{% url 'courses_watch' video.slug %}">
-                                    <div class="flex-1 space-y-4 rounded-lg shadow-lg video-group comments" style="width: 100%; margin: 4px; padding: 3px;">
+                                    <div class="flex-1 space-y-4 rounded-lg video-group" style="width: 100%; border-width: 1px; padding: 3px;">
                                           <div>
                                                 <video style="height: 200px; width: 100%" src="{{video.path.url}}"></video>
                                           </div>
                                           <hr>
                                           <div class="">
-                                                <h1 align="center">{{video}}</h1>
+                                                <h3 align="center">{{video}}</h3>
                                           </div>
                                     </div>
                               </a>
@@ -95,14 +114,14 @@
                               <li>
                                     {% if paginator.has_previous %}
                                           <a href="?page={{paginator.previous_page_number}}">
-                                                <span style="color: teal; font-size: 20pt" class="bi bi-arrow-left-circle-fill"></span>
+                                                <span style="color: #318da0; font-size: 20pt" class="bi bi-arrow-left-circle-fill"></span>
                                           </a>
                                     {% endif %}
                               </li>
                               <li>
                                     {% if paginator.has_next %}
                                           <a href="?page={{paginator.next_page_number}}">
-                                                <span style="color: teal; font-size: 20pt" class="bi bi-arrow-right-circle-fill"></span>
+                                                <span style="color: #318da0; font-size: 20pt" class="bi bi-arrow-right-circle-fill"></span>
                                           </a>
                                     {% endif %}
                               </li>
