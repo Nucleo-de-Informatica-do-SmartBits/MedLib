@@ -68,29 +68,12 @@
     </div>
 
     <div class="user-img">
-        {% comment %} <div>
-            <form method="GET" action="{% url 'home' %}">
-                <div class="relative flex items-center">
-                    <input type="text"
-                        class="w-full pr-10 px-5 rounded-sm border-[#dde3ec] bg-white text-sm font-medium text-[#536387] placeholder:text-[#53638780] transition-all duration-300 ease-in-out w-12 focus:w-64 absolute right-0"
-                        id="formbold-form-input" placeholder="Livros, autores, categorias..."
-                        onfocus="this.classList.remove('w-12');"
-                        onblur="if(this.value === '') { this.classList.remove('w-64'); this.classList.add('w-12'); }"
-                        style="border-radius: 3px; outline: none;resize: none;" name="search">
-                    <button type="submit" class="absolute right-0 top-0 mt-3 mr-4" id="btn-search">
-                        <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path
-                                d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
-            </form>
-
-        </div> {% endcomment %}
         <div>
-
-            <img src="{% static 'imgs/user.png' %}" alt="User Default Image" class="logo h-10" id="profile-img">
+            <div id="profile-img" class="logo h-10">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
 
             <div id="profile-menu"
                 class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden transform scale-95 opacity-0 transition-all duration-200 ease-out">
@@ -190,23 +173,26 @@
 
         profileImg.addEventListener('click', () => {
             if (profileMenu.classList.contains('hidden')) {
+                profileImg.classList.add('active')
                 profileMenu.classList.remove('hidden');
                 setTimeout(() => {
                     profileMenu.classList.remove('scale-95', 'opacity-0');
                     profileMenu.classList.add('scale-100', 'opacity-100');
                 }, 10);
             } else {
+                profileImg.classList.remove('active')
                 profileMenu.classList.remove('scale-100', 'opacity-100');
                 profileMenu.classList.add('scale-95', 'opacity-0');
                 setTimeout(() => profileMenu.classList.add('hidden'), 200);
             }
         });
-
-
+        
+        
         document.addEventListener('click', (event) => {
             if (!profileImg.contains(event.target) && !profileMenu.contains(event.target)) {
                 profileMenu.classList.remove('scale-100', 'opacity-100');
                 profileMenu.classList.add('scale-95', 'opacity-0');
+                profileImg.classList.remove('active')
                 setTimeout(() => profileMenu.classList.add('hidden'), 200);
             }
         });

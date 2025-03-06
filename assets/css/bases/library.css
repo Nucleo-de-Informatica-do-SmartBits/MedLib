@@ -101,12 +101,33 @@ nav .user-img {
 }
 
 #profile-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 24px;
     cursor: pointer;
-    border-radius: 50%;
-    border: 2px solid #e2e8f0;
-    padding: 3px;
-    height: 40px;
-    width: auto;
+}
+
+#profile-img span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: black;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+#profile-img.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+#profile-img.active span:nth-child(2) {
+    opacity: 0;
+}
+
+#profile-img.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 #typewriter {
