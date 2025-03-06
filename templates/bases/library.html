@@ -61,6 +61,8 @@
 
     {% endblock content %}
 
+    {% include 'partials/footer.html' %}
+
     {% compress js %}
     <script>
         document.addEventListener('htmx:configRequest', (event) => {
