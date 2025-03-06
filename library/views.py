@@ -6,12 +6,10 @@ from django.contrib.humanize.templatetags.humanize import naturaltime
 from django.contrib.auth import get_user
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_http_methods
 
-from .forms import BookForm, SugestionForm
+from .forms import BookForm
 from .models import Author, Book, Category, Publisher, Sugestion, Comment
 
 
@@ -115,23 +113,20 @@ def bookDetails(request, slug, isbn):
 
 
 @login_required
-def sugest(request):
-    template_name = "library/sugestion-form.html"
-    ctx = {}
+@require_http_methods(["POST"])
+def add_suggestion(request):
+    try:
+        data = json.loads(request.body)
+        text = data.get('content')
+        
+        if not text:
+            raise ValueError('O texto não pode estar vazio')
 
-    if request.method == "POST":
-        forms = SugestionForm(data=request.POST, request=request)
-        if forms.is_valid():
-            forms.save()
-            messages.success(
-                request=request, message="Sugestão Enviada com sucesso, Obrigado!"
-            )
-            return redirect(to="sugestion")
-    else:
-        forms = SugestionForm()
+        Sugestion.objects.create(text=text, user=request.user)
 
-    ctx.update({"forms": forms})
-    return render(request=request, template_name=template_name, context=ctx)
+        return JsonResponse({}, status=200)
+    except Exception as error:
+        return JsonResponse({"error": error}, 400)
 
 
 @login_required
