@@ -512,7 +512,7 @@ footer textarea::placeholder {
 .footer-contact h2 {
     font-size: 22px;
     margin-bottom: 15px;
-    font-weight: bold;
+    font-weight: 400;
     color: #333;
 }
 
