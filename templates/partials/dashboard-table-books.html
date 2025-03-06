@@ -17,7 +17,7 @@
             <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.188);">
                 <td class="px-4 py-2 truncate max-w-[150px]">
                     <div class="overflow-hidden whitespace-nowrap text-ellipsis">
-                        <a href="{% url 'books-details' slug=book.slug %}"
+                        <a href="{% url 'books-details' slug=book.slug isbn=book.isbn %}"
                             style="color: blue;text-decoration: underline;">
                             {{ book.title }}
                         </a>

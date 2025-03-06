@@ -103,7 +103,7 @@ button:hover {
     background-color: transparent;
     color: red;
 }
-
+*/
 .swal2-confirm {
     background-color: #3db1c8;
 }
@@ -116,10 +116,24 @@ button:hover {
     background-color: gray;
 }
 
-.swal2-input {
-    text-align: center;
+.popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
+.swal-input {
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 8px;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center !important;
+    font-size: 18px;
+}
+
+/*
 .book-title {
     font-size: 20px;
     font-weight: 400;
@@ -177,8 +191,10 @@ canvas {
 .nav-buttons {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 16px;
     flex-wrap: wrap;
+    font-weight: 400;
     margin-top: 20px;
 }
 
@@ -219,7 +235,6 @@ button:hover {
 
 #page-info {
     font-size: 18px;
-    font-weight: bold;
 }
 
 #stop-reading {
