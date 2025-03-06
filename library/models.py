@@ -157,9 +157,8 @@ class BookExtraImage(models.Model):
 
 class Sugestion(models.Model):
     user = models.ForeignKey(
-        verbose_name="sugestion", to=User, on_delete=models.CASCADE
+        verbose_name="sugestions", to=User, on_delete=models.CASCADE
     )
-    about = models.CharField(verbose_name="Assunto", max_length=50)
     text = models.TextField(verbose_name="Sugestão", max_length=500)
     date_sugested = models.DateTimeField(verbose_name="data", auto_now_add=True)
 

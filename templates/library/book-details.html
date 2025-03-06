@@ -4,191 +4,203 @@
 {% load humanize %}
 
 {% block title %}
-  {{ book.title }}
+{{ book.title }}
 {% endblock %}
 
 {% block head %}
-  {% compress css %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
-  {% endcompress %}
+{% compress css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+<link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
+{% endcompress %}
 {% endblock %}
 
 {% block content %}
-  <main id="book-details">
-    <div class="container">
-      <div class="book-cover">
-        <img src="{{ book.cover.url }}" alt="{{ book.title }}" id="cover"/>
-        <br /><hr />
-        <div class="extra-images">
-          {% for extra_img in book.extra_images.all %}
-          <img src="{{ extra_img.img.url }}" alt="Extra Image">
-          {% endfor %}
-        </div>
-          
+<main id="book-details">
+  <div class="container">
+    <div class="book-cover">
+      <div style="width: 100%;display: flex;justify-content: center;">
+        <img src="{{ book.cover.url }}" alt="{{ book.title }}" id="cover" />
       </div>
-      <div class="book-layout">
-        <div class="book-info">
-          <h1 class="book-title">{{ book.title }}</h1>
-          <p class="book-author">
-            by{% for author in book.authors.all %}
-              <a href="" class="author_link">{{ author.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-          </p>
+      <br />
+      <hr />
+      <div class="extra-images">
+        {% for extra_img in book.extra_images.all %}
+        <img src="{{ extra_img.img.url }}" alt="Extra Image">
+        {% endfor %}
+      </div>
 
-          <div style="display: flex;
-          justify-content: space-between;align-items: center;">
-            <div class="book-rating" style="margin-top: 10px;margin-bottom:15px;">
-              {% for category in book.categories.all %}
-                <span class="badge" style="background-color: {{ category.color }};" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">{{ category.name }}</span>
-              {% endfor %}
-            </div>
-            <div class="book-read" style="margin-top: 10px;margin-bottom:15px;">
-              <a href="{% url 'read-book' slug=book.slug isbn=book.isbn %}"><button class="bn53"><span>Ler Livro</span></button></a>
-            </div>
-          </div>
-          <hr />
-          <p class="book-summary">{{ book.summary }}</p>
-          <hr />
-          <div class="book-details">
-            <div class="detail">
-              <span>Data de Publicação</span>
-              <i class="bi bi-calendar2-week"></i>
-              <span class="detail-value">{{ book.publication_date }}</span>
-            </div>
-            <div class="detail">
-              <span>Idioma</span>
-              <i class="bi bi-globe-americas"></i>
-              <span class="detail-value">{{ book.get_language_display }}</span>
-            </div>
-            <div class="detail">
-              <span>Páginas</span>
-              <i class="bi bi-file-earmark-text"></i>
-              <span class="detail-value">{{ book.pages }}</span>
-            </div>
-            <div class="detail">
-              <span>Editora</span>
-              <i class="bi bi-buildings"></i>
-              <span class="detail-value">{{ book.publisher.name }}</span>
-            </div>
-            <div class="detail">
-              <span>ISBN-13</span>
-              <i class="bi bi-upc-scan"></i>
-              <span class="detail-value">{{ book.isbn }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="comments">
-        <h1>Comentários</h1>
-        <hr />
-        <div class="comment-input">
-          <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
-          <input type="text" placeholder="Escreva um comentário..." id="js-comment-input" />
-          <button class="submit-btn">Enviar</button>
-        </div>
-        <hr />
-        <div id="js-comments">
-          {% for comment in book.comments.all %}
-          <div class="comment">
-            <div class="comment-info">
-              <h3 class="comment-author">{{ comment.user.username }}</h3>
-              <span style="color: gray;">{{ comment.created_at|naturaltime }}</span>
-            </div>
-            <p class="comment-text">{{ comment.content }}</p>
-          </div>
-          {% empty %}
-          <div style="text-align: center;color: gray;margin-top: 2rem;" id="no-comments">Sem comentários até agora.</div>
+    </div>
+    <div class="book-layout">
+      <div class="book-info">
+        <h1 class="book-title">{{ book.title }}</h1>
+        <p class="book-author">
+          by{% for author in book.authors.all %}
+          <a href="" class="author_link">{{ author.get_full_name }}</a>{% if not forloop.last %}, {% endif %}
           {% endfor %}
+        </p>
+
+        <div style="display: flex;
+          justify-content: space-between;align-items: center;">
+          <div class="book-rating" style="margin-top: 10px;margin-bottom:15px;">
+            {% for category in book.categories.all %}
+            <span class="badge" style="background-color: {{ category.color }};"
+              onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+              {{ category.name }}</span>
+            {% endfor %}
+          </div>
+          <div class="book-read" style="margin-top: 10px;margin-bottom:15px;">
+            <a href="{% url 'read-book' slug=book.slug isbn=book.isbn %}"><button class="bn53"><span>Ler
+                  Livro</span></button></a>
+          </div>
+        </div>
+        <hr />
+        <p class="book-summary">{{ book.summary }}</p>
+        <hr />
+        <div class="book-details">
+          <div class="detail">
+            <span>Data de Publicação</span>
+            <i class="bi bi-calendar2-week"></i>
+            <span class="detail-value">{{ book.publication_date }}</span>
+          </div>
+          <div class="detail">
+            <span>Idioma</span>
+            <i class="bi bi-globe-americas"></i>
+            <span class="detail-value">{{ book.get_language_display }}</span>
+          </div>
+          <div class="detail">
+            <span>Páginas</span>
+            <i class="bi bi-file-earmark-text"></i>
+            <span class="detail-value">{{ book.pages }}</span>
+          </div>
+          <div class="detail">
+            <span>Editora</span>
+            <i class="bi bi-buildings"></i>
+            <span class="detail-value">{{ book.publisher.name }}</span>
+          </div>
+          <div class="detail">
+            <span>ISBN-13</span>
+            <i class="bi bi-upc-scan"></i>
+            <span class="detail-value">{{ book.isbn }}</span>
+          </div>
         </div>
       </div>
     </div>
-  </main>
+    <div class="comments">
+      <h1>Comentários</h1>
+      <hr />
+      <div class="comment-input">
+        <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+        <input type="text" placeholder="Escreva um comentário..." id="js-comment-input" />
+        <button class="submit-btn">Enviar</button>
+      </div>
+      <hr />
+      <div id="js-comments">
+        {% for comment in book.comments.all %}
+        <div class="comment">
+          <div class="comment-info">
+            <h3 class="comment-author">{{ comment.user.username }}</h3>
+            <span style="color: gray;">{{ comment.created_at|naturaltime }}</span>
+          </div>
+          <p class="comment-text">{{ comment.content }}</p>
+        </div>
+        {% empty %}
+        <div style="text-align: center;color: gray;margin-top: 2rem;" id="no-comments">Sem comentários até agora.</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</main>
 
-  {% compress js %}
-  <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/date-fns/locale/pt-BR"></script>
-  <script>
-    document.querySelector('.submit-btn').addEventListener('click', async function () {
-      let button = this;
-  
-      // Remove qualquer loader existente antes de adicionar um novo
-      let existingLoader = button.querySelector('.loader');
-      if (existingLoader) {
-          existingLoader.remove();
-      }
-  
-      // Cria e adiciona o loader ao lado do texto "Enviando..."
-      let loader = document.createElement('span');
-      loader.classList.add('loader');
-      loader.style.marginLeft = '8px';
-      loader.innerHTML = '⏳'; // Pode ser substituído por um ícone de loading
-  
-      button.textContent = 'Enviando';
-      button.appendChild(loader);
-  
-      const commentInput = document.querySelector('#js-comment-input');
-      const content = commentInput.value.trim(); // Remove espaços em branco extras
-  
-      if (!content) {
-          alert("O comentário não pode estar vazio.");
-          resetButton(button);
-          return;
-      }
-  
-      const csrfToken = document.querySelector('#csrf_token').value;
-  
-      try {
-          const response = await fetch("{% url 'add-comment' %}", {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-                  'X-CSRFToken': csrfToken
-              },
-              body: JSON.stringify({
-                  book_slug: '{{ book.slug }}',
-                  content: content
-              })
-          });
-  
-          if (response.ok) {
-              const data = await response.json();
+{% compress js %}
+<script>
+  function formatTime(timestamp) {
+    const now = new Date();
+    const date = new Date(timestamp);
+    const diffInSeconds = Math.floor((now - date) / 1000);
 
-              setTimeout(() => {
-                resetButton(button);
-                
-                const p = document.querySelector("#no-comments")
-                
-                if (p) {
-                  p.remove()
-                }
-                
-                document.querySelector('#js-comments').insertAdjacentHTML('afterbegin', `
-                <div class="comment">
-                  <div class="comment-info">
-                    <h3 class="comment-author" data-user-id="${data.userId}">${data.username}</h3>
-                    <span style="color: gray;">${data.created_at}</span>
-                  </div>
-                  <p class="comment-text">${data.content}</p>
-                </div>
-                `)
-                }, 1000)
-  
-              commentInput.value = "";
-          } else {
-              const errorData = await response.json();
-              alert("Erro: " + (errorData.error || "Não foi possível enviar o comentário."));
-          }
-      } catch (error) {
-          alert("Erro ao enviar comentário. Tente novamente.");
-      }
-  
-  });
-  
-  function resetButton(button) {
-      button.textContent = 'Enviar';
+    if (diffInSeconds < 60) {
+        return `há ${Math.abs(diffInSeconds)} segundos`;
+    }
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
+        return `há ${Math.abs(diffInMinutes)} minutos`;
+    }
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
+        return `há ${Math.abs(diffInHours)} horas`;
+    }
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays === 1) {
+        return "ontem";
+    } else if (diffInDays < 30) {
+        return `há ${Math.abs(diffInDays)} dias`;
+    }
+
+    return date.toLocaleDateString("pt-PT");
   }
-  </script>
 
-  {% endcompress %}
+  function update_time(timestamp, elementId) {
+      function update() {
+          const formattedTime = formatTime(timestamp);
+          const element = document.querySelector(`#comment-${elementId}`);
+          if (element) {
+              element.innerText = formattedTime;
+          }
+      }
+      update(); // Atualiza imediatamente ao inserir o comentário
+      setInterval(update, 30000); // Atualiza a cada 30 segundos
+  }
+
+  const ws = new WebSocket(`ws://${window.location.host}/ws/comment-consumer/{{ book.slug }}/`)
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data)
+
+    console.log(data)
+    
+    const p = document.querySelector("#no-comments")
+
+    if (p) {
+      p.remove()
+    }
+
+    document.querySelector('#js-comments')
+    .insertAdjacentHTML('afterbegin', `
+    <div class="comment">
+        <div class="comment-info">
+          <h3 class="comment-author" data-user-id="${data.userId}">${data.username}</h3>
+          <span style="color: gray;" id="comment-${data.id}">${formatTime(data.created_at)}</span>
+        </div>
+        <p class="comment-text">${data.content}</p>
+      </div>
+    `)
+    update_time(data.created_at, data.id);
+  } 
+
+  document.querySelector('.submit-btn')
+    .addEventListener('click', function () {
+      const commentInput = document.querySelector('#js-comment-input');
+      const content = commentInput.value.trim();
+
+      if (!content) {
+        alert("O comentário não pode estar vazio.");
+        return;
+      }
+
+      commentInput.value = "";
+
+      ws.send(JSON.stringify({
+        content: content
+      }))
+      
+    })
+
+    
+  
+</script>
+
+{% endcompress %}
 {% endblock %}

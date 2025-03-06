@@ -24,6 +24,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -34,13 +35,14 @@ INSTALLED_APPS = [
     # "crispy_forms",
     # "crispy_tailwind",
     "django_browser_reload",
+    "channels",
     "compressor",
     "tailwind",
     "theme",
     "control",
     "library",
     "courses",
-    "colorfield"
+    "colorfield",
 ]
 
 # Internal IPS
@@ -84,8 +86,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "core.wsgi.application"
+# WSGI_APPLICATION = "core.wsgi.application"
+ASGI_APPLICATION = "core.asgi.application"
 
+# CHANNEL_LAYERS = {"default": {"BACKEND": "channels_redis.core.RedisChannelLayer"}}
+CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -139,9 +144,9 @@ STATIC_ROOT = BASE_DIR.joinpath("staticfiles")
 # Compressor
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 )
 
 
@@ -165,4 +170,4 @@ LOGIN_URL = "/auth/signin/"
 REDIRECT_FIELD_NAME = "then"
 
 # Frame control
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = "SAMEORIGIN"

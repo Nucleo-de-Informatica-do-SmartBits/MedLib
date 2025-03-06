@@ -6,7 +6,7 @@ from .views import (
     bookDetails,
     manageBook,
     readBook,
-    sugest,
+    add_suggestion,
     add_comment,
 )
 
@@ -19,5 +19,5 @@ urlpatterns = [
     path("book/<slug>/<isbn>/", bookDetails, name="books-details"),
     path("read/<slug>/<isbn>/", readBook, name="read-book"),
     path("add-comment/", add_comment, name="add-comment"),
-    path("sugestion/", sugest, name="sugestion"),
+    path("add-suggestion/", add_suggestion, name="add-sugestion"),
 ]

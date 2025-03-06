@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block head %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   {% compress css %}
   <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
   {% endcompress %}
@@ -36,8 +37,8 @@
       </div>
     </div>
 
-    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-xl text-center">
-      <span id="text" style="cursor: text;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação."</span>
+    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-xl text-center" id="text-div-home">
+      <span id="text" style="cursor: tex  t;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação."</span>
     </div>
 
     <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-opacity-70 text-sm">Powered By IPPS</div>
@@ -52,18 +53,19 @@
           </div>
           <div class="sec-info">
             <h3 class="book-title">{{ book.title|truncatechars:20 }}</h3>
-            
-            <p class="book-author">  
+
+            <p class="book-author">
               {% for author in book.authors.all %}
-              {{ author  }}
+                {{ author }}
               {% endfor %}
             </p>
-              
           </div>
         </div>
       {% endfor %}
     </section>
   </section>
+
+  {% include 'partials/footer.html' %}
 
   {% compress js %}
   <script src="{% static 'js/library/home.js' %}"></script>

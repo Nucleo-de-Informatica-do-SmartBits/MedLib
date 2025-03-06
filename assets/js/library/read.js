@@ -4,17 +4,6 @@ let pdfDoc = null,
   ctx = canvas.getContext('2d'),
   totalPages = 0
 
-/*function renderPage(num) {
-  pdfDoc.getPage(num).then((page) => {
-    let viewport = page.getViewport({ scale: 1.5 })
-    canvas.height = viewport.height
-    canvas.width = viewport.width
-    let renderContext = { canvasContext: ctx, viewport: viewport }
-    page.render(renderContext)
-    document.getElementById('current-page').textContent = num
-  })
-}*/
-
 function renderPage(num) {
   pdfDoc.getPage(num).then((page) => {
     let viewport = page.getViewport({ scale: 1.2 }); // Ajusta o zoom do PDF
@@ -35,7 +24,7 @@ function nextPage() {
 
 function prevPage() {
   if (pageNum > 1) {
-    pageNum--
+    pageNum--;
     renderPage(pageNum)
   }
 }
@@ -57,15 +46,20 @@ let userTime = 0
 
 Swal.fire({
   title: 'Qual o tempo de leitura?',
-  input: 'number',
-  inputLabel: 'Informe o tempo em minutos',
+  input: 'text',
+  inputLabel: 'Informe o tempo em minutos (menor que 60m)',
   inputValue: 30,
   showCancelButton: true,
   confirmButtonText: 'Confirmar',
   cancelButtonText: 'Cancelar',
   allowOutsideClick: false,
+  customClass: {
+    popup: 'popup',
+    input: 'swal-input'
+  },
   inputValidator: (value) => {
     if (!value || value <= 0) return 'Informe um tempo válido!'
+    if (value > 60) return 'Informe um tempo menor que 60m!'
   }
 }).then((result) => {
   if (result.isConfirmed) {
@@ -112,10 +106,9 @@ document.getElementById('stop-reading').addEventListener('click', () => {
 })
 
 document.addEventListener("DOMContentLoaded", function () {
-  const title = document.getElementById("bookTitle");
+  const title = document.getElementById("book-title");
 
   title.addEventListener("click", function () {
-    // Alternar entre truncado e completo
     if (title.style.whiteSpace === "nowrap") {
       title.style.whiteSpace = "normal"; // Exibe todo o texto
       title.style.overflow = "visible";

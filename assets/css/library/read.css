@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     text-align: center;
@@ -103,7 +103,7 @@ button:hover {
     background-color: transparent;
     color: red;
 }
-
+*/
 .swal2-confirm {
     background-color: #3db1c8;
 }
@@ -116,17 +116,150 @@ button:hover {
     background-color: gray;
 }
 
-.swal2-input {
-    text-align: center;
+.popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
 }
 
+.swal-input {
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 8px;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center !important;
+    font-size: 18px;
+}
+
+/*
 .book-title {
     font-size: 20px;
     font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%; /* Garante que o título não ultrapasse o contêiner */
+    max-width: 100%;
     display: inline-block;
     cursor: pointer;
-  }
+} */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.reader-container {
+    width: 90%;
+    max-width: 800px;
+    height: 100vh;
+    margin: 20px auto;
+    padding: 0 8px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.reader-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+}
+
+.pdf-container {
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    background: #fff;
+    text-align: center;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #3db1c8;
+    color: white;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #2a8fa3;
+}
+
+#timer {
+    padding: 10px;
+    border-radius: 5px;
+    color: #333;
+    font-size: 20px;
+    display: none;
+}
+
+.time-stop {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    transition: all .3s;
+}
+
+.time-stop:hover {
+    background-color: #e3e2e2;
+}
+
+#page-info {
+    font-size: 18px;
+}
+
+#stop-reading {
+    padding: 8px 10px;
+    background-color: transparent;
+    color: red;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .reader-container {
+        width: 95%;
+        height: auto;
+    }
+
+    .pdf-container {
+        max-height: 70vh;
+    }
+
+    .nav-buttons {
+        gap: 8px;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}

@@ -9,3 +9,6 @@ django-compressor
 crispy-tailwind
 django_browser_reload
 django-colorfield
+channels["redis"]
+daphne
+channels-redis

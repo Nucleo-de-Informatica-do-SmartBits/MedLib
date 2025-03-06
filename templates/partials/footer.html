@@ -1,0 +1,50 @@
+{% load static %}
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="{% static 'imgs/logo.png' %}" alt="Logo da Biblioteca Virtual" class="logo-footer" />
+      <h2>SmartBits Virtual MedLib</h2>
+      <div>
+        <p>Conectando você ao conhecimento desde 2025.</p>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <h2>Contactos</h2>
+      <ul>
+        <li>
+          <i class="bi bi-envelope"></i>
+          <span>contacto@svl.com</span>
+        </li>
+        <li>
+          <i class="bi bi-telephone"></i>
+          <span>(+244) 999 999 999</span>
+        </li>
+        <li>
+          <i class="bi bi-geo-alt"></i>
+          <span>Condomínio Girassol, Cs. I303</span>
+        </li>
+        <li>
+          <i class="bi bi-globe2"></i>
+          <span>www.smartBits.com.ao</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-suggestion">
+      <h2>Faça uma sugestão</h2>
+      <textarea name="suggestion" placeholder="Deixe sua sugestão..." id="suggestion-textarea" rows="4"></textarea><br />
+      <small>Queremos ouvir você! Deixe sua sugestão aqui.</small>
+      <button type="submit" id="sugg-btn" style="margin-top: 10px;display: flex;align-items: center;justify-content: center;gap: 5px;" class="js-suggestion-btn">Enviar</button>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>&copy; 2025 IPPS. Todos os direitos reservados.</div>
+    <div>
+      <i class="bi bi-instagram"></i>
+      <i class="bi bi-facebook"></i>
+      <i class="bi bi-github"></i>
+    </div>
+  </div>
+</footer>
