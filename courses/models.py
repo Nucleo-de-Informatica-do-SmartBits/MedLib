@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.db.models import *
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Teacher(models.Model):
@@ -97,3 +98,27 @@ class Video(models.Model):
             if not self.slug or self.slug == "None":
                   self.slug = slugify(self.title)
             return super().save(*args, **kwargs)
+
+class Comment(models.Model):
+    """
+    Model Comment
+
+    + DEFINIÇÃO
+    Faz um comentario sobre um video específico
+
+    + Atributos
+    - user: relativo a Model User representando que todo comentario terá um Usuário
+    - video: O video em que o comentário será exibido
+    - content: texto (o texto é o comentário)
+    - created_at: data que o comentario foi submetido
+    """
+    user: User = models.ForeignKey(
+      User,
+      related_name="videos_comment",
+      on_delete=models.CASCADE,
+      null=True,
+      blank=True,
+    )
+    video: Video = models.ForeignKey(Video, related_name="comments", on_delete=models.CASCADE)
+    content: TextField = models.TextField()
+    created_at: DateTimeField = models.DateTimeField(auto_now_add=True, null=True, blank=True)
