@@ -1,37 +1,60 @@
-{% extends "bases/library.html" %}
+{% extends 'bases/library.html' %}
 {% load static %}
 {% load compress %}
 
-{% block title %}Cursos{% endblock title %}
+{% block title %}
+  Cursos
+{% endblock %}
 
 {% block head %}
-      {% compress css %}
-            <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}">
-      {% endcompress %}
-{% endblock head %}
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}" />
+  {% endcompress %}
+{% endblock %}
 
 {% block content %}
+  <section>
+    <div>
+      <img src="{% static 'imgs/wv2.svg' %}" alt="Ilustração de aprendizado" />
 
-<div class="bg-white rounded-lg shadow-lg p-6">
-      <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <div class="text-content">
+        <h1>Encontre a melhor opção</h1>
+        <p>Escolha o curso certo para si!</p>
+        <a href="#" class="btn">Explorar Cursos</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <div>
+      <h1>Tudo que você precisa em um só lugar</h1>
+      <small>Assista a cursos e desenvolva habilidades essenciais até temas técnicos avançados.</small>
+      <ul>
+        <li style="background-color: #FFD166;">Ciência de Dados</li> <!-- Amarelo vibrante -->
+        <li style="background-color: #06D6A0;">Desenvolvimento Web</li> <!-- Verde água -->
+        <li style="background-color: #EF476F;">Desenvolvimento Mobile</li> <!-- Rosa avermelhado -->
+        <li style="background-color: #118AB2;">Redes de Computadores</li> <!-- Azul forte -->
+      </ul>
+      <hr style="margin-top: 15px;">
+    </div>
+    <article>
       {% for course in courses %}
-      <div class="comments" style="padding: 5px; height: fit-content; margin: 5px;" align="center">
-            <a href="{% url 'courses_video' course.slug %}" style="background-color: red;">
-                  <h1>{{course}}</h1>
-            </a>
-      </div>
+        <div class="course-card">
+          <div class="header">
+            <img src="{{ course.cover.url }}" alt="" />
+          </div>
+          <div class="body">
+            <h1 class="title">{{ course.name }}</h1>
+            <span class="owner">{{ course.teacher }}</span>
+          </div>
+          <div class="rating"></div>
+          <div class="tags">
+            
+          </div>
+        </div>
       {% endfor %}
-      </div>
-</div>
+    </article>
+  </main>
 
-<header>
-      <div>
-
-      </div>
-</header>
-
-<main>
-
-</main>
-
-{% endblock content %}
+  {% comment %} {% include 'partials/footer.html' %} {% endcomment %}
+{% endblock %}
