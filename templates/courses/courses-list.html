@@ -1,62 +1,54 @@
-{% extends 'bases/library.html' %}
+{% extends "bases/library.html" %}
 {% load static %}
 {% load compress %}
 
-{% block title %}
-  Cursos
-{% endblock %}
+{% block title %}Cursos{% endblock title %}
 
 {% block head %}
-  {% compress css %}
-  <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}" />
-  {% endcompress %}
-{% endblock %}
+      {% compress css %}
+            <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}">
+      {% endcompress %}
+{% endblock head %}
 
 {% block content %}
-  <section>
-    <div>
-      <img src="{% static 'imgs/wv2.svg' %}" alt="Ilustração de aprendizado" />
 
-      <div class="text-content">
-        <h1>Encontre a melhor opção</h1>
-        <p>Escolha o curso certo para si!</p>
-        <a href="#" class="btn">Explorar Cursos</a>
-      </div>
-    </div>
-  </section>
+<header>
+      <section class="relative w-full overflow-hidden" style="height: 50dvh; user-select: none;">
+            <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
+              <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
+              {% comment %} 
+                  <img src="{% static 'imgs/slide2.jpg' %}" alt="Image 2" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
+                  <img src="{% static 'imgs/slide3.jpg' %}" alt="Image 3" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" /> 
+              {% endcomment %}
+            </div>
+      </section>
+</header>
 
-  <main>
-    <div>
-      <h1>Tudo que você precisa em um só lugar</h1>
-      <small>Assista a cursos e desenvolva habilidades essenciais até temas técnicos avançados.</small>
-      <ul>
-        <li style="background-color: #FFD166;">Ciência de Dados</li>
-        <li style="background-color: #06D6A0;">Desenvolvimento Web</li>
-        <li style="background-color: #EF476F;">Desenvolvimento Mobile</li>
-        <li style="background-color: #118AB2;">Redes de Computadores</li>
-      </ul>
-      <hr style="margin-top: 15px;">
-    </div>
-    <article>
-      {% for course in courses %}
-        <div class="course-card">
-          <div class="header">
-            <img src="{{ course.cover.url }}" alt="" />
-          </div>
-          <div class="body">
-            <h1 class="title">{{ course.name }}</h1>
-            <span class="owner">{{ course.teacher }}</span>
-          </div>
-          <div class="rating">
-            4,5
-          </div>
-          <div class="tags">
-
-          </div>
-        </div>
-      {% endfor %}
-    </article>
-  </main>
-
-  {% comment %} {% include 'partials/footer.html' %} {% endcomment %}
-{% endblock %}
+<main>
+      <section class="section-list-courses">
+            <ul>
+                  <a href="?ctg=PROGRAMAÇÃO"><li>programação</li></a>
+                  <a href="?ctg=ELETRÓNICA"><li>eletrónica</li></a>
+                  <a href="?ctg=REDES"><li>redes</li></a>
+                  <a href="?ctg=OUTROS"><li>diversos</li></a>
+            </ul>
+            <hr id="hr-menu-list">
+            <br>
+            <div class="div-list-courses">
+                  {% for course in courses %}
+                        <div class="cards">
+                              <div class="head-card">
+                                    <img src="{% static 'imgs/slide1.jpeg' %}" alt="">
+                              </div>
+                              <div class="footer-card">
+                                    <h3 class="title">{{course.name}}</h3>
+                                    <p>   
+                                    <p>{{course.teacher}} - {{course.date_publiced}}</p>
+                              </div>
+                        </div>
+                  {% endfor %}
+            </div>
+      </section>
+</main>
+<br><br>
+{% endblock content %}
