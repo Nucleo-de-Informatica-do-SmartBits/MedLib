@@ -162,8 +162,6 @@ main>div>ul>li:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
 }
 
 .course-card:hover {
@@ -198,7 +196,7 @@ main>div>ul>li:hover {
     font-weight: bold;
     color: #333;
     line-height: 1.4;
-    min-height: 40px;
+    min-height: 25px;
 }
 
 .owner {
@@ -211,15 +209,15 @@ main>div>ul>li:hover {
     align-items: center;
     gap: 4px;
     font-size: 14px;
-    color: #f5a623;
+    /* color: #f5a623; */
     padding: 0 12px 8px;
 }
 
-.rating::before {
-    content: "★★★★★";
+.rating::after {
+    content: "";
     letter-spacing: 2px;
     font-size: 12px;
-    color: #f5a623;
+    color: rgb(227, 53, 53);
 }
 
 .tags {
