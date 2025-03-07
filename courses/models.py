@@ -37,6 +37,7 @@ class Course(models.Model):
     preview = models.FileField("preview", upload_to="course-preview/", **extra_fields)
     teacher = models.CharField(max_length=100, **extra_fields)
     name = models.CharField(max_length=200, **extra_fields)
+    description = models.TextField(**extra_fields)
     category = models.CharField(
         max_length=20, choices=CATEGORY_CHOICES, default="Outro", **extra_fields
     )

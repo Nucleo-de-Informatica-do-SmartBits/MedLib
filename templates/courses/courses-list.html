@@ -1,8 +1,10 @@
-{% extends "bases/library.html" %}
+{% extends 'bases/library.html' %}
 {% load static %}
 {% load compress %}
 
-{% block title %}Cursos{% endblock title %}
+{% block title %}
+  Cursos
+{% endblock %}
 
 {% block head %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -18,9 +20,9 @@
       <img src="{% static 'imgs/wv2.svg' %}" alt="Ilustração de aprendizado" />
 
       <div class="text-content">
-        <h1>A prática faz o mestre</h1>
-        <p>pratica suas habilidades assistindo os cursos!</p>
-        <a href="#" class="btn">Explorar Cursos</a>
+        <h1>A prática leva à maestria!</h1>
+        <p>Pratique as suas habilidades assistindo os cursos!</p>
+        <a href="#courses-view" class="btn" h>Explorar Cursos</a>
       </div>
     </div>
   </section>
@@ -37,7 +39,7 @@
       </ul>
       <hr style="margin-top: 15px;" />
     </div>
-    <article>
+    <article id="courses-view">
       {% for course in courses %}
         <div class="course-card">
           <div class="header">
