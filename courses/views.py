@@ -10,7 +10,13 @@ def access_courses(request):
       ctx = {}
 
       if request.method == "GET":
-            courses: Course = Course.objects.all()
+            category = request.GET.get("ctg")
+            print(category)
+            if not category:
+                  courses: Course = Course.objects.all()
+            else:
+                  courses: Course = Course.objects.filter(category=category)
+
             ctx["courses"] = courses
 
       return render(request=request, template_name=template_name, context=ctx)
@@ -51,7 +57,4 @@ def access_courses_video_watch(request, video):
             ctx["course"] = course
             ctx["paginator"] = pg
 
-            
-
-      return render(request=request, template_name=tn, context=ctx)
-      ...
+            return render(request=request, template_name=tn, context=ctx)

@@ -12,26 +12,43 @@
 
 {% block content %}
 
-<div class="bg-white rounded-lg shadow-lg p-6">
-      <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-      {% for course in courses %}
-      <div class="comments" style="padding: 5px; height: fit-content; margin: 5px;" align="center">
-            <a href="{% url 'courses_video' course.slug %}" style="background-color: red;">
-                  <h1>{{course}}</h1>
-            </a>
-      </div>
-      {% endfor %}
-      </div>
-</div>
-
 <header>
-      <div>
-
-      </div>
+      <section class="relative w-full overflow-hidden" style="height: 50dvh; user-select: none;">
+            <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
+              <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
+              {% comment %} 
+                  <img src="{% static 'imgs/slide2.jpg' %}" alt="Image 2" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
+                  <img src="{% static 'imgs/slide3.jpg' %}" alt="Image 3" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" /> 
+              {% endcomment %}
+            </div>
+      </section>
 </header>
 
 <main>
-
+      <section class="section-list-courses">
+            <ul>
+                  <a href="?ctg=PROGRAMAÇÃO"><li>programação</li></a>
+                  <a href="?ctg=ELETRÓNICA"><li>eletrónica</li></a>
+                  <a href="?ctg=REDES"><li>redes</li></a>
+                  <a href="?ctg=OUTROS"><li>diversos</li></a>
+            </ul>
+            <hr id="hr-menu-list">
+            <br>
+            <div class="div-list-courses">
+                  {% for course in courses %}
+                        <div class="cards">
+                              <div class="head-card">
+                                    <img src="{% static 'imgs/slide1.jpeg' %}" alt="">
+                              </div>
+                              <div class="footer-card">
+                                    <h3 class="title">{{course.name}}</h3>
+                                    <p>   
+                                    <p>{{course.teacher}} - {{course.date_publiced}}</p>
+                              </div>
+                        </div>
+                  {% endfor %}
+            </div>
+      </section>
 </main>
-
+<br><br>
 {% endblock content %}
