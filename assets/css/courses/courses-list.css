@@ -20,20 +20,17 @@ section>div {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-/* Efeito hover */
 section>div:hover {
     transform: scale(1.02);
     box-shadow: 12px 12px 0px 2px #1A1A1A;
 }
 
-/* Imagem */
 section>div>img {
     width: 300px;
     height: auto;
     animation: float 3s infinite ease-in-out;
 }
 
-/* Estilização do conteúdo de texto */
 .text-content {
     display: flex;
     flex-direction: column;
@@ -45,7 +42,6 @@ section>div>img {
     box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.15);
 }
 
-/* Botão */
 .btn {
     display: inline-block;
     padding: 12px 24px;
@@ -77,6 +73,10 @@ section>div>img {
     }
 }
 
+body {
+    min-height: 100dvh;
+}
+
 main {
     margin-top: 30px;
     width: 100%;
@@ -84,6 +84,7 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 main>div {
@@ -114,6 +115,7 @@ main>div>ul {
 
 /* Itens da lista */
 main>div>ul>li {
+    cursor: pointer;
     font-size: 18px;
     background: #f0f0f0;
     padding: 8px 16px;
@@ -128,7 +130,6 @@ main>div>ul>li:hover {
     box-shadow: 4px 4px 0px 1px black;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     section>div {
         flex-direction: column;
@@ -152,7 +153,6 @@ main>div>ul>li:hover {
     }
 }
 
-/* Container principal do card */
 .course-card {
     width: 100%;
     max-width: 300px;
@@ -166,13 +166,11 @@ main>div>ul>li:hover {
     flex-direction: column;
 }
 
-/* Efeito hover para destacar o card */
 .course-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Cabeçalho do card */
 .header {
     width: 100%;
     height: 160px;
@@ -182,14 +180,12 @@ main>div>ul>li:hover {
     justify-content: center;
 }
 
-/* Imagem do curso */
 .header img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Corpo do card */
 .body {
     padding: 12px;
     display: flex;
@@ -197,7 +193,6 @@ main>div>ul>li:hover {
     gap: 6px;
 }
 
-/* Título do curso */
 .title {
     font-size: 16px;
     font-weight: bold;
@@ -206,24 +201,20 @@ main>div>ul>li:hover {
     min-height: 40px;
 }
 
-/* Nome do instrutor */
 .owner {
     font-size: 14px;
     color: #666;
 }
 
-/* Seção de avaliação */
 .rating {
     display: flex;
     align-items: center;
     gap: 4px;
     font-size: 14px;
     color: #f5a623;
-    /* Cor de estrelas (dourado) */
     padding: 0 12px 8px;
 }
 
-/* Estrelas de avaliação */
 .rating::before {
     content: "★★★★★";
     letter-spacing: 2px;
@@ -231,7 +222,6 @@ main>div>ul>li:hover {
     color: #f5a623;
 }
 
-/* Seção de tags */
 .tags {
     display: flex;
     gap: 6px;
@@ -239,7 +229,6 @@ main>div>ul>li:hover {
     flex-wrap: wrap;
 }
 
-/* Estilização das tags */
 .tags span {
     font-size: 12px;
     background: #e1ecf4;
@@ -249,7 +238,6 @@ main>div>ul>li:hover {
     font-weight: bold;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .course-card {
         max-width: 100%;
@@ -257,5 +245,5 @@ main>div>ul>li:hover {
 }
 
 article {
-    margin-top: 10px;
+    margin-top: 18px;
 }
