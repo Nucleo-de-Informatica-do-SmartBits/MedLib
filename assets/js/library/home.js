@@ -82,3 +82,115 @@ document.querySelector('.js-suggestion-btn')
         }, 1000);
         suggestionInput.value = ''
     })
+
+/*document.getElementById('search-input').addEventListener('input', async function (e) {
+    const input = e.target.value.trim();
+    const loader = document.getElementById('loader');
+    const resultsContainer = document.getElementById('results-container');
+    const searchResults = document.getElementById('search-results');
+
+    if (input === '') {
+        resultsContainer.innerHTML = '';
+        searchResults.classList.add('hidden');
+        return;
+    }
+
+    try {
+        resultsContainer.innerHTML = '';
+        loader.classList.remove('hidden');
+        searchResults.classList.remove('hidden');
+
+        const response = await fetch(`/library/search-for-books/?q=${encodeURIComponent(input)}`);
+        const data = await response.json();
+
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            resultsContainer.innerHTML = '';
+
+            if (data.length > 0) {
+                data.forEach(book => {
+                    resultsContainer.innerHTML += `
+                            <div class="p-2 border-b">
+                                <a href="/library/book/${book.slug}/" class="text-blue-500 hover:underline">
+                                    ${book.title}
+                                </a>
+                            </div>
+                        `;
+                });
+            } else {
+                resultsContainer.innerHTML = '<div class="p-2 text-center text-gray-500">Sem resultados para "' + input + '"</div>';
+            }
+        }, 1500);
+    } catch (error) {
+        console.error("Erro ao buscar livros:", error);
+        resultsContainer.innerHTML = '<div class="p-2 text-red-500">Erro ao buscar livros.</div>';
+        loader.classList.add('hidden');
+    }
+});*/
+
+document.getElementById('search-input').addEventListener('input', async function (e) {
+    const input = e.target.value.trim();
+    const loader = document.getElementById('loader');
+    const resultsContainer = document.getElementById('results-container');
+    const searchResults = document.getElementById('search-results');
+
+    if (input === '') {
+        resultsContainer.innerHTML = '';
+        searchResults.classList.add('hidden');
+        return;
+    }
+
+    try {
+        resultsContainer.innerHTML = '';
+        loader.classList.remove('hidden');
+        searchResults.classList.remove('hidden');
+
+        const response = await fetch(`/library/search-for-books/?q=${encodeURIComponent(input)}`);
+        const data = await response.json();
+
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            resultsContainer.innerHTML = '';
+
+            if (data.length > 0) {
+                data.forEach(book => {
+                    const bookElement = document.createElement('div');
+                    bookElement.classList.add('result-item', 'fade-in');
+                    bookElement.innerHTML = `
+                        <a href="/library/book/${book.slug}/${book.isbn}/" class="s-results">
+                            ${book.title}
+                        </a>
+                    `;
+                    resultsContainer.appendChild(bookElement);
+                });
+            } else {
+                resultsContainer.innerHTML = '<div class="p-2 text-center text-white-500">Sem resultados para "' + input + '"</div>';
+            }
+        }, 1000);
+    } catch (error) {
+        console.error("Erro ao buscar livros:", error);
+        resultsContainer.innerHTML = '<div class="p-2 text-red-500">Erro ao buscar livros.</div>';
+        loader.classList.add('hidden');
+    }
+});
+
+
+document.body.addEventListener('click', (e) => {
+    const resultsContainer = document.getElementById('results-container');
+    const searchResults = document.getElementById('search-results');
+    const input = document.querySelector('#search-input')
+
+    if (
+        e.target === input ||
+        e.target === searchResults ||
+        e.target === resultsContainer ||
+        e.target.className === 'result-item fade-in') {
+        return
+    }
+
+    if (resultsContainer && searchResults) {
+        input.value = ''
+        resultsContainer.innerHTML = '';
+        searchResults.classList.add('hidden');
+    }
+})
