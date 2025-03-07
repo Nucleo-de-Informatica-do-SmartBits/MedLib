@@ -117,10 +117,10 @@ def bookDetails(request, slug, isbn):
 def add_suggestion(request):
     try:
         data = json.loads(request.body)
-        text = data.get('content')
-        
+        text = data.get("content")
+
         if not text:
-            raise ValueError('O texto não pode estar vazio')
+            raise ValueError("O texto não pode estar vazio")
 
         Sugestion.objects.create(text=text, user=request.user)
 
@@ -168,3 +168,14 @@ def readBook(request, slug, isbn):
 
     ctx["book"] = book
     return render(request, template_name, ctx)
+
+
+@login_required
+@require_http_methods(["GET"])
+def search_for_books(request):
+    query = request.GET.get('q')
+    
+    books = Book.objects.filter(title__icontains=query).values(
+        "id", "title", "isbn", "slug"
+    )
+    return JsonResponse(list(books), safe=False)
