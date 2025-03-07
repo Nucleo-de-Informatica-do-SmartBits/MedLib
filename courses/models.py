@@ -1,8 +1,11 @@
+from math import ceil
+
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+extra_fields = {"null": True, "blank": True}
 
 
 class Course(models.Model):
@@ -30,22 +33,27 @@ class Course(models.Model):
         ("RC", "Redes de Computadores"),
         ("Outro", "Outro"),
     ]
-    cover = models.ImageField(
-        "cover", upload_to="course-covers/", null=True, blank=True
-    )
-    preview = models.FileField(
-        "preview", upload_to="course-preview/", null=True, blank=True
-    )
-    teacher = models.CharField(max_length=100, null=True, blank=True)
-    name = models.CharField(max_length=200)
+    cover = models.ImageField("cover", upload_to="course-covers/", **extra_fields)
+    preview = models.FileField("preview", upload_to="course-preview/", **extra_fields)
+    teacher = models.CharField(max_length=100, **extra_fields)
+    name = models.CharField(max_length=200, **extra_fields)
     category = models.CharField(
-        max_length=20, null=True, blank=True, choices=CATEGORY_CHOICES, default="Outro"
+        max_length=20, choices=CATEGORY_CHOICES, default="Outro", **extra_fields
     )
-    publiced_at = models.DateField(auto_now_add=True, null=True, blank=True)
-    slug = models.SlugField(unique=True, editable=False)
+    stars = models.ManyToManyField(User, related_name="courses_with_user_stars")
+    publiced_at = models.DateField(auto_now_add=True, **extra_fields)
+    updated_at = models.DateField(auto_now=True, **extra_fields)
+    slug = models.SlugField(unique=True, editable=False, **extra_fields)
 
     def __str__(self):
         return self.name
+
+    @property
+    def get_stars_in_percentage(self):
+        try:
+            return round((self.stars.count() * 100) / User.objects.count())
+        except:  # noqa
+            return 0
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -69,13 +77,11 @@ class Video(models.Model):
     - slug: identificador do vídeo nas urls
     """
 
-    course = models.ForeignKey(to=Course, on_delete=models.CASCADE)
-    title = models.CharField(max_length=150)
-    description = models.TextField(null=True, blank=True)
-    video = models.FileField(
-        "videos", upload_to="course-videos/", null=True, blank=True
-    )
-    slug = models.SlugField(editable=False)
+    course = models.ForeignKey(to=Course, on_delete=models.CASCADE, **extra_fields)
+    title = models.CharField(max_length=150, **extra_fields)
+    description = models.TextField(**extra_fields)
+    video = models.FileField("videos", upload_to="course-videos/", **extra_fields)
+    slug = models.SlugField(editable=False, **extra_fields)
 
     def __str__(self):
         return self.title
@@ -101,14 +107,10 @@ class Comment(models.Model):
     """
 
     user = models.ForeignKey(
-        User,
-        related_name="videos_comment",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
+        User, related_name="videos_comment", on_delete=models.CASCADE, **extra_fields
     )
-    video = models.ForeignKey(Video, related_name="comments", on_delete=models.CASCADE)
-    content = models.TextField()
-    created_at = models.DateTimeField(
-        auto_now_add=True, null=True, blank=True, editable=False
+    video = models.ForeignKey(
+        Video, related_name="comments", on_delete=models.CASCADE, **extra_fields
     )
+    content = models.TextField(**extra_fields)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False, **extra_fields)
