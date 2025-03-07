@@ -19,19 +19,23 @@ class Teacher(models.Model):
 
       first_name: CharField = models.CharField(max_length=40)
       last_name: CharField = models.CharField(max_length=40)
-      slug: CharField = models.SlugField(unique=True , editable=False)
+      slug: CharField = models.SlugField(
+            unique=True, 
+            editable=False
+      )
 
       def __str__(self):
             """
             Retorna o primeiro e o último nome do Autor
             """
-            return self.first_name + self.last_name
+            return self.first_name +" "+ self.last_name
       
       def save(self, *args, **kwargs):
             if not self.slug:
                   self.slug = slugify(self.first_name+self.last_name)
             return super().save(*args, **kwargs)
 
+# TODO: missing cover
 class Course(models.Model):
       """
       Model Course
@@ -56,12 +60,22 @@ class Course(models.Model):
             ("OUTROS", "OUTROS"),
             ("REDES", "REDES"),
       ]
-      teacher: Teacher = models.ForeignKey(to=Teacher, on_delete=models.CASCADE)
+      teacher: Teacher = models.ForeignKey(
+            to=Teacher, 
+            on_delete=models.CASCADE
+      )
 
       name: CharField = models.CharField(max_length=200)
-      category: CharField = models.CharField(choices=CHOCES_CATEGORY, default="OUTROS", max_length=50)
+      category: CharField = models.CharField(
+            choices=CHOCES_CATEGORY, 
+            default="OUTROS", 
+            max_length=50
+      )
       date_publiced: DateField = models.DateField()
-      slug: SlugField = models.SlugField(unique=True, editable=False) 
+      slug: SlugField = models.SlugField(
+            unique=True, 
+            editable=False
+      ) 
 
       def __str__(self):
             return self.name
@@ -86,39 +100,58 @@ class Video(models.Model):
       - slug: identificador do vídeo nas urls
       """
 
-      curso: Course = models.ForeignKey(to=Course, on_delete=models.CASCADE)
+      curso: Course = models.ForeignKey(
+            to=Course, 
+            on_delete=models.CASCADE
+      )
       title: CharField = models.CharField(max_length=500)
-      path: CharField = models.FileField(verbose_name="video_path", upload_to="course-videos/", max_length=500)
-      slug: CharField = models.SlugField(unique=True, editable=False)
+      path: CharField = models.FileField(
+            verbose_name="video_path", 
+            upload_to="course-videos/", 
+            max_length=500
+      )
+      slug: CharField = models.SlugField(
+            unique=True, 
+            editable=False
+      )
 
       def __str__(self):
             return self.title
       
       def save(self, *args, **kwargs):
-            if not self.slug or self.slug == "None":
+            if not self.slug:
                   self.slug = slugify(self.title)
             return super().save(*args, **kwargs)
 
 class Comment(models.Model):
-    """
-    Model Comment
+      """
+      Model Comment
 
-    + DEFINIÇÃO
-    Faz um comentario sobre um video específico
+      + DEFINIÇÃO
+      Faz um comentario sobre um video específico
 
-    + Atributos
-    - user: relativo a Model User representando que todo comentario terá um Usuário
-    - video: O video em que o comentário será exibido
-    - content: texto (o texto é o comentário)
-    - created_at: data que o comentario foi submetido
-    """
-    user: User = models.ForeignKey(
-      User,
-      related_name="videos_comment",
-      on_delete=models.CASCADE,
-      null=True,
-      blank=True,
-    )
-    video: Video = models.ForeignKey(Video, related_name="comments", on_delete=models.CASCADE)
-    content: TextField = models.TextField()
-    created_at: DateTimeField = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+      + Atributos
+      - user: relativo a Model User representando que todo comentario terá um Usuário
+      - video: O video em que o comentário será exibido
+      - content: texto (o texto é o comentário)
+      - created_at: data que o comentario foi submetido
+      """
+      user: User = models.ForeignKey(
+            User,
+            related_name="videos_comment",
+            on_delete=models.CASCADE,
+            null=True,
+            blank=True,
+      )
+
+      video: Video = models.ForeignKey(
+            to=Video, 
+            related_name="comments", 
+            on_delete=models.CASCADE
+      )
+      content: TextField = models.TextField()
+      created_at: DateTimeField = models.DateTimeField(
+            auto_now_add=True, 
+            null=True, 
+            blank=True
+      )
