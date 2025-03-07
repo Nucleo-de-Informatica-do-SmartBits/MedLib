@@ -1,10 +1,8 @@
-{% extends 'bases/library.html' %}
+{% extends "bases/library.html" %}
 {% load static %}
 {% load compress %}
 
-{% block title %}
-  Cursos
-{% endblock %}
+{% block title %}Cursos{% endblock title %}
 
 {% block head %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
@@ -20,8 +18,8 @@
       <img src="{% static 'imgs/wv2.svg' %}" alt="Ilustração de aprendizado" />
 
       <div class="text-content">
-        <h1>Encontre a melhor opção</h1>
-        <p>Escolha o curso certo para si!</p>
+        <h1>A prática faz o mestre</h1>
+        <p>pratica suas habilidades assistindo os cursos!</p>
         <a href="#" class="btn">Explorar Cursos</a>
       </div>
     </div>
@@ -32,10 +30,10 @@
       <h1>Tudo que você precisa em um só lugar</h1>
       <small>Assista a cursos e desenvolva habilidades essenciais até temas técnicos avançados.</small>
       <ul>
-        <li style="background-color: #FFD166;">Ciência de Dados</li>
-        <li style="background-color: #06D6A0;">Desenvolvimento Web</li>
-        <li style="background-color: #EF476F;">Desenvolvimento Mobile</li>
-        <li style="background-color: #118AB2;">Redes de Computadores</li>
+        <li style="border-color: #FFD166;">Ciência de Dados</li>
+        <li style="border-color: #06D6A0;">Desenvolvimento Web</li>
+        <li style="border-color: #EF476F;">Desenvolvimento Mobile</li>
+        <li style="border-color: #118AB2;">Redes de Computadores</li>
       </ul>
       <hr style="margin-top: 15px;" />
     </div>

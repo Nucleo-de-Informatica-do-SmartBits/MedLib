@@ -12,9 +12,9 @@ section>div {
     justify-content: center;
     align-items: center;
     background-color: #efefef;
-    border: 3px solid #1A1A1A;
+    /* border: 3px solid #1A1A1A; */
     border-radius: 5px;
-    box-shadow: 8px 8px 0px 2px #1A1A1A;
+    /* box-shadow: 8px 8px 0px 2px #1A1A1A; */
     padding: 20px;
     gap: 20px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
@@ -22,7 +22,7 @@ section>div {
 
 section>div:hover {
     transform: scale(1.02);
-    box-shadow: 12px 12px 0px 2px #1A1A1A;
+    /* box-shadow: 12px 12px 0px 2px #1A1A1A; */
 }
 
 section>div>img {
@@ -48,15 +48,15 @@ section>div>img {
     background: #3DB1C8;
     color: white;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 30px;
     text-decoration: none;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     transition: 0.3s ease-in-out;
     align-self: center;
 }
 
 .btn:hover {
-    box-shadow: 4px 4px 0px 2px black;
+    /* box-shadow: 4px 4px 0px 2px black; */
     background: #2d8495;
 }
 
@@ -114,14 +114,15 @@ main>div>ul>li {
     font-size: 18px;
     background: #f0f0f0;
     padding: 8px 16px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 0px 1px black;
+    border-radius: 30px;
+    border-width: 1px;
+    /* box-shadow: 2px 2px 0px 1px black; */
     transition: 0.3s ease-in-out;
 }
 
 main>div>ul>li:hover {
     transform: translateY(-3px);
-    box-shadow: 4px 4px 0px 1px black;
+    /* box-shadow: 4px 4px 0px 1px black; */
 }
 
 @media (max-width: 768px) {
