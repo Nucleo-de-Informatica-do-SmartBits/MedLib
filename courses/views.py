@@ -11,7 +11,6 @@ def access_courses(request):
 
       if request.method == "GET":
             category = request.GET.get("ctg")
-            print(category)
             if not category:
                   courses: Course = Course.objects.all()
             else:
@@ -35,7 +34,6 @@ def access_courses_video(request, slug):
       ctx["course"] = course
 
       return render(request=request, template_name=tn, context=ctx)
-      ...
 
 @login_required
 def access_courses_video_watch(request, video):
