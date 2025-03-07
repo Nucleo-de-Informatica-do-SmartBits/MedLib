@@ -42,7 +42,7 @@
             <img src="{{ course.cover.url }}" alt="" />
           </div>
           <div class="body">
-            <h1 class="title">{{ course.name }}</h1>
+            <h1 class="title"><a href="{% url 'courses_video' course.slug %}">{{ course.name }}</a></h1>
             <span class="owner">{{ course.teacher }}</span>
           </div>
           <div class="rating">

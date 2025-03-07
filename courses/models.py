@@ -41,6 +41,11 @@ class Course(models.Model):
       category = models.CharField(
             max_length=20, null=True, blank=True, choices=CATEGORY_CHOICES, default="Outro"
       )
+      description = models.TextField(
+            max_length=1000,
+            null=True, 
+            blank=True
+      )
       publiced_at = models.DateField(auto_now_add=True, null=True, blank=True)
       slug = models.SlugField(unique=True, editable=False)
 

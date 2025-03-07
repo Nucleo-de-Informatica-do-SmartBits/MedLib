@@ -1,0 +1,24 @@
+.text-description h1 {
+      text-align: justify;
+      font-size: 25px;
+}
+
+.div-list-video {
+      align-items: center;
+      width: 60%;
+      margin: 10px;
+}
+
+.div-list-video ul {
+      list-style-type: none; /* Remove bullets */
+      padding: 0; /* Remove padding */
+      margin: 0; /* Remove margins */
+      border-radius: 8px;
+      border-width: 2px;
+      
+}
+
+.div-list-video ul li {
+      background-color: #f6f6f6; /* Add a grey background color */
+      padding: 12px; /* Add some padding */
+}

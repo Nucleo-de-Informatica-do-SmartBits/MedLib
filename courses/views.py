@@ -22,13 +22,12 @@ def access_courses_video(request, slug):
 
     # get all video in courses that have this slug
     course: Course = Course.objects.get(slug=slug)
-    videos: Video = Video.objects.filter(curso=course)
+    videos: Video = Video.objects.filter(course=course)
 
     ctx["videos"] = videos
     ctx["course"] = course
 
     return render(request=request, template_name=tn, context=ctx)
-    ...
 
 
 @login_required
