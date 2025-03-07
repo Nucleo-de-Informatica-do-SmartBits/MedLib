@@ -1,23 +1,17 @@
-section {
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-section>div {
-    width: 80%;
-    height: 300px;
+body {
+    min-height: 100vh;
+}
+
+header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #efefef;
-    border: 3px solid #1A1A1A;
-    border-radius: 5px;
-    box-shadow: 8px 8px 0px 2px #1A1A1A;
-    padding: 20px;
-    gap: 20px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 header div {
@@ -25,8 +19,6 @@ header div {
     background-color: gray;
 }
 
-main {
-}
 
 main .section-list-courses h1 {
     font-size: 20pt;

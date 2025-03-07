@@ -1,21 +1,16 @@
-{% extends 'bases/library.html' %}
+{% extends "bases/library.html" %}
 {% load static %}
 {% load compress %}
 
-{% block title %}
-  Cursos
-{% endblock %}
+{% block title %}Cursos{% endblock title %}
 
 {% block head %}
-  {% compress css %}
-  <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}" />
-  {% endcompress %}
-{% endblock %}
+      {% compress css %}
+            <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}">
+      {% endcompress %}
+{% endblock head %}
 
 {% block content %}
-  <section>
-    <div>
-      <img src="{% static 'imgs/wv2.svg' %}" alt="Ilustração de aprendizado" />
 
 <header>
       <section class="relative w-full overflow-hidden" style="height: 50dvh; user-select: none;">
