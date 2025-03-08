@@ -20,7 +20,7 @@
             src: url('{% static "fonts/Roboto-Regular.ttf" %}');
         }
 
-        * {
+        nav {
             font-family: 'Roboto', sans-serif;
         }
     </style>
@@ -61,7 +61,7 @@
 
 
     {% compress js %}
-    <script>
+    <script>  
         document.addEventListener('htmx:configRequest', (event) => {
             const xhr = event.detail.headers
             xhr['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
