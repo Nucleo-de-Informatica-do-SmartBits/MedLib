@@ -141,7 +141,6 @@ class Video(models.Model):
 
         if self.video:
             try:
-                print(self.video.path)
                 media_info = MediaInfo.parse(self.video.path)
                 self.duration = media_info.tracks[0].duration
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.http import JsonResponse
 from courses.models import Course, Video, Faq
 
 
@@ -30,22 +30,14 @@ def view_course(request, course_slug, course_uuid):
 
 
 @login_required
-def watch_video(request, video_slug):
-    template_name = "courses/courses-watch.html"
+def get_video_data(request, video_slug, video_uuid):
+    video = get_object_or_404(Video, slug=video_slug, uuid=video_uuid)
 
-    main_video = get_object_or_404(Video, slug=video_slug)
-    related_videos = Video.objects.filter(curso=main_video.curso)
-
-    paginator = Paginator(related_videos, 2)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        "video_main": main_video,
-        "course": main_video.curso,
-        "paginator": page_obj,
-    }
-    return render(request, template_name, context)
+    return JsonResponse({
+        'title':video.title,
+        'video_path': video.video.url,
+        'video_cover_path': video.cover.url
+    })
 
 
 @login_required
