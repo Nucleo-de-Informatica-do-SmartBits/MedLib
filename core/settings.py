@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     "compressor",
     "tailwind",
     "theme",
+    "colorfield",
     "control",
     "library",
     "courses",
-    "colorfield",
 ]
 
 # Internal IPS

@@ -1,3 +1,5 @@
+import ffmpeg
+
 from shortuuid import uuid
 
 from django.db import models
@@ -33,8 +35,16 @@ class Course(models.Model):
         ("RC", "Redes de Computadores"),
         ("Outro", "Outro"),
     ]
+
+    LANGUAGE_CHOICES = [("PT", "Português"), ("EN", "Ingles")]
+
     cover = models.ImageField("cover", upload_to="course-covers/", **extra_fields)
-    preview = models.FileField("preview", upload_to="course-preview/", **extra_fields)
+    preview = models.ForeignKey(
+        to="Video",
+        on_delete=models.SET_NULL,
+        related_name="video_preview",
+        **extra_fields,
+    )
     teacher = models.CharField(max_length=100, **extra_fields)
     name = models.CharField(max_length=200, **extra_fields)
     description = models.TextField(**extra_fields)
@@ -46,6 +56,11 @@ class Course(models.Model):
     updated_at = models.DateField(auto_now=True, **extra_fields)
     slug = models.SlugField(editable=False, **extra_fields)
     uuid = models.CharField(max_length=50, unique=True, **extra_fields)
+    language = models.CharField(
+        max_length=20, choices=LANGUAGE_CHOICES, default="PT", **extra_fields
+    )
+    updated_at = models.DateTimeField(auto_now=True, **extra_fields)
+    created_at = models.DateTimeField(auto_now_add=True, **extra_fields)
 
     def __str__(self):
         return self.name
@@ -60,7 +75,7 @@ class Course(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-            
+
         if not self.uuid:
             self.uuid = uuid(name=self.slug)
 
@@ -84,18 +99,36 @@ class Video(models.Model):
     - slug: identificador do vídeo nas urls
     """
 
+    is_preview = models.BooleanField(default=False)
     course = models.ForeignKey(to=Course, on_delete=models.CASCADE, **extra_fields)
     title = models.CharField(max_length=150, **extra_fields)
     description = models.TextField(**extra_fields)
+    cover = models.ImageField(upload_to="video-cover/", **extra_fields)
     video = models.FileField("videos", upload_to="course-videos/", **extra_fields)
+    duration = models.IntegerField(**extra_fields)
     slug = models.SlugField(editable=False, **extra_fields)
+    uuid = models.CharField(max_length=50, unique=True, **extra_fields)
 
     def __str__(self):
-        return self.title
+        return f"{self.title}"
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
+
+        if not self.uuid:
+            self.uuid = uuid(name=self.slug)
+
+            while Course.objects.filter(uuid=self.uuid).exists():
+                self.uuid = uuid(name=self.slug)
+
+        if self.video:
+            try:
+                video_info = ffmpeg.probe(self.video.path)
+                self.duration = int(float(video_info["format"]["duration"]))
+            except Exception as e:  # noqa
+                self.duration = 0
+
         return super().save(*args, **kwargs)
 
 

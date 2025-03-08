@@ -12,3 +12,4 @@ django-colorfield
 daphne
 channels-redis
 shortuuid
+ffmpeg-python

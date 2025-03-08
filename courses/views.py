@@ -16,7 +16,7 @@ def view_course(request, course_slug, course_uuid):
     template_name = "courses/courses-video.html"
     
     course = get_object_or_404(Course, slug=course_slug, uuid=course_uuid)
-    videos = Video.objects.filter(curso=course)
+    videos = Video.objects.filter(course=course)
 
     context = {
         "videos": videos,
