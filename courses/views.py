@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from courses.models import Course, Video
+from courses.models import Course, Video, Faq
 
 
 @login_required
@@ -17,10 +17,14 @@ def view_course(request, course_slug, course_uuid):
     
     course = get_object_or_404(Course, slug=course_slug, uuid=course_uuid)
     videos = Video.objects.filter(course=course)
+    faq_list = Faq.objects.filter(course=course)
 
     context = {
         "videos": videos,
         "course": course,
+        "faq_list": faq_list,
+        "total_videos": course.get_total_videos,
+        "total_duration": course.get_total_videos_duration
     }
     return render(request, template_name, context)
 

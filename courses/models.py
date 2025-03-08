@@ -1,8 +1,9 @@
-import ffmpeg
+from pymediainfo import MediaInfo
 
 from shortuuid import uuid
 
 from django.db import models
+from django.db.models import Sum
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
@@ -72,6 +73,22 @@ class Course(models.Model):
         except:  # noqa
             return 0
 
+    @property
+    def get_total_videos(self):
+        videos = Video.objects.filter(course=self)
+        return videos.count()
+
+    @property
+    def get_total_videos_duration(self):
+        return (
+            (
+                Video.objects.filter(course=self).aggregate(total=Sum("duration"))[
+                    "total"
+                ]
+            )
+            or 0
+        )
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
@@ -105,7 +122,7 @@ class Video(models.Model):
     description = models.TextField(**extra_fields)
     cover = models.ImageField(upload_to="video-cover/", **extra_fields)
     video = models.FileField("videos", upload_to="course-videos/", **extra_fields)
-    duration = models.IntegerField(**extra_fields)
+    duration = models.PositiveIntegerField(**extra_fields)
     slug = models.SlugField(editable=False, **extra_fields)
     uuid = models.CharField(max_length=50, unique=True, **extra_fields)
 
@@ -124,9 +141,12 @@ class Video(models.Model):
 
         if self.video:
             try:
-                video_info = ffmpeg.probe(self.video.path)
-                self.duration = int(float(video_info["format"]["duration"]))
+                print(self.video.path)
+                media_info = MediaInfo.parse(self.video.path)
+                self.duration = media_info.tracks[0].duration
+
             except Exception as e:  # noqa
+                print(e)
                 self.duration = 0
 
         return super().save(*args, **kwargs)
@@ -154,3 +174,10 @@ class Comment(models.Model):
     )
     content = models.TextField(**extra_fields)
     created_at = models.DateTimeField(auto_now_add=True, editable=False, **extra_fields)
+
+
+class Faq(models.Model):
+    course = models.ForeignKey(to=Course, on_delete=models.CASCADE, **extra_fields)
+    question = models.CharField(max_length=80, **extra_fields)
+    answer = models.TextField(**extra_fields)
+    created_at = models.DateTimeField(auto_now_add=True, **extra_fields)
