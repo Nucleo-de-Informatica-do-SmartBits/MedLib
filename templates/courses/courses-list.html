@@ -22,7 +22,7 @@
       <div class="text-content">
         <h1>A prática leva à maestria!</h1>
         <p>Pratique as suas habilidades assistindo os cursos!</p>
-        <a href="#courses-view" class="btn" h>Explorar Cursos</a>
+        <a class="btn">Explorar Cursos</a>
       </div>
     </div>
   </section>
@@ -32,44 +32,71 @@
       <h1>Tudo que você precisa em um só lugar</h1>
       <small>Assista a cursos e desenvolva habilidades essenciais até temas técnicos avançados.</small>
       <ul>
-        <li style="border-color: #FFD166;">Ciência de Dados</li>
-        <li style="border-color: #06D6A0;">Desenvolvimento Web</li>
-        <li style="border-color: #EF476F;">Desenvolvimento Mobile</li>
-        <li style="border-color: #118AB2;">Redes de Computadores</li>
+        <li style="border-color:rgb(189, 102, 255);" onclick="filterCourses(this, 'ALL')" class="search-filter">Todos</li>
+        <li style="border-color: #FFD166;" onclick="filterCourses(this, 'CD')" class="search-filter">Ciência de Dados</li>
+        <li style="border-color: #06D6A0;" onclick="filterCourses(this, 'DW')" class="search-filter">Desenvolvimento Web</li>
+        <li style="border-color: #EF476F;" onclick="filterCourses(this, 'DM')" class="search-filter">Desenvolvimento Mobile</li>
+        <li style="border-color: #118AB2;" onclick="filterCourses(this, 'RC')" class="search-filter">Redes de Computadores</li>
       </ul>
       <hr style="margin-top: 15px;" />
     </div>
-    <article id="courses-view">
-      {% for course in courses %}
-        <div class="course-card">
-          <div class="header">
-            <img src="{{ course.cover.url }}" alt="" />
-          </div>
-          <div class="body">
-            <h1 class="title">{{ course.name }}</h1>
-            <span class="owner">{{ course.teacher }}</span>
-          </div>
-          <div style="display: flex;justify-content: space-between;align-items: center;">
-            <div class="tags">
-              {% if course.updated_at > course.publiced_at %}
-                <span class="tag tag-updated">Atualizado</span>
-              {% elif course.get_stars_in_percentage >= 80 %}
-                <span class="tag tag-high-rated">Muito Popular</span>
-              {% elif course.get_stars_in_percentage >= 50 %}
-                <span class="tag tag-popular">Popular</span>
-              {% elif course.get_stars_in_percentage >= 20 %}
-                <span class="tag tag-trending">Tendência</span>
-              {% endif %}
-            </div>
 
-            <div class="rating">
-              {{ course.get_stars_in_percentage }}% <i class="bi bi-star-fill"></i>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
+    <div id="loader" class="loader"></div>
+
+    <article id="courses-view" style="margin-bottom: 40px;">
+      {% include 'partials/courses_list.html' %}
     </article>
   </main>
 
-  {% comment %} {% include 'partials/footer.html' %} {% endcomment %}
+  {% include 'partials/footer.html' %}
+
+  <script>
+    function redirecToViewCourse(card) {
+      const slug = card.dataset.slug
+      const uuid = card.dataset.uuid
+      
+      window.location.href = `/courses/view-course/${slug}/${uuid}/`
+    }
+
+    document.querySelector('.btn').addEventListener('click', () => {
+      document.querySelector('#courses-view').scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
+    })
+    
+    async function filterCourses(target, category) {
+      document.querySelectorAll('.search-filter').forEach((e) => {
+        e.style.backgroundColor = 'transparent'
+        e.style.color = '#333'
+      })
+    
+      target.style.backgroundColor = target.style.borderColor
+      target.style.color = 'white'
+    
+      const loader = document.getElementById('loader')
+      const coursesView = document.getElementById('courses-view')
+    
+      loader.style.display = 'block'
+      coursesView.innerHTML = ''
+    
+      try {
+        const response = await fetch(`{% url 'filter_courses' %}?category=${category}`)
+        const html = await response.text()
+    
+        setTimeout(() => {
+          loader.style.display = 'none'
+          coursesView.innerHTML = html
+    
+          coursesView.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          })
+        }, 1000)
+      } catch (error) {
+        console.error('Erro ao carregar cursos:', error)
+        coursesView.innerHTML = `<p>Erro ao carregar cursos. Tente novamente.</p>`
+      }
+    }
+  </script>
 {% endblock %}

@@ -11,3 +11,4 @@ django_browser_reload
 django-colorfield
 daphne
 channels-redis
+shortuuid

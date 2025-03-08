@@ -1,54 +1,56 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from courses.models import Course, Video
 from django.core.paginator import Paginator
+from courses.models import Course, Video
 
 
-# Create your views here.
 @login_required
-def access_courses(request):
+def list_courses(request):
     template_name = "courses/courses-list.html"
-    courses: Course = Course.objects.all()
-
-    return render(
-        request=request, template_name=template_name, context={"courses": courses}
-    )
+    courses = Course.objects.all()
+    return render(request, template_name, {"courses": courses})
 
 
 @login_required
-def access_courses_video(request, slug):
-    tn = "courses/courses-video.html"
-    ctx = {}
+def view_course(request, course_slug, course_uuid):
+    template_name = "courses/courses-video.html"
+    
+    course = get_object_or_404(Course, slug=course_slug, uuid=course_uuid)
+    videos = Video.objects.filter(curso=course)
 
-    # get all video in courses that have this slug
-    course: Course = Course.objects.get(slug=slug)
-    videos: Video = Video.objects.filter(curso=course)
-
-    ctx["videos"] = videos
-    ctx["course"] = course
-
-    return render(request=request, template_name=tn, context=ctx)
-    ...
+    context = {
+        "videos": videos,
+        "course": course,
+    }
+    return render(request, template_name, context)
 
 
 @login_required
-def access_courses_video_watch(request, video):
-    tn = "courses/courses-watch.html"
-    ctx = {}
+def watch_video(request, video_slug):
+    template_name = "courses/courses-watch.html"
 
-    video_main: Video = Video.objects.get(slug=video)
-    course = video_main.curso
-    course: Video = Video.objects.filter(curso=course)
+    main_video = get_object_or_404(Video, slug=video_slug)
+    related_videos = Video.objects.filter(curso=main_video.curso)
 
-    pg = Paginator(course, 2)
+    paginator = Paginator(related_videos, 2)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
-    if request.method == "GET":
-        page_numer = request.GET.get("page")
+    context = {
+        "video_main": main_video,
+        "course": main_video.curso,
+        "paginator": page_obj,
+    }
+    return render(request, template_name, context)
 
-        pg = pg.get_page(page_numer)
 
-        ctx["video_main"] = video_main
-        ctx["course"] = course
-        ctx["paginator"] = pg
+@login_required
+def filter_courses(request):
+    category = request.GET.get("category", "ALL")
 
-    return render(request=request, template_name=tn, context=ctx)
+    if category == "ALL":
+        courses = Course.objects.all()
+    else:
+        courses = Course.objects.filter(category=category)
+
+    return render(request, "partials/courses_list.html", {"courses": courses})

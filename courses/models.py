@@ -1,4 +1,4 @@
-from math import ceil
+from shortuuid import uuid
 
 from django.db import models
 from django.utils.text import slugify
@@ -44,7 +44,8 @@ class Course(models.Model):
     stars = models.ManyToManyField(User, related_name="courses_with_user_stars")
     publiced_at = models.DateField(auto_now_add=True, **extra_fields)
     updated_at = models.DateField(auto_now=True, **extra_fields)
-    slug = models.SlugField(unique=True, editable=False, **extra_fields)
+    slug = models.SlugField(editable=False, **extra_fields)
+    uuid = models.CharField(max_length=50, unique=True, **extra_fields)
 
     def __str__(self):
         return self.name
@@ -58,9 +59,14 @@ class Course(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(
-                self.name + self.teacher.first_name + self.teacher.last_name
-            )
+            self.slug = slugify(self.name)
+            
+        if not self.uuid:
+            self.uuid = uuid(name=self.slug)
+
+            while Course.objects.filter(uuid=self.uuid).exists():
+                self.uuid = uuid(name=self.slug)
+
         return super().save(*args, **kwargs)
 
 
