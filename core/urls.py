@@ -11,7 +11,7 @@ urlpatterns = [
     path("auth/", include("control.urls")),
     path("admin/", admin.site.urls),
 
-    path("__reload__/", include("django_browser_reload.urls")),
+    # path("__reload__/", include("django_browser_reload.urls")),
     path("", RedirectView.as_view(url=reverse_lazy("home"))),
 ]
 
