@@ -7,6 +7,8 @@ from django.db.models import Sum
 from django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
+from cloudinary.models import CloudinaryField
+
 User = get_user_model()
 extra_fields = {"null": True, "blank": True}
 
@@ -39,7 +41,7 @@ class Course(models.Model):
 
     LANGUAGE_CHOICES = [("PT", "Português"), ("EN", "Ingles")]
 
-    cover = models.ImageField("cover", upload_to="course-covers/", **extra_fields)
+    cover = CloudinaryField("image", **extra_fields)
     preview = models.ForeignKey(
         to="Video",
         on_delete=models.SET_NULL,
@@ -120,8 +122,8 @@ class Video(models.Model):
     course = models.ForeignKey(to=Course, on_delete=models.CASCADE, **extra_fields)
     title = models.CharField(max_length=150, **extra_fields)
     description = models.TextField(**extra_fields)
-    cover = models.ImageField(upload_to="video-cover/", **extra_fields)
-    video = models.FileField("videos", upload_to="course-videos/", **extra_fields)
+    cover = CloudinaryField("image", **extra_fields)
+    video = CloudinaryField("video", **extra_fields)
     duration = models.PositiveIntegerField(**extra_fields)
     slug = models.SlugField(editable=False, **extra_fields)
     uuid = models.CharField(max_length=50, unique=True, **extra_fields)
