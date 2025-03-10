@@ -185,12 +185,17 @@
     const e = document.querySelector('.js-duration-master')
     e.innerText = msParaTempoLegivel(e.textContent)
     
+    const playerElement = document.getElementById('videoPlayer')
+    const player = new Plyr(playerElement, {
+      controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      ratio: '16:9'
+    })
+    
     document.querySelectorAll('.js-course-title').forEach((element) => {
       element.addEventListener('click', async () => {
         const loader = document.querySelector('#js-loader')
         const modelContent = document.querySelector('#js-modal-content')
         const modal = document.getElementById('videoModal')
-        const playerElement = document.getElementById('videoPlayer')
     
         loader.style.display = 'block'
         modelContent.style.display = 'none'
@@ -204,19 +209,14 @@
           const response = await fetch(link)
           const data = await response.json()
     
-          const player = new Plyr(playerElement, {
-            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
-            ratio: '16:9'
-          })
-    
           document.getElementById('videoTitle').textContent = data.title
-          document.getElementById('videoSource').src = data.video_path
+          {% comment %} document.getElementById('videoSource').src = data.video_path {% endcomment %}
     
           loader.style.display = 'none'
           modelContent.style.display = 'block'
-          
+    
           playerElement.setAttribute('poster', data.video_cover_url)
-
+    
           player.source = {
             type: 'video',
             sources: [
