@@ -247,8 +247,14 @@ main>div>ul>li:hover {
 }
 
 @media (max-width: 768px) {
+    article {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .course-card {
-        max-width: 100%;
+        max-width: 80%;
     }
 }
 

@@ -39,6 +39,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.dev.dependencies]
 taskipy = "^1.14.1"
+djlint = "^1.36.4"
 
 
 [tool.taskipy.tasks]
@@ -46,3 +47,6 @@ run = "python manage.py runserver"
 mg = "python manage.py migrate"
 mkmg = "python manage.py makemigrations"
 cs = "python manage.py createsuperuser"
+
+[tool.djlint]
+profile="django"

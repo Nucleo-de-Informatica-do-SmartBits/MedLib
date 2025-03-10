@@ -1,34 +1,35 @@
 {% for course in courses %}
-  <div class="course-card" data-slug="{{ course.slug }}" data-uuid="{{ course.uuid }}" onclick="redirecToViewCourse(this)">
-    <div class="header">
-      <img src="{{ course.cover.url }}" alt="" />
+    <div class="course-card"
+         data-slug="{{ course.slug }}"
+         data-uuid="{{ course.uuid }}"
+         onclick="redirecToViewCourse(this)">
+        <div class="header">
+            <img src="{{ course.cover.url }}" alt="" />
+        </div>
+        <div class="body">
+            <h1 class="title">{{ course.name }}</h1>
+            <span class="owner">{{ course.teacher }}</span>
+        </div>
+        <div style="display: flex;
+                    justify-content: space-between;
+                    align-items: center">
+            <div class="tags">
+                {% if course.updated_at > course.publiced_at %}
+                    <span class="tag tag-updated">Atualizado</span>
+                {% elif course.get_stars_in_percentage >= 80 %}
+                    <span class="tag tag-high-rated">Muito Popular</span>
+                {% elif course.get_stars_in_percentage >= 50 %}
+                    <span class="tag tag-popular">Popular</span>
+                {% elif course.get_stars_in_percentage >= 20 %}
+                    <span class="tag tag-trending">Tendência</span>
+                {% endif %}
+            </div>
+            <div class="rating">
+                {{ course.get_stars_in_percentage }}% <i class="bi bi-star-fill"></i>
+            </div>
+        </div>
     </div>
-    <div class="body">
-      <h1 class="title">{{ course.name }}</h1>
-      <span class="owner">{{ course.teacher }}</span>
-    </div>
-    <div style="display: flex;justify-content: space-between;align-items: center;">
-      <div class="tags">
-        {% if course.updated_at > course.publiced_at %}
-          <span class="tag tag-updated">Atualizado</span>
-        {% elif course.get_stars_in_percentage >= 80 %}
-          <span class="tag tag-high-rated">Muito Popular</span>
-        {% elif course.get_stars_in_percentage >= 50 %}
-          <span class="tag tag-popular">Popular</span>
-        {% elif course.get_stars_in_percentage >= 20 %}
-          <span class="tag tag-trending">Tendência</span>
-        {% endif %}
-      </div>
-
-      <div class="rating">
-        {{ course.get_stars_in_percentage }}% <i class="bi bi-star-fill"></i>
-      </div>
-    </div>
-  </div>
 {% empty %}
-  <div id="empty">Sem cursos para essa categoria!</div>
+    <div id="empty">Sem cursos para essa categoria!</div>
 {% endfor %}
-
-<script>
-  
-</script>
+<script></script>

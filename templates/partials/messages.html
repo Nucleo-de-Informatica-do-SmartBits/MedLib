@@ -1,39 +1,25 @@
 {% load compress %}
-
-<div id="message-container" class="fixed top-0 right-0 z-50 p-4 space-y-4" style="z-index: 200;">
+<div id="message-container"
+     class="fixed top-0 right-0 z-50 p-4 space-y-4"
+     style="z-index: 200">
     {% for message in messages %}
-    <div class="alert p-4 mb-4 w-80 max-w-xs
-        {% if message.level == 25 %}
-            bg-green-100 border-l-4 border-green-500 text-green-700
-        {% elif message.level == 30 %}
-            bg-red-100 border-l-4 border-red-500 text-red-700
-        {% elif message.level == 20 %}
-            bg-blue-100 border-l-4 border-blue-500 text-blue-700
-        {% elif message.level == 40 %}
-            bg-orange-100 border-l-4 border-orange-500 text-orange-700
-        {% elif message.level == 10 %}
-            bg-gray-100 border-l-4 border-gray-500 text-gray-700
-        {% endif %}
-
-        rounded-lg shadow-md transition-all duration-500 opacity-100">
-        <p class="font-bold">{{ message.message}}</p>
-    </div>
+        <div class="alert p-4 mb-4 w-80 max-w-xs {% if message.level == 25 %} bg-green-100 border-l-4 border-green-500 text-green-700 {% elif message.level == 30 %} bg-red-100 border-l-4 border-red-500 text-red-700 {% elif message.level == 20 %} bg-blue-100 border-l-4 border-blue-500 text-blue-700 {% elif message.level == 40 %} bg-orange-100 border-l-4 border-orange-500 text-orange-700 {% elif message.level == 10 %} bg-gray-100 border-l-4 border-gray-500 text-gray-700 {% endif %}  rounded-lg shadow-md transition-all duration-500 opacity-100">
+            <p class="font-bold">{{ message.message }}</p>
+        </div>
     {% endfor %}
 </div>
-
 {% compress js %}
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll('.alert')
-            .forEach(alert => {
-                setTimeout(() => {
-                    alert.classList.add('opacity-0');
-                    setTimeout(function () {
-                        alert.remove();
-                    }, 500);
-                }, 5000);
-            });
-    });
-</script>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('.alert')
+                .forEach(alert => {
+                    setTimeout(() => {
+                        alert.classList.add('opacity-0');
+                        setTimeout(function() {
+                            alert.remove();
+                        }, 500);
+                    }, 5000);
+                });
+        });
+    </script>
 {% endcompress %}

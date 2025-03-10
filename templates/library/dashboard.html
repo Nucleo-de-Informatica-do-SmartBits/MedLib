@@ -59,8 +59,7 @@ Dashboard
                     </div>
                     <hr style="margin-bottom: 10px;">
                     <div class="container mx-auto h-[400px] overflow-hidden">
-                        <div class="overflow-y-auto h-full" id="div-table">
-                            {% include 'partials/dashboard-table-books.html' %}</div>
+                        <div class="overflow-y-auto h-full" id="div-table"></div>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -104,7 +103,6 @@ Dashboard
                     <hr class="mb-4">
                     <div class="container mx-auto h-[400px] overflow-hidden">
                         <div class="overflow-y-auto h-full" id="div-table">
-                            {% include 'partials/dashboard-table-sugestions.html' %}
                         </div>
                     </div>
                 </div>
@@ -113,128 +111,6 @@ Dashboard
 </div>
 
     {% compress js %}
-    <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
     
-    {% include 'partials/dashboard-card-data.html' %}
-
-    <script>
-        let ctx;
-
-        ctx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Romance', 'Aventura', 'Ficção Científica'],
-                datasets: [{
-                    label: 'Categorias',
-                    data: [60, 30, 10],
-                    backgroundColor: ['#3498db', '#e74c3c', 'green'],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        labels: {
-                            boxWidth: 15,
-                            font: {
-                                size: 12,
-                            },
-                            color: '#333',
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw + '%';
-                            }
-                        },
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        displayColors: false,
-                    }
-                }
-            }
-        });
-
-        const labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-        const allData = [65, 59, 10, 10, 45, 56, 48, 70, 80, 65, 60, 90];
-        const currentMonth = new Date().getMonth();
-        const filteredLabels = labels.slice(0, currentMonth + 1);
-        const filteredData = allData.slice(0, currentMonth + 1);
-
-        const data = {
-            labels: filteredLabels,
-            datasets: [{
-                label: 'Livros',
-                data: filteredData,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Cor de fundo das barras
-                borderColor: 'rgb(75, 192, 192)',  // Cor da borda das barras
-                borderWidth: 1,  // Largura da borda das barras
-            }]
-        };
-
-        const config = {
-            type: 'bar',  // Tipo do gráfico
-            data: data,
-            options: {
-                responsive: true,  // Responsivo para diferentes tamanhos de tela
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            font: {
-                                size: 14,
-                            },
-                            color: '#333',
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' unidades';
-                            },
-                            afterLabel: function (tooltipItem) {
-                                return 'A análise mostra o comportamento dos livros em ' + tooltipItem.label + '.';
-                            }
-                        },
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        displayColors: false,
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Período (Meses)',
-                            font: {
-                                size: 14,
-                            },
-                            color: '#333',
-                        },
-                        beginAtZero: true
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Quantidade de livros',
-                            font: {
-                                size: 14,
-                            },
-                            color: '#333',
-                        },
-                        beginAtZero: true
-                    }
-                }
-            }
-        };
-
-        ctx = document.getElementById('lineChart').getContext('2d');
-        new Chart(ctx, config);
-    </script>
     {% endcompress %}
 {% endblock %}
