@@ -47,6 +47,7 @@ run = "python manage.py runserver"
 mg = "python manage.py migrate"
 mkmg = "python manage.py makemigrations"
 cs = "python manage.py createsuperuser"
+tl = "python manage.py tailwind start"
 
 [tool.djlint]
 profile="django"
