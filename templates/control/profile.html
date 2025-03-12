@@ -8,94 +8,98 @@
 
 {% block head %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <script src="//unpkg.com/alpinejs" defer></script>
   {% compress css %}
   <link rel="stylesheet" href="{% static 'css/control/profile.css' %}" />
   {% endcompress %}
 {% endblock %}
 
 {% block content %}
-<div class="container" x-data="{ section: 'user-info' }">
-    <aside class="sidebar">
-        <div class="profile-section">
-            <div class="profile-photo-container">
-                {% if request.user.reader.photo %}
-                    <img src="{{ request.user.reader.photo.url }}" alt="User Image" />
-                {% else %}
-                    <img src="{% static 'imgs/user.png' %}" alt="User Image" />
-                {% endif %}
-                <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <input type="file" name="profile_photo" accept="image/*" />
-                    <button type="submit" class="btn-upload">Trocar Foto</button>
-                </form>
-            </div>
-        </div>
-
-        <nav class="menu">
-            <button @click="section = 'user-info'" :class="{ 'active': section === 'user-info' }">
-                <i class="bi bi-person"></i> Informações do Usuário
-            </button>
-            <button @click="section = 'reader-info'" :class="{ 'active': section === 'reader-info' }">
-                <i class="bi bi-book"></i> Informações do Leitor
-            </button>
-            <button @click="section = 'password-section'" :class="{ 'active': section === 'password-section' }">
-                <i class="bi bi-lock"></i> Alterar Senha
-            </button>
-        </nav>
-    </aside>
-
-    <!-- Conteúdo principal -->
-    <main class="main-content">
-        <div x-show="section === 'user-info'" class="user-info">
-            <h2>Informações do Usuário</h2>
-            <div class="data-group">
-                <div class="single-input-group">
-                    <label>Nome de Usuário</label>
-                    <input type="text" value="{{ request.user.username }}" />
+    <main>
+        <div class="profile-container">
+            <div class="header">
+                <div class="profile-photo-container">
+                    <label for="profile-photo-upload" class="upload-label">
+                        <div class="image-wrapper">
+                            <img 
+                                id="profile-photo-preview" 
+                                src="{% if request.user.reader.photo %}{{ request.user.reader.photo.url }}{% else %}{% static 'imgs/user.png' %}{% endif %}" 
+                                alt="User Image"
+                            />
+                            <div class="camera-icon">
+                                <i class="bi bi-camera"></i>
+                            </div>
+                        </div>
+                    </label>
+                    <input 
+                        type="file" 
+                        id="profile-photo-upload" 
+                        name="profile_photo" 
+                        accept="image/*" 
+                        class="hidden-input"
+                    />        
                 </div>
-                <div class="single-input-group">
-                    <label>Email</label>
-                    <input type="text" value="{{ request.user.email }}" />
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <span style="font-size: 20px; font-weight: 500;">
+                        {{ request.user.username }}
+                    </span>
                 </div>
             </div>
-        </div>
 
-        <div x-show="section === 'reader-info'" class="reader-info">
-            <h2>Informações do Leitor</h2>
-            <div class="data-group">
-                <div class="single-input-group">
-                    <label>Primeiro Nome</label>
-                    <input type="text" value="{{ request.user.first_name }}" />
-                </div>
-                <div class="single-input-group">
-                    <label>Sobrenome</label>
-                    <input type="text" value="{{ request.user.last_name }}" />
-                </div>
-            </div>
-        </div>
-
-        <div x-show="section === 'password-section'" class="password-section">
-            <h2>Alterar Senha</h2>
-            <form method="POST">
-                {% csrf_token %}
+            <div class="user-data">
+                <hr>
+                <h3 style="margin-bottom: 8px; margin-top: 10px;">Informações do Usuário</h3>
                 <div class="data-group">
                     <div class="single-input-group">
-                        <label>Senha Atual</label>
-                        <input type="password" name="current_password" required />
+                        <label for="first-name">Primeiro Nome</label>
+                        <div class="input-group">
+                            <input type="text" {% if request.user.first_name %}value="{{ request.user.first_name }}"{% endif %} placeholder="Primeiro Nome" id="first-name"/>
+                            <i class="bi bi-person"></i>
+                        </div>
                     </div>
                     <div class="single-input-group">
-                        <label>Nova Senha</label>
-                        <input type="password" name="new_password" required />
-                    </div>
-                    <div class="single-input-group">
-                        <label>Confirmar Nova Senha</label>
-                        <input type="password" name="confirm_password" required />
+                        <label for="last-name">Sobrenome</label>
+                        <div class="input-group">
+                            <input type="text" {% if request.user.last_name %}value="{{ request.user.last_name }}"{% endif %} placeholder="Sobrenome" id="last-name"/>
+                            <i class="bi bi-person"></i>
+                        </div>
                     </div>
                 </div>
-                <button type="submit" class="btn-save">Salvar Alterações</button>
-            </form>
+
+                <div style="margin-top: 8px;margin-bottom: 8px;">
+                    <span style="color: #333;">
+                        O seu último login foi em 
+                    </span>
+                    {{ request.user.last_login|date:"d/m/Y"}}
+                </div>
+                    <div class="single-input-group">
+                        <label for="email">E-mail</label>
+                        <div class="input-group">
+                            <input type="email" value="{{ request.user.email }}" placeholder="E-mail" id="email" />
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="badge">
+                            A sua conta ainda não foi verificada!<a href="#"> Clique Aqui</a>
+                        </div>
+                    </div>
+                </div>
+                <h3>Segurança</h3>
+                <div class="data-group">
+                    <div class="single-input-group">
+                        <label for="password">Alterar Senha</label>
+                        <div class="input-group">
+                            <input type="password" placeholder="Nova Senha" id="password" />
+                            <i class="bi bi-lock"></i>
+                        </div>
+                    </div>
+                    <div class="single-input-group">
+                        <label for="confirm-password">Confirmar Senha</label>
+                        <div class="input-group">
+                            <input type="password" placeholder="Confirmar Nova Senha" id="confirm-password" />
+                            <i class="bi bi-lock-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-</div>
-{% endblock %}
+{% endblock content %}
