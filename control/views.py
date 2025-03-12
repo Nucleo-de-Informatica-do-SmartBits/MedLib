@@ -68,3 +68,9 @@ def logout(request):
 
     messages.info(request, "Sessão fechado com sucesso!")
     return redirect(reverse("signin"))
+
+
+
+@login_required
+def profile(request):
+    return render(request, 'control/profile.html')

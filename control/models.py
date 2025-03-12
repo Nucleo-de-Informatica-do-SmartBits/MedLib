@@ -42,6 +42,7 @@ class Reader(models.Model):
         ("Eletrónica", "Eletrónica"),
     ]
 
+    photo = models.ImageField(upload_to="profile-photos/", null=True, blank=True)
     user = models.OneToOneField(
         to=User, on_delete=models.CASCADE, related_name="reader"
     )

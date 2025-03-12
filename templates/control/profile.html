@@ -1,0 +1,101 @@
+{% extends 'bases/library.html' %}
+{% load compress %}
+{% load static %}
+
+{% block title %}
+  {{ request.user.username }} - Perfil
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <script src="//unpkg.com/alpinejs" defer></script>
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/control/profile.css' %}" />
+  {% endcompress %}
+{% endblock %}
+
+{% block content %}
+<div class="container" x-data="{ section: 'user-info' }">
+    <aside class="sidebar">
+        <div class="profile-section">
+            <div class="profile-photo-container">
+                {% if request.user.reader.photo %}
+                    <img src="{{ request.user.reader.photo.url }}" alt="User Image" />
+                {% else %}
+                    <img src="{% static 'imgs/user.png' %}" alt="User Image" />
+                {% endif %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="profile_photo" accept="image/*" />
+                    <button type="submit" class="btn-upload">Trocar Foto</button>
+                </form>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <button @click="section = 'user-info'" :class="{ 'active': section === 'user-info' }">
+                <i class="bi bi-person"></i> Informações do Usuário
+            </button>
+            <button @click="section = 'reader-info'" :class="{ 'active': section === 'reader-info' }">
+                <i class="bi bi-book"></i> Informações do Leitor
+            </button>
+            <button @click="section = 'password-section'" :class="{ 'active': section === 'password-section' }">
+                <i class="bi bi-lock"></i> Alterar Senha
+            </button>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+        <div x-show="section === 'user-info'" class="user-info">
+            <h2>Informações do Usuário</h2>
+            <div class="data-group">
+                <div class="single-input-group">
+                    <label>Nome de Usuário</label>
+                    <input type="text" value="{{ request.user.username }}" />
+                </div>
+                <div class="single-input-group">
+                    <label>Email</label>
+                    <input type="text" value="{{ request.user.email }}" />
+                </div>
+            </div>
+        </div>
+
+        <div x-show="section === 'reader-info'" class="reader-info">
+            <h2>Informações do Leitor</h2>
+            <div class="data-group">
+                <div class="single-input-group">
+                    <label>Primeiro Nome</label>
+                    <input type="text" value="{{ request.user.first_name }}" />
+                </div>
+                <div class="single-input-group">
+                    <label>Sobrenome</label>
+                    <input type="text" value="{{ request.user.last_name }}" />
+                </div>
+            </div>
+        </div>
+
+        <div x-show="section === 'password-section'" class="password-section">
+            <h2>Alterar Senha</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="data-group">
+                    <div class="single-input-group">
+                        <label>Senha Atual</label>
+                        <input type="password" name="current_password" required />
+                    </div>
+                    <div class="single-input-group">
+                        <label>Nova Senha</label>
+                        <input type="password" name="new_password" required />
+                    </div>
+                    <div class="single-input-group">
+                        <label>Confirmar Nova Senha</label>
+                        <input type="password" name="confirm_password" required />
+                    </div>
+                </div>
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+            </form>
+        </div>
+    </main>
+</div>
+{% endblock %}
