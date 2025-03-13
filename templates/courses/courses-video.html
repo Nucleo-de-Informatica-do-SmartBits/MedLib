@@ -195,6 +195,7 @@
 
         document.querySelectorAll('.js-course-title').forEach((element) => {
             element.addEventListener('click', async () => {
+                {% if request.user.is_authenticated %}
                 const loader = document.querySelector('#js-loader')
                 const modelContent = document.querySelector('#js-modal-content')
                 const modal = document.getElementById('videoModal')
@@ -211,12 +212,7 @@
                     const response = await fetch(link)
                     const data = await response.json()
 
-                    document.getElementById('videoTitle').textContent = data.title {
-                        % comment %
-                    }
-                    document.getElementById('videoSource').src = data.video_path {
-                        % endcomment %
-                    }
+                    document.getElementById('videoTitle').textContent = data.title                    
 
                     loader.style.display = 'none'
                     modelContent.style.display = 'block'
@@ -240,6 +236,9 @@
                     modal.classList.add('hidden')
                     player.pause()
                 })
+                {% else %}
+                window.location.href='{% url 'signin' %}?next='+encodeURIComponent(window.location.pathname);
+                {% endif %}
             })
         })
     </script>

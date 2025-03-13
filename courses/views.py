@@ -4,14 +4,12 @@ from django.http import JsonResponse
 from courses.models import Course, Video, Faq
 
 
-@login_required
 def list_courses(request):
     template_name = "courses/courses-list.html"
     courses = Course.objects.all()
     return render(request, template_name, {"courses": courses})
 
 
-@login_required
 def view_course(request, course_slug, course_uuid):
     template_name = "courses/courses-video.html"
     

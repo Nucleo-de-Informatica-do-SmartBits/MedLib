@@ -9,18 +9,22 @@ const profileImg = document.getElementById('profile-img')
 const profileMenu = document.getElementById('profile-menu')
 
 profileImg.addEventListener('click', () => {
-    if (profileMenu.classList.contains('hidden')) {
-        profileImg.classList.add('active')
-        profileMenu.classList.remove('hidden')
-        setTimeout(() => {
-            profileMenu.classList.remove('scale-95', 'opacity-0')
-            profileMenu.classList.add('scale-100', 'opacity-100')
-        }, 10)
+    if (window.innerWidth > 800) {
+        window.location.href = '/control/profile/'
     } else {
-        profileImg.classList.remove('active')
-        profileMenu.classList.remove('scale-100', 'opacity-100')
-        profileMenu.classList.add('scale-95', 'opacity-0')
-        setTimeout(() => profileMenu.classList.add('hidden'), 200)
+        if (profileMenu.classList.contains('hidden')) {
+            profileImg.classList.add('active')
+            profileMenu.classList.remove('hidden')
+            setTimeout(() => {
+                profileMenu.classList.remove('scale-95', 'opacity-0')
+                profileMenu.classList.add('scale-100', 'opacity-100')
+            }, 10)
+        } else {
+            profileImg.classList.remove('active')
+            profileMenu.classList.remove('scale-100', 'opacity-100')
+            profileMenu.classList.add('scale-95', 'opacity-0')
+            setTimeout(() => profileMenu.classList.add('hidden'), 200)
+        }
     }
 })
 

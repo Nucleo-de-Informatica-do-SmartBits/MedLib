@@ -26,19 +26,30 @@
                     </label>
                     <input type="file"
                            id="profile-photo-upload"
-                           name="profile_photo"
+                           name="photo"
                            accept="image/*"
                            class="hidden-input" />
                 </div>
             </div>
-            <div style="display: flex; align-items: center; width: 100%; position: relative;margin-top: 10px;margin-bottom: 10px;">
+            <div style="display: flex;
+                        align-items: center;
+                        width: 100%;
+                        position: relative;
+                        margin-top: 10px;
+                        margin-bottom: 10px">
                 <div style="flex: 1; display: flex; justify-content: center;">
-                    <input type="text" 
-                           value="{{ request.user.username }}" 
+                    <input type="text"
+                           value="{{ request.user.username }}"
                            class="username-input"
-                           name="username">
+                           name="username"
+                           autocomplete="off"
+                        >
                 </div>
-                <i class="bi bi-pencil" style="cursor: pointer; position: absolute; right: 0;" onclick="document.querySelector('.username-input').classList.contains('active-username') ? document.querySelector('.username-input').classList.remove('active-username'): document.querySelector('.username-input').classList.add('active-username')  "></i>
+                <i class="bi bi-pencil"
+                   style="cursor: pointer;
+                          position: absolute;
+                          right: 0"
+                   onclick="document.querySelector('.username-input').classList.contains('active-username') ? document.querySelector('.username-input').classList.remove('active-username'): document.querySelector('.username-input').classList.add('active-username')  "></i>
             </div>
             <div class="user-data">
                 <hr>
@@ -50,7 +61,7 @@
                             <input type="text"
                                    {% if request.user.first_name %}value="{{ request.user.first_name }}"{% endif %}
                                    placeholder="Primeiro Nome"
-                                   id="first-name" />
+                                   id="first_name" />
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
@@ -60,7 +71,8 @@
                             <input type="text"
                                    {% if request.user.last_name %}value="{{ request.user.last_name }}"{% endif %}
                                    placeholder="Sobrenome"
-                                   id="last-name" />
+                                   id="last-name"
+                                   name="last_name" />
                             <i class="bi bi-person"></i>
                         </div>
                     </div>
@@ -108,7 +120,8 @@
                         <input type="password"
                                {% if request.user.reader.process_number %}value="{{ request.user.reader.process_number }}"{% endif %}
                                placeholder="Número de Processo"
-                               id="process-number" />
+                               id="process-number"
+                               name="process_number" />
                         <i class="bi bi-hash"></i>
                     </div>
                     <i class="bi bi-eye"
@@ -151,8 +164,8 @@
                     <i class="bi bi-people"></i>
                     <select id="course" name="course" class="styled-select">
                         <option value="" disabled selected>Curso</option>
-                        <option value="A">Informática</option>
-                        <option value="B">Electrónica e Telecomunicações</option>
+                        <option value="Informática">Informática</option>
+                        <option value="Electrónica">Electrónica e Telecomunicações</option>
                     </select>
                     <i class="bi bi-chevron-down select-arrow"></i>
                 </div>
@@ -170,7 +183,8 @@
                         <input type="password"
                                placeholder="Senha Actual"
                                id="password"
-                               name="actual-password" />
+                               name="actual_password"
+                               autocomplete="off" />
                         <i class="bi bi-lock"></i>
                     </div>
                 </div>
@@ -178,8 +192,10 @@
                     <label for="confirm-password">Nova Senha</label>
                     <div class="input-group">
                         <input type="password"
-                               placeholder="Confirmar Nova Senha"
-                               id="confirm-password" />
+                               autocomplete="off"
+                               placeholder="Nova Senha"
+                               id="confirm-password"
+                               name="new_password" />
                         <i class="bi bi-lock-fill"></i>
                     </div>
                 </div>
@@ -189,42 +205,21 @@
                         justify-content: right;
                         align-items: center;
                         width: 100%">
-                <button style="padding: 8px;
+                <button style="padding: 10px 14px;
+                               color: white;
+                               background-color: red;
+                               border-radius: 10px;margin-right: 10px;"
+                        onclick="window.location.href='{% url 'logout' %}'">Sair</button>
+                <button style="padding: 10px 14px;
                                color: white;
                                background-color: #3EB3CA;
-                               border-radius: 10px" id="js-save">Salvar Alterações</button>
+                               border-radius: 10px"
+                        id="js-save">Salvar Alterações</button>
             </div>
         </div>
     </div>
 </main>
-<script>
-    document.querySelector('#js-eye')
-    .addEventListener('click', (e) => {
-        const processNumberInput = document.querySelector('#process-number')
 
-        if (e.target.classList.contains('bi-eye')) {
-            processNumberInput.type = 'text'
-            e.target.classList.replace('bi-eye', 'bi-eye-slash') 
-        } else {
-            processNumberInput.type = 'password'
-            e.target.classList.replace('bi-eye-slash', 'bi-eye')
-        }
-    })
+<script src="{% static 'js/control/profile.js' %}"></script>
 
-    document.querySelector('#js-save').addEventListener('click', (e) => {
-        e.preventDefault();
-    
-        const formData = {};
-    
-        // Captura todos os inputs e selects
-        document.querySelectorAll('input, select').forEach(input => {
-            const name = input.getAttribute('name') || input.getAttribute('id');
-            if (name) {
-                formData[name] = input.value;
-            }
-        });
-    
-        console.log('Dados do formulário:', formData);
-    })
-</script>
 {% endblock content %}

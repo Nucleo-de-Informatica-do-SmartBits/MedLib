@@ -166,7 +166,7 @@ NPM_BIN_PATH = str(which("npm")).lower()
 
 
 # Authentication
-LOGIN_URL = "/auth/signin/"
+LOGIN_URL = "/control/signin/"
 REDIRECT_FIELD_NAME = "then"
 
 # Frame control

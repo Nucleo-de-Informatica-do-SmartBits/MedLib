@@ -76,8 +76,10 @@ nav .user-img {
 
 .nav-text {
     font-weight: 500;
+    font-size: 18px;
     display: inline-block;
     margin-left: 0;
+    transition: all .3s;
 }
 
 .js-link svg {
