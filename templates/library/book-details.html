@@ -86,36 +86,35 @@
                 </div>
             </div>
             {% if request.user.is_authenticated %}
-            <div class="comments">
-                <h1>Comentários</h1>
-                <hr />
-                <div class="comment-input">
-                    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
-                    <input type="text"
-                           placeholder="Escreva um comentário..."
-                           id="js-comment-input" />
-                    <button class="submit-btn">Enviar</button>
-                </div>
-                <hr />
-                <div id="js-comments">
-                    {% for comment in book.comments.all %}
-                        <div class="comment">
-                            <div class="comment-info">
-                                <h3 class="comment-author">{{ comment.user.username }}</h3>
-                                <span style="color: gray;">{{ comment.created_at|naturaltime }}</span>
+                <div class="comments">
+                    <h1>Comentários</h1>
+                    <hr />
+                    <div class="comment-input">
+                        <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+                        <input type="text"
+                               placeholder="Escreva um comentário..."
+                               id="js-comment-input" />
+                        <button class="submit-btn">Enviar</button>
+                    </div>
+                    <hr />
+                    <div id="js-comments">
+                        {% for comment in book.comments.all %}
+                            <div class="comment">
+                                <div class="comment-info">
+                                    <h3 class="comment-author">{{ comment.user.username }}</h3>
+                                    <span style="color: gray;">{{ comment.created_at|naturaltime }}</span>
+                                </div>
+                                <p class="comment-text">{{ comment.content }}</p>
                             </div>
-                            <p class="comment-text">{{ comment.content }}</p>
-                        </div>
-                    {% empty %}
-                        <div style="text-align: center;
-                                    color: gray;
-                                    margin-top: 2rem"
-                             id="no-comments">Sem comentários até agora.</div>
-                    {% endfor %}
+                        {% empty %}
+                            <div style="text-align: center;
+                                        color: gray;
+                                        margin-top: 2rem"
+                                 id="no-comments">Sem comentários até agora.</div>
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
             {% endif %}
-
         </div>
     </main>
     {% compress js %}

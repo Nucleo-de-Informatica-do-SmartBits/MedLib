@@ -42,8 +42,7 @@
                            value="{{ request.user.username }}"
                            class="username-input"
                            name="username"
-                           autocomplete="off"
-                        >
+                           autocomplete="off">
                 </div>
                 <i class="bi bi-pencil"
                    style="cursor: pointer;
@@ -208,7 +207,8 @@
                 <button style="padding: 10px 14px;
                                color: white;
                                background-color: red;
-                               border-radius: 10px;margin-right: 10px;"
+                               border-radius: 10px;
+                               margin-right: 10px"
                         onclick="window.location.href='{% url 'logout' %}'">Sair</button>
                 <button style="padding: 10px 14px;
                                color: white;
@@ -219,7 +219,5 @@
         </div>
     </div>
 </main>
-
 <script src="{% static 'js/control/profile.js' %}"></script>
-
 {% endblock content %}
