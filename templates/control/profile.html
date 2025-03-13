@@ -30,9 +30,15 @@
                            accept="image/*"
                            class="hidden-input" />
                 </div>
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <span style="font-size: 20px; font-weight: 500;">{{ request.user.username }}</span>
+            </div>
+            <div style="display: flex; align-items: center; width: 100%; position: relative;margin-top: 10px;margin-bottom: 10px;">
+                <div style="flex: 1; display: flex; justify-content: center;">
+                    <input type="text" 
+                           value="{{ request.user.username }}" 
+                           class="username-input"
+                           name="username">
                 </div>
+                <i class="bi bi-pencil" style="cursor: pointer; position: absolute; right: 0;" onclick="document.querySelector('.username-input').classList.contains('active-username') ? document.querySelector('.username-input').classList.remove('active-username'): document.querySelector('.username-input').classList.add('active-username')  "></i>
             </div>
             <div class="user-data">
                 <hr>
@@ -186,7 +192,7 @@
                 <button style="padding: 8px;
                                color: white;
                                background-color: #3EB3CA;
-                               border-radius: 10px">Salvar Alterações</button>
+                               border-radius: 10px" id="js-save">Salvar Alterações</button>
             </div>
         </div>
     </div>
@@ -203,6 +209,22 @@
             processNumberInput.type = 'password'
             e.target.classList.replace('bi-eye-slash', 'bi-eye')
         }
+    })
+
+    document.querySelector('#js-save').addEventListener('click', (e) => {
+        e.preventDefault();
+    
+        const formData = {};
+    
+        // Captura todos os inputs e selects
+        document.querySelectorAll('input, select').forEach(input => {
+            const name = input.getAttribute('name') || input.getAttribute('id');
+            if (name) {
+                formData[name] = input.value;
+            }
+        });
+    
+        console.log('Dados do formulário:', formData);
     })
 </script>
 {% endblock content %}
