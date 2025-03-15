@@ -28,12 +28,16 @@
       <p class="text-xl text-center mb-8 max-w-2xl">Explore um universo de conhecimento e imaginação. Encontre os melhores livros, autores e histórias que vão inspirar você.</p>
 
       <div class="w-full max-w-md relative">
-        <input type="text" placeholder="Pesquisar livros..." class="w-full px-4 py-3 rounded-full bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70" />
-        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all">
+        <input type="text" placeholder="Pesquisar livros..." class="w-full px-4 py-3 rounded-full bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70" id="search-input" />
+        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all" id="search-btn">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </button>
+        <div id="search-results" class="absolute w-full mt-2 rounded-full bg-white bg-opacity-20 backdrop-blur-sm text-black rounded-lg shadow-lg hidden overflow-hidden" style="z-index: 1000;">
+          <div id="loader" class="loader hidden"></div>
+          <div id="results-container" class="p-4"></div>
+        </div>
       </div>
     </div>
 
