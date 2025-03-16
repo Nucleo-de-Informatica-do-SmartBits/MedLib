@@ -116,7 +116,7 @@ class Video(models.Model):
     - slug: identificador do vídeo nas urls
     """
 
-    preview = models.BooleanField(default=False)
+    is_preview = models.BooleanField(default=False)
     course = models.ForeignKey(to=Course, on_delete=models.CASCADE, **extra_fields)
     title = models.CharField(max_length=150, **extra_fields)
     description = models.TextField(**extra_fields)
