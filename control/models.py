@@ -3,7 +3,8 @@ from uuid import uuid4
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.utils.timezone import datetime
+
+extra_fields = {"null": True, "blank": True}
 
 
 class Reader(models.Model):
@@ -42,8 +43,9 @@ class Reader(models.Model):
         ("Eletrónica", "Eletrónica"),
     ]
 
+    photo = models.ImageField(upload_to="profile-photos/", **extra_fields)
     user = models.OneToOneField(
-        to=User, on_delete=models.CASCADE, related_name="reader"
+        to=User, on_delete=models.CASCADE, related_name="reader", **extra_fields
     )
     process_number = models.IntegerField(
         unique=True,
@@ -51,17 +53,19 @@ class Reader(models.Model):
             MinValueValidator(1),
         ],
         verbose_name="Número de Processo",
+        **extra_fields
     )
-    grade = models.CharField(verbose_name="Classe", max_length=3, choices=GRADE_CHOICES)
+    grade = models.CharField(verbose_name="Classe", max_length=3, choices=GRADE_CHOICES, **extra_fields)
     course = models.CharField(
-        verbose_name="Curso", max_length=30, choices=COURSE_CHOICES
+        verbose_name="Curso", max_length=30, choices=COURSE_CHOICES, **extra_fields
     )
-    group = models.CharField(verbose_name="Turma", max_length=1, choices=GROUP_CHOICES)
+    group = models.CharField(verbose_name="Turma", max_length=1, choices=GROUP_CHOICES, **extra_fields)
     uid = models.UUIDField(
         verbose_name="Identificador Universal",
         default=uuid4,
         unique=True,
         editable=False,
+        **extra_fields
     )
 
     def __str__(self):

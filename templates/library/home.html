@@ -1,77 +1,90 @@
 {% extends 'bases/library.html' %}
 {% load static %}
 {% load compress %}
-
-{% block title %}
-  Página Inicial
-{% endblock %}
-
+{% block title %}Página Inicial{% endblock %}
 {% block head %}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  {% compress css %}
-  <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
-  {% endcompress %}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
+    {% endcompress %}
 {% endblock %}
-
 {% block content %}
-  <section class="relative w-full overflow-hidden" style="height: 100dvh; user-select: none;">
-    <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out" id="image-slider">
-      <img src="{% static 'imgs/slide1.jpeg' %}" alt="Image 1" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
-      <img src="{% static 'imgs/slide2.jpg' %}" alt="Image 2" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
-      <img src="{% static 'imgs/slide3.jpg' %}" alt="Image 3" class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
-    </div>
-
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-
-    <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
-      <h1 class="text-6xl font-bold mb-4 text-center">Bem-vindo à Biblioteca Digital</h1>
-      <p class="text-xl text-center mb-8 max-w-2xl">Explore um universo de conhecimento e imaginação. Encontre os melhores livros, autores e histórias que vão inspirar você.</p>
-
-      <div class="w-full max-w-md relative">
-        <input type="text" placeholder="Pesquisar livros..." class="w-full px-4 py-3 rounded-full bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70" id="search-input" />
-        <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all" id="search-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </button>
-        <div id="search-results" class="absolute w-full mt-2 rounded-full bg-white bg-opacity-20 backdrop-blur-sm text-black rounded-lg shadow-lg hidden overflow-hidden" style="z-index: 1000;">
-          <div id="loader" class="loader hidden"></div>
-          <div id="results-container" class="p-4"></div>
+    <section class="relative w-full overflow-hidden"
+             style="height: 100dvh;
+                    user-select: none">
+        <div class="w-full absolute inset-0 flex transition-transform duration-700 ease-in-out"
+             id="image-slider">
+            <img src="{% static 'imgs/slide1.jpeg' %}"
+                 alt="Image 1"
+                 class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
+            <img src="{% static 'imgs/slide2.jpg' %}"
+                 alt="Image 2"
+                 class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
+            <img src="{% static 'imgs/slide3.jpg' %}"
+                 alt="Image 3"
+                 class="flex-shrink-0 w-full h-full object-cover img transition-transform duration-500 hover:scale-105" />
         </div>
-      </div>
-    </div>
-
-    <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-xl text-center" id="text-div-home">
-      <span id="text" style="cursor: tex  t;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação."</span>
-    </div>
-
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-opacity-70 text-sm">Powered By IPPS</div>
-  </section>
-
-  <section class="books" style="margin-top: 5px;">
-    <section class="sec1">
-      {% for book in books %}
-        <div class="card-book" style="cursor: pointer;" data-book-slug="{{ book.slug }}" data-book-isbn="{{ book.isbn }}">
-          <div class="sec-image" title="Abrir o livro">
-            <img src="{{ book.cover.url }}" alt="Capa do Livro" class="imgsec" />
-          </div>
-          <div class="sec-info">
-            <h3 class="book-title">{{ book.title|truncatechars:20 }}</h3>
-
-            <p class="book-author">
-              {% for author in book.authors.all %}
-                {{ author }}
-              {% endfor %}
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-4">
+            <h1 class="text-6xl font-bold mb-4 text-center">Bem-vindo à Biblioteca Digital</h1>
+            <p class="text-xl text-center mb-8 max-w-2xl">
+                Explore um universo de conhecimento e imaginação. Encontre os melhores livros, autores e histórias que vão inspirar você.
             </p>
-          </div>
+            <div class="w-full max-w-md relative">
+                <input type="text"
+                       placeholder="Pesquisar livros..."
+                       class="w-full px-4 py-3 rounded-full bg-white bg-opacity-20 backdrop-blur-sm border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70"
+                       id="search-input" />
+                <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-20 hover:bg-opacity-30 rounded-full p-2 transition-all"
+                        id="search-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-6 w-6 text-white"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+                <div id="search-results"
+                     class="absolute w-full mt-2 rounded-full bg-white bg-opacity-20 backdrop-blur-sm text-black rounded-lg shadow-lg hidden overflow-hidden"
+                     style="z-index: 1000;
+                            color: white">
+                    <div id="loader" class="loader hidden"></div>
+                    <div id="results-container" class="p-4"></div>
+                </div>
+            </div>
         </div>
-      {% endfor %}
+        <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white text-xl text-center"
+             id="text-div-home">
+            <span id="text" style="cursor: tex  t;">"A leitura é a chave para abrir portas para o mundo do conhecimento e da imaginação."</span>
+        </div>
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white text-opacity-70 text-sm">
+            Powered By IPPS
+        </div>
     </section>
-  </section>
-
-  {% include 'partials/footer.html' %}
-
-  {% compress js %}
-  <script src="{% static 'js/library/home.js' %}"></script>
-  {% endcompress %}
+    <section class="books" style="margin-top: 5px;">
+        <section class="sec1">
+            {% for book in books %}
+                <div class="card-book"
+                     style="cursor: pointer"
+                     data-book-slug="{{ book.slug }}"
+                     data-book-isbn="{{ book.isbn }}">
+                    <div class="sec-image" title="Abrir o livro">
+                        <img src="{{ book.cover.url }}" alt="Capa do Livro" class="imgsec" />
+                    </div>
+                    <div class="sec-info">
+                        <h3 class="book-title">{{ book.title|truncatechars:20 }}</h3>
+                        <p class="book-author">
+                            {% for author in book.authors.all %}{{ author }}{% endfor %}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </section>
+    {% include 'partials/footer.html' %}
+    {% compress js %}
+        <script src="{% static 'js/library/home.js' %}"></script>
+    {% endcompress %}
 {% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'bases/library.html' %}
+{% load static %}
+{% load compress %}
+{% block title %}
+      Sobre Nós
+{% endblock title %}
+{% block head %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/library/about.css' %}">
+    {% endcompress %}
+{% endblock %}
+{% block content %}
+      <main>
+            
+            <section id="missao">
+                  <div class="text">
+                        <h2>Nossa Missão</h2>
+                        <p>
+                              O projeto consiste em um sistema web inovador desenvolvido pelo <em> <b>Núcleo de Informática do SmartBits (NIS) </b></em>para o gerenciamento eficiente de livros e materiais escolares, com o objetivo de facilitar o acesso e aprimorar a experiência educacional para estudantes.
+                        </p>
+                        <br>
+                        <p>
+                              Além disso, o sistema oferece uma ampla variedade de cursos em vídeo, permitindo que alunos que não possuem computadores ou que necessitam de aulas extras possam estudar no seu ritmo e complementar seus aprendizados de forma prática e acessível.
+                        </p>
+                  </div>
+                  <div class="img">
+                        <img src="{% static 'imgs/about-img.jfif' %}" alt="Imagem ilustrativa">
+                  </div>
+            </section>
+            <section id="objective">
+                  <div class="card-objective">
+                        <h1>Gestão de Livros e Materiais Escolares</h1>
+                        <hr>
+                        <div class="description">
+                              <em>
+                                    <p>
+                                    O sistema organiza e disponibiliza um catálogo digital de livros e outros recursos escolares, permitindo que os usuários busquem, reservem e acessem os materiais necessários de forma simples e eficiente.
+                                    </p>
+                              </em>
+                        </div>
+                  </div>
+                  <div class="card-objective">
+                        <div class="description">
+                              <h1>Cursos em Vídeo</h1>
+                              <hr>
+                              <em>
+                                    <p>
+                                    Uma biblioteca de cursos em vídeo foi integrada ao sistema, com conteúdos voltados para diversas Tecnologias. Esses cursos foram projetados para atender às necessidades de reforço escolar ou aprendizado independente.
+                                    </p>
+                              </em>
+                        </div>
+                  </div>
+                  <div class="card-objective">
+                        <div class="description">
+                              <h1>Apoio à Inclusão Tecnológica</h1>
+                              <hr>
+                              <em>
+                                    <p>
+                                    O projeto será implementado no laboratório de informática da escola, garantindo que mesmo alunos que não possuem computadores pessoais possam acessar os recursos disponíveis no sistema.
+                                    </p>
+                              </em>
+                        </div>
+                  </div>
+                  
+            </section>
+            <section id="ferramentas">
+                  <div class="card-ferramentas">
+                        <img src="{% static 'imgs/django.jpg' %}" alt="Imagem ilustrativa">
+                  </div>
+                  <div class="card-ferramentas">
+                        <img src="{% static 'imgs/html.jfif' %}" alt="Imagem ilustrativa">
+                  </div>
+                  <div class="card-ferramentas">
+                        <img src="{% static 'imgs/css.png' %}" alt="Imagem ilustrativa">
+                  </div>
+                  <div class="card-ferramentas">
+                        <img src="{% static 'imgs/js.jfif' %}" alt="Imagem ilustrativa">
+                  </div>
+                  <div class="card-ferramentas">
+                        <img src="{% static 'imgs/tailwind2.png' %}" alt="Imagem ilustrativa">
+                  </div>
+            </section>
+
+      </main>
+      {% include 'partials/footer.html' %}
+      {% compress js %}
+      <script src="{% static 'js/library/about.js' %}"></script>
+      {% endcompress %}
+{% endblock %}

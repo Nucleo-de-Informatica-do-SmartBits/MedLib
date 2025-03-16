@@ -1,77 +1,58 @@
 {% load static %}
 {% load compress %}
-
 {% load static tailwind_tags %}
-
-
 <!DOCTYPE html>
 <html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="csrf-token" content="{{ csrf_token }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon"
+              href="{% static 'imgs/logo.png' %}"
+              type="image/x-icon">
+        {% compress css %}
+            <style>
+                @font-face {
+                    font-family: 'Roboto';
+                    src: url('{% static "fonts/Roboto-Regular.ttf" %}');
+                }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
+                * {
+                    font-family: 'Roboto', sans-serif;
+                }
+            </style>
+        {% endcompress %}
+        <script src="https://unpkg.com/htmx.org@2.0.4"
+                integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+                crossorigin="anonymous"></script>
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'css/bases/library.css' %}">
+            {% tailwind_css %}
+        {% endcompress %}
+        {% block head %}
+        {% endblock head %}
+        <title>
+            {% block title %}
+            {% endblock title %}
+            | MedLib
+        </title>
+    </head>
+    <body>
+        {% include 'partials/navbar.html' %}
+        {% include 'partials/messages.html' %}
+        {% block content %}
+        {% endblock content %}
+        {% compress js %}
+            <script>
+                document.querySelectorAll('.nav-text').forEach(e => {
+                    e.style.fontWeight = '400'
+                })
+                document.addEventListener('htmx:configRequest', (event) => {
+                    const xhr = event.detail.headers
+                    xhr['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
-    {% compress css %}
-    <style>
-        @font-face {
-            font-family: 'Roboto';
-            src: url('{% static "fonts/Roboto-Regular.ttf" %}');
-        }
-
-        * {
-            font-family: 'Roboto', sans-serif;
-        }
-    </style>
-    {% endcompress %}
-    
-    {% compress js %}
-    <script src="https://unpkg.com/htmx.org@2.0.4"
-        integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-        crossorigin="anonymous"></script>
-    {% endcompress %}
-
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'css/bases/library.css' %}">
-    {% endcompress %}
-
-    {% tailwind_css %}
-
-    {% block head %}
-
-    {% endblock head %}
-
-    <title>
-
-        {% block title %}
-
-        {% endblock title %}
-        | MedLib
-
-    </title>
-
-</head>
-
-<body>
-    {% include 'partials/navbar.html' %}
-    {% include 'partials/messages.html' %}
-
-    {% block content %}
-
-    {% endblock content %}
-
-
-    {% compress js %}
-    <script>
-        document.addEventListener('htmx:configRequest', (event) => {
-            const xhr = event.detail.headers
-            xhr['X-CSRFToken'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            
-        })
-    </script>
-    {% endcompress %}
-
-</body>
-
+                })
+            </script>
+        {% endcompress %}
+    </body>
 </html>

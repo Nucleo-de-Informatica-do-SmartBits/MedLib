@@ -1,0 +1,74 @@
+
+header {
+      background: #3CB0C7;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+}
+
+#missao {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+}
+
+#missao .text {
+      width: 500px;
+      text-align: justify;
+}
+
+nav {
+      padding: 10px;
+      text-align: center;
+}
+nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+}
+nav a:hover {
+      text-decoration: underline;
+}
+section {
+      margin: 4px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+section img {
+      width: 500px;
+      height: 500px;
+}
+h2 {
+      color: #3CB0C7;
+      font-size: 30pt;
+}
+
+
+#objective {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background-color: #3CB0C7;
+      color: #ffff;
+}
+#objective .card-objective {
+      width: 400px;
+      text-align: justify;
+      padding: 2px;
+}
+#objective .card-objective h1 {
+      font-size: 14pt;
+      font-weight: bold;
+}
+#ferramentas {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+}
+#ferramentas .card-ferramentas img {
+      width: 200px;
+      height: 200px;
+      border-radius: 360px;
+}

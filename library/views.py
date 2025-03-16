@@ -12,8 +12,9 @@ from django.views.decorators.http import require_http_methods
 from .forms import BookForm
 from .models import Author, Book, Category, Publisher, Sugestion, Comment
 
+from django.http import HttpResponse
 
-@login_required
+
 def home(request):
     ctx = {}
     template_name = "library/home.html"
@@ -102,7 +103,6 @@ def manageBook(request, slug=None):
     return render(request, "library/book-add.html", ctx)
 
 
-@login_required
 def bookDetails(request, slug, isbn):
     ctx = {}
     template_name = "library/book-details.html"
@@ -170,7 +170,6 @@ def readBook(request, slug, isbn):
     return render(request, template_name, ctx)
 
 
-@login_required
 @require_http_methods(["GET"])
 def search_for_books(request):
     query = request.GET.get('q')
@@ -179,3 +178,10 @@ def search_for_books(request):
         "id", "title", "isbn", "slug"
     )
     return JsonResponse(list(books), safe=False)
+
+@login_required
+def about(request):
+    template_name = "library/about.html"
+    ctx = {}
+
+    return render(request, template_name, ctx)

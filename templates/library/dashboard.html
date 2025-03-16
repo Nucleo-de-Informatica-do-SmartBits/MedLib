@@ -1,240 +1,122 @@
 {% extends 'bases/library.html' %}
-
 {% load static %}
 {% load compress %}
-
 {% block title %}
-Dashboard
+    Dashboard
 {% endblock title %}
-
 {% block head %}
-{% compress css %}
-<link rel="stylesheet" href="{% static 'css/library/dashboard.css' %}">
-{% endcompress %}
-{% endblock %}
-
-{% block content %}
-<div class="container mx-auto p-6">
-    <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-
-    <div class="container mx-auto p-6">
-        <h1>
-            <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            </div>
-            <div class="grid grid-cols-[68%_30%] gap-[2%] p-6 h-[439px]">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h1>Análise da quantiadade de livros mensalmente</h1>
-                    <hr>
-                    <canvas id="lineChart" style="width: 100%;height: 300px;"></canvas>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <h1>Categorias Disponíveis</h1>
-                    <hr>
-                    <div style="height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center">
-                        <div style="width: 80%;">
-                            <canvas id="pieChart" style="width: 100%;height: 300px;"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid grid-cols-[68%_30%] gap-[2%] p-6 h-[439px]">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex" style="width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 8px">
-                        <h1>Tabela dos Livros</h1>
-                        <a class="add-book" href="{% url 'books-add' %}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-plus-circle" viewBox="0 0 16 16">
-                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                                <path
-                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                            </svg>
-                        </a>
-                    </div>
-                    <hr style="margin-bottom: 10px;">
-                    <div class="container mx-auto h-[400px] overflow-hidden">
-                        <div class="overflow-y-auto h-full" id="div-table">
-                            {% include 'partials/dashboard-table-books.html' %}</div>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex" style="width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-bottom: 8px">
-                        <h1>Actividades Recentes</h1>
-                        <a href="#" class="add-book">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eraser" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z" />
-                            </svg>
-                        </a>
-                    </div>
-                    <hr>
-                    <hr>
-                    <div style="height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center">
-                        <div style="width: 80%;"></div>
-                    </div>
-                </div>
-            </div>
-            <br><br><br>
-            <div class="grid grid-cols-1 gap-6 p-6 mt-6">
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="flex items-center justify-between mb-4">
-                        <h1>Sugestões Propostas</h1>
-                        <a href="#" class="add-book">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-eraser" viewBox="0 0 16 16">
-                                <path
-                                    d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z" />
-                            </svg>
-                        </a>
-                    </div>
-                    <hr class="mb-4">
-                    <div class="container mx-auto h-[400px] overflow-hidden">
-                        <div class="overflow-y-auto h-full" id="div-table">
-                            {% include 'partials/dashboard-table-sugestions.html' %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-</div>
-
-    {% compress js %}
-    <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-    
-    {% include 'partials/dashboard-card-data.html' %}
-
-    <script>
-        let ctx;
-
-        ctx = document.getElementById('pieChart').getContext('2d');
-        const pieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Romance', 'Aventura', 'Ficção Científica'],
-                datasets: [{
-                    label: 'Categorias',
-                    data: [60, 30, 10],
-                    backgroundColor: ['#3498db', '#e74c3c', 'green'],
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        labels: {
-                            boxWidth: 15,
-                            font: {
-                                size: 12,
-                            },
-                            color: '#333',
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw + '%';
-                            }
-                        },
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        displayColors: false,
-                    }
-                }
-            }
-        });
-
-        const labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-        const allData = [65, 59, 10, 10, 45, 56, 48, 70, 80, 65, 60, 90];
-        const currentMonth = new Date().getMonth();
-        const filteredLabels = labels.slice(0, currentMonth + 1);
-        const filteredData = allData.slice(0, currentMonth + 1);
-
-        const data = {
-            labels: filteredLabels,
-            datasets: [{
-                label: 'Livros',
-                data: filteredData,
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',  // Cor de fundo das barras
-                borderColor: 'rgb(75, 192, 192)',  // Cor da borda das barras
-                borderWidth: 1,  // Largura da borda das barras
-            }]
-        };
-
-        const config = {
-            type: 'bar',  // Tipo do gráfico
-            data: data,
-            options: {
-                responsive: true,  // Responsivo para diferentes tamanhos de tela
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            font: {
-                                size: 14,
-                            },
-                            color: '#333',
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' unidades';
-                            },
-                            afterLabel: function (tooltipItem) {
-                                return 'A análise mostra o comportamento dos livros em ' + tooltipItem.label + '.';
-                            }
-                        },
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        displayColors: false,
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Período (Meses)',
-                            font: {
-                                size: 14,
-                            },
-                            color: '#333',
-                        },
-                        beginAtZero: true
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Quantidade de livros',
-                            font: {
-                                size: 14,
-                            },
-                            color: '#333',
-                        },
-                        beginAtZero: true
-                    }
-                }
-            }
-        };
-
-        ctx = document.getElementById('lineChart').getContext('2d');
-        new Chart(ctx, config);
-    </script>
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/library/dashboard.css' %}">
     {% endcompress %}
 {% endblock %}
+{% block content %}
+    <div class="container mx-auto p-6">
+        <div id="cards-container"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        <div class="container mx-auto p-6">
+            <h1>
+                <div id="cards-container"
+                     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+                <div class="grid grid-cols-[68%_30%] gap-[2%] p-6 h-[439px]">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h1>Análise da quantiadade de livros mensalmente</h1>
+                        <hr>
+                        <canvas id="lineChart" style="width: 100%;height: 300px;"></canvas>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h1>Categorias Disponíveis</h1>
+                        <hr>
+                        <div style="height: 100%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center">
+                            <div style="width: 80%;">
+                                <canvas id="pieChart" style="width: 100%;height: 300px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-[68%_30%] gap-[2%] p-6 h-[439px]">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex"
+                             style="width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    margin-bottom: 8px">
+                            <h1>Tabela dos Livros</h1>
+                            <a class="add-book" href="{% url 'books-add' %}">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16"
+                                     height="16"
+                                     fill="currentColor"
+                                     class="bi bi-plus-circle"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                </svg>
+                            </a>
+                        </div>
+                        <hr style="margin-bottom: 10px;">
+                        <div class="container mx-auto h-[400px] overflow-hidden">
+                            <div class="overflow-y-auto h-full" id="div-table"></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex"
+                             style="width: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    margin-bottom: 8px">
+                            <h1>Actividades Recentes</h1>
+                            <a href="#" class="add-book">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16"
+                                     height="16"
+                                     fill="currentColor"
+                                     class="bi bi-eraser"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <hr>
+                        <hr>
+                        <div style="height: 100%;
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center">
+                            <div style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="grid grid-cols-1 gap-6 p-6 mt-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="flex items-center justify-between mb-4">
+                            <h1>Sugestões Propostas</h1>
+                            <a href="#" class="add-book">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     width="16"
+                                     height="16"
+                                     fill="currentColor"
+                                     class="bi bi-eraser"
+                                     viewBox="0 0 16 16">
+                                    <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <hr class="mb-4">
+                        <div class="container mx-auto h-[400px] overflow-hidden">
+                            <div class="overflow-y-auto h-full" id="div-table"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% compress js %}
+        {% endcompress %}
+    {% endblock %}

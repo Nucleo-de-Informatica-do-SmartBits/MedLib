@@ -76,8 +76,10 @@ nav .user-img {
 
 .nav-text {
     font-weight: 500;
+    font-size: 18px;
     display: inline-block;
     margin-left: 0;
+    transition: all .3s;
 }
 
 .js-link svg {
@@ -189,7 +191,21 @@ nav .user-img {
     display: none;
 }
 
+#user-profile-image {
+    display: block;
+    padding: 5px;
+    border: 1.5px solid gray;
+    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    scale: 1.5;
+}
+
 @media (max-width: 800px) {
+    #user-profile-image {
+        display: none;
+    }
+
     .div-middle {
         display: none;
     }

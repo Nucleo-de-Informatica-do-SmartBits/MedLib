@@ -1,0 +1,253 @@
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-container {
+    margin-top: 30px;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    box-shadow: 10px 5px 10px 5px rgba(0, 0, 0, 0.052);
+    border-radius: 10px;
+}
+
+.no-border-input {
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+.no-border-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.data-group {
+    display: flex;
+    gap: 20px;
+}
+
+.single-input-group {
+    position: relative;
+}
+
+.single-input-group .input-group {
+    margin-top: 3px;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.input-group label {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+    border-color: #3498db;
+}
+
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+    top: 5px;
+    left: 40px;
+    font-size: 12px;
+    color: #3498db;
+}
+
+.input-group i {
+    position: absolute;
+    left: 10px;
+    color: #888;
+    pointer-events: none;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-photo-container {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.image-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #3DB1C8;
+    position: relative;
+    cursor: pointer;
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.camera-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: #3DB1C8;
+    color: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hidden-input {
+    display: none;
+    color: #e2e0e0;
+}
+
+h3 {
+    font-weight: 600;
+    color: #333;
+    font-size: 20px;
+}
+
+.badge {
+    margin-top: 10px;
+    background-color: rgb(243, 197, 113);
+    color: rgb(71, 57, 32);
+    padding: 7px;
+    border-radius: 5px;
+}
+
+.badge a {
+    color: rgb(109, 109, 251);
+}
+
+.bi-eye {
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 10px;
+    transition: all .3s;
+}
+
+.styled-select {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.styled-select:focus {
+    border-color: #3498db;
+}
+
+.input-group .bi-grid {
+    left: 10px;
+}
+
+.input-group .select-arrow {
+    right: 10px;
+    pointer-events: none;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 40px 10px 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.input-group i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.input-group .bi-hash {
+    left: 10px;
+}
+
+#js-eye {
+    position: absolute;
+    right: 10px;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.username-input {
+    text-align: center;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.username-input:focus {
+    border: 1px solid transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+.bi-pencil {
+    border-radius: 10px;
+    padding: 10px;
+    transition: all .3s;
+}
+
+.bi-pencil:hover {
+    background-color: #efefef;
+}
+
+.active-username {
+    border-radius: 10px;
+    border: 1px solid #d0d0d0;
+}
+
+.active-username:focus {
+    border: 1px solid #d0d0d0;
+    outline: none;
+    box-shadow: none;
+}
