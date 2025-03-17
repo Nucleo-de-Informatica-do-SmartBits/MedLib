@@ -179,7 +179,6 @@ def search_for_books(request):
     )
     return JsonResponse(list(books), safe=False)
 
-@login_required
 def about(request):
     template_name = "library/about.html"
     ctx = {}

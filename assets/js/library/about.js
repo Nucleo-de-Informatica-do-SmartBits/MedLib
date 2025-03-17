@@ -1,4 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-      console.log('Página carregada! Bem-vindo ao nosso site.');
-  });
-  
+document.querySelector('#js-see-more-btn')
+    .addEventListener('click', (event) => {
+        document.querySelector('#objective').scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest'
+        })
+    })
+

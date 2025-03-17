@@ -40,7 +40,11 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                <img src="{% static 'imgs/user.png' %}" id="user-profile-image" />
+                {% if request.user.reader.photo %}
+                <img src="{{ request.user.reader.photo.url }}" id="user-profile-image"  class="real-profile"/>
+                {% else %}
+                <img src="{% static 'imgs/user.png' %}" id="user-profile-image" class="fake-profile"/>
+                {% endif %}
             </div>
             <div id="profile-menu"
                  class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg hidden transform scale-95 opacity-0 transition-all duration-200 ease-out">

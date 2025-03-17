@@ -106,8 +106,8 @@ nav .user-img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 30px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
 }
 
@@ -191,7 +191,7 @@ nav .user-img {
     display: none;
 }
 
-#user-profile-image {
+.fake-profile {
     display: block;
     padding: 5px;
     border: 1.5px solid gray;
@@ -202,7 +202,7 @@ nav .user-img {
 }
 
 @media (max-width: 800px) {
-    #user-profile-image {
+    .fake-profile {
         display: none;
     }
 
@@ -240,7 +240,8 @@ footer {
 
 .footer-container>div {
     width: 350px;
-    margin-bottom: 20px; /* Adiciona espaço entre as seções em telas menores */
+    margin-bottom: 20px;
+    /* Adiciona espaço entre as seções em telas menores */
 }
 
 .logo-footer {
@@ -356,7 +357,8 @@ footer textarea::placeholder {
         width: 100%;
     }
 
-    .footer-contact, .footer-suggestion {
+    .footer-contact,
+    .footer-suggestion {
         width: 100%;
     }
 
@@ -461,4 +463,13 @@ footer textarea::placeholder {
     .footer-contact ul li i {
         font-size: 22px;
     }
+}
+
+.real-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }

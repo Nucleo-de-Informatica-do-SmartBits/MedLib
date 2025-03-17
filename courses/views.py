@@ -38,7 +38,6 @@ def get_video_data(request, video_slug, video_uuid):
     })
 
 
-@login_required
 def filter_courses(request):
     category = request.GET.get("category", "ALL")
 

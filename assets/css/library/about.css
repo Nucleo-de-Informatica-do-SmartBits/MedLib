@@ -72,3 +72,38 @@ h2 {
       height: 200px;
       border-radius: 360px;
 }
+
+.wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+  }
+  
+  #python-cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adapta automaticamente conforme o espaço disponível */
+      gap: 20px;
+      place-content: center;
+      width: auto;
+      max-width: 800px;
+  }
+  
+  .python-card {
+      width: 100%;
+      max-width: 350px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: all 0.3s;
+  }
+  
+  /* Adaptação para telas menores */
+  @media (max-width: 600px) {
+      #python-cards-container {
+          grid-template-columns: 1fr; /* Apenas uma coluna em telas pequenas */
+          max-width: 100%; /* Para ocupar a largura total */
+      }
+  }
+  
