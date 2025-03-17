@@ -3,9 +3,9 @@
 {% load compress %}
 {% block title %}Página Inicial{% endblock %}
 {% block head %}
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     {% compress css %}
+    <link rel="stylesheet"
+      href="{% static 'libs/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
         <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
     {% endcompress %}
 {% endblock %}

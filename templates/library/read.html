@@ -1,49 +1,46 @@
 {% extends 'bases/control.html' %}
 {% load static %}
 {% load compress %}
-{% block title %}{{ book.title }}{% endblock %}
+{% block title %}
+  {{ book.title }}
+{% endblock %}
 {% block head %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
-        <link rel="stylesheet" href="{% static 'css/library/read.css' %}" />
-    {% endcompress %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/library/home.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/library/read.css' %}" />
+  {% endcompress %}
+  {% compress js %}
+  <script src="{% static 'libs/node_modules/pdfjs-dist/build/pdf.min.mjs' %}"></script>
+  <script src="{% static 'libs/node_modules/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'libs/node_modules/@fontawesome/fontawesome/css/all.min.css' %}" />
+  {% endcompress %}
 {% endblock %}
 {% block content %}
-    <div class="reader-container">
-        <div class="reader-header">
-            <h2 class="book-title">{{ book.title }}</h2>
-            <div class="time-stop">
-                <div id="timer">00:00</div>
-                <button id="stop-reading">
-                    <i class="fa-solid fa-stop" style="font-size: 25px;"></i>
-                </button>
-            </div>
-        </div>
-        <div class="pdf-container">
-            <canvas id="pdf-render"></canvas>
-        </div>
-        <div class="nav-buttons">
-            <button onclick="prevPage()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <div id="page-info">
-                <span id="current-page">1</span> de <span id="total-pages">?</span>
-            </div>
-            <button onclick="nextPage()">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
+  <div class="reader-container">
+    <div class="reader-header">
+      <h2 class="book-title">{{ book.title }}</h2>
+      <div class="time-stop">
+        <div id="timer">00:00</div>
+        <button id="stop-reading"><i class="fa-solid fa-stop" style="font-size: 25px;"></i></button>
+      </div>
     </div>
-    {% compress js %}
-        <script>
-            const url = '{{ book.document.url }}';
-            const slug = '{{ book.slug }}';
-            const isbn = '{{ book.isbn }}';
-        </script>
-        <script src="{% static 'js/library/read.js' %}"></script>
-    {% endcompress %}
+    <div class="pdf-container">
+      <canvas id="pdf-render"></canvas>
+    </div>
+    <div class="nav-buttons">
+      <button onclick="prevPage()"><i class="fas fa-arrow-left"></i></button>
+      <div id="page-info">
+        <span id="current-page">1</span> de <span id="total-pages">?</span>
+      </div>
+      <button onclick="nextPage()"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+  {% compress js %}
+  <script>
+    const url = '{{ book.document.url }}'
+    const slug = '{{ book.slug }}'
+    const isbn = '{{ book.isbn }}'
+  </script>
+  <script src="{% static 'js/library/read.js' %}"></script>
+  {% endcompress %}
 {% endblock %}

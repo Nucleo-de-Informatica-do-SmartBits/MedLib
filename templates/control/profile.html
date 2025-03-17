@@ -3,9 +3,9 @@
 {% load static %}
 {% block title %}{{ request.user.username }} - Perfil{% endblock %}
 {% block head %}
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    {% compress css %}
+{% compress css %}
+<link rel="stylesheet"
+      href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
         <link rel="stylesheet" href="{% static 'css/control/profile.css' %}" />
     {% endcompress %}
 {% endblock %}
@@ -85,9 +85,6 @@
                                id="email" />
                         <i class="bi bi-envelope"></i>
                     </div>
-                    {% comment %} <div class="badge">
-                            A sua conta ainda não foi verificada!<a href="#"> Clique Aqui</a>
-                    </div> {% endcomment %}
                 </div>
                 <div style="text-align: left;
                             text-align: center;

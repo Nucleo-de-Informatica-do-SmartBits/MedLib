@@ -199,7 +199,7 @@ body {
       transition: all 0.3s;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
       #python-cards-container {
             grid-template-columns: 1fr;
             max-width: 100%;
