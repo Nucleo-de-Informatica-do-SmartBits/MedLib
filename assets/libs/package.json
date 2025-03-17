@@ -15,6 +15,7 @@
     "htmx.org": "^1.9.12",
     "pdfjs-dist": "^5.0.375",
     "plyr": "^3.7.8",
-    "sweetalert2": "^11.17.2"
+    "sweetalert2": "^11.6.13",
+    "typeit": "^8.8.7"
   }
 }
