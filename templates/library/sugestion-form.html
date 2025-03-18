@@ -1,65 +1,50 @@
 {% extends 'bases/library.html' %}
 {% load static %}
 {% load compress %}
-
 {% block title %}
-Sugerir
+    Sugerir
 {% endblock title %}
-
 {% block head %}
-{% compress css %}
-<link rel="stylesheet" href="{% static 'css/library/book-details.css' %}">
-<link rel="stylesheet" href="{% static 'css/library/sugestion.css' %}">
-{% endcompress %}
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}">
+        <link rel="stylesheet" href="{% static 'css/library/sugestion.css' %}">
+    {% endcompress %}
 {% endblock %}
-
 {% block content %}
-
-<main style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-
-">
-
-    <div style="width: 50rem;" class="bg-white rounded-lg shadow-lg p-6">
-        <form method="POST" action="{% url 'sugestion' %}">
-            {% include 'partials/forms_errors.html' %}
-
-            {% csrf_token %}
-
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ title }}</h2>
-            <div style="display: flex; justify-content: space-between;">
-
-                <div class="flex-1 space-y-4" style="width: 50%;">
-                    <div class="mb-4">
-                        <label for="title" class="block text-sm font-medium text-gray-700">Assunto</label>
-                        {{ forms.about }}
+    <main style="display: flex;
+                 justify-content: center;
+                 align-items: center;
+                 margin-top: 30px">
+        <div style="width: 50rem;" class="bg-white rounded-lg shadow-lg p-6">
+            <form method="POST" action="{% url 'sugestion' %}">
+                {% include 'partials/forms_errors.html' %}
+                {% csrf_token %}
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">{{ title }}</h2>
+                <div style="display: flex; justify-content: space-between;">
+                    <div class="flex-1 space-y-4" style="width: 50%;">
+                        <div class="mb-4">
+                            <label for="title" class="block text-sm font-medium text-gray-700">Assunto</label>
+                            {{ forms.about }}
+                        </div>
+                        <!-- Capa e Arquivo do Livro -->
+                        <div class="flex-1">
+                            <label for="cover" class="block text-sm font-medium text-gray-700">Sugestão</label>
+                            {{ forms.sugestion }}
+                        </div>
+                        <!-- Botões -->
+                        <div class="flex justify-end space-x-2 mt-4">
+                            <a href="{% url 'home' %}"
+                               class="formbold-btn px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">
+                                Cancelar
+                            </a>
+                            <button type="submit"
+                                    class="formbold-btn px-4 py-2 bg-[#3DB1C8] text-white rounded hover:bg-[#3DB1C8] transition-transform duration-300 transform">
+                                Enviar
+                            </button>
+                        </div>
                     </div>
-
-                    <!-- Capa e Arquivo do Livro -->
-                    <div class="flex-1">
-                        <label for="cover" class="block text-sm font-medium text-gray-700">Sugestão</label>
-                        {{ forms.sugestion }}
-                    </div>
-
-
-                    <!-- Botões -->
-                    <div class="flex justify-end space-x-2 mt-4">
-                        <a href="{% url 'home' %}" class="formbold-btn px-4 py-2 bg-gray-300 text-gray-700 rounded
-                            hover:bg-gray-400">
-                            Cancelar
-                        </a>
-                        <button type="submit"
-                            class="formbold-btn px-4 py-2 bg-[#3DB1C8] text-white rounded hover:bg-[#3DB1C8] transition-transform duration-300 transform">
-                            Enviar
-                        </button>
-                    </div>
-                </div>
-
-        </form>
-    </div>
-    </div>
-</main>
+                </form>
+            </div>
+        </div>
+    </main>
 {% endblock %}

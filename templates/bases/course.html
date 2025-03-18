@@ -1,38 +1,25 @@
 {% load static %}
-
 {% load static tailwind_tags %}
-
-
 <!DOCTYPE html>
 <html lang="pt">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'imgs/logo.png' %}" type="image/x-icon">
-
-    {% tailwind_css %}
-
-    {% block head %}
-
-    {% endblock head %}
-
-    <title>
-
-        {% block title %}
-
-        {% endblock title %}
-
-    </title>
-</head>
-
-<body>
-    {% include 'partials/messages.html' %}
-
-    {% block content %}
-      
-    {% endblock content %}
-
-</body>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon"
+              href="{% static 'imgs/logo.png' %}"
+              type="image/x-icon">
+        {% tailwind_css %}
+        {% block head %}
+        {% endblock head %}
+        <title>
+            {% block title %}
+            {% endblock title %}
+        </title>
+    </head>
+    <body>
+        <div id="loader" class="loader"></div>
+        {% include 'partials/messages.html' %}
+        {% block content %}
+        {% endblock content %}
+    </body>
 </html>

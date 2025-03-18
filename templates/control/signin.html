@@ -1,63 +1,50 @@
 {% extends 'bases/control.html' %}
-
 {% load static %}
 {% load compress %}
-
 {% block head %}
-
-{% compress css %}
-<link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
-<link rel="stylesheet" href="{% static 'css/control/signin.css' %}">
-{% endcompress %}
-
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/control/signin.css' %}">
+    {% endcompress %}
 {% endblock head %}
-
 {% block title %}
-Iniciar Sessão - SmartBits VML
+    Iniciar Sessão - SmartBits VML
 {% endblock title %}
-
 {% block content %}
-<div class="formbold-main-wrapper rounded">
-    <div class="formbold-form-wrapper max-w-sm overflow-hidden rounded shadow-lg formbold-form-input">
-        <div class="div-logo text-center" style="align-items: center;">
-            <img class="img-logo mx-auto mb-2" src="{% static 'imgs/logo.png' %}" alt="SmartBits Logo">
-            <div class="text-center mb-6">
-                <h1 class="text-2xl font-bold text-gray-700">MedLib</h1>
-                <p class="text-sm text-gray-500">Acesse a sua conta da Biblioteca Virtual</p>
+    <div class="formbold-main-wrapper rounded">
+        <div class="formbold-form-wrapper max-w-sm overflow-hidden rounded shadow-lg formbold-form-input">
+            <div class="div-logo text-center" style="align-items: center;">
+                <img class="img-logo mx-auto mb-2"
+                     src="{% static 'imgs/logo.png' %}"
+                     alt="SmartBits Logo">
+                <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-700">MedLib</h1>
+                    <p class="text-sm text-gray-500">Acesse a sua conta da Biblioteca Virtual</p>
+                </div>
             </div>
+            <hr>
+            <form method="POST" class="space-y-4" style="margin-top: 20px;">
+                {% include 'partials/forms_errors.html' with form=form %}
+                {% csrf_token %}
+                <div class="formbold-mb-3">{{ form.process_number }}</div>
+                <div class="formbold-mb-3">{{ form.password }}</div>
+                <div class="formbold-mb-3">
+                    <button type="submit"
+                            class="formbold-btn w-full bg-[#3DB1C8] text-white py-2 px-4 rounded-full shadow-lg transition-transform duration-300 transform">
+                        Iniciar Sessão
+                    </button>
+                </div>
+                <div class="formbold-mb-3">
+                    <p class="text-sm text-gray-600 text-center mb-2">
+                        Não tem uma conta?
+                        <a href="{% url 'signup' %}"
+                           class="text-blue-600 hover:underline font-medium">Cadastre-se</a>
+                    </p>
+                </div>
+            </form>
         </div>
-        <hr>
-        <form method="POST" class="space-y-4" style="margin-top: 20px;">
-            {% include 'partials/forms_errors.html' with form=form %}
-
-            {% csrf_token %}
-            <div class="formbold-mb-3">
-                {{ form.process_number}}
-            </div>
-
-            <div class="formbold-mb-3">
-                {{ form.password }}
-            </div>
-
-            <div class="formbold-mb-3">
-                <button type="submit"
-                    class="formbold-btn w-full bg-[#3DB1C8] text-white py-2 px-4 rounded-full shadow-lg transition-transform duration-300 transform">
-                    Iniciar Sessão
-                </button>
-            </div>
-
-            <div class="formbold-mb-3">
-                <p class="text-sm text-gray-600 text-center mb-2">
-                    Não tem uma conta?
-                    <a href="{% url 'signup' %}" class="text-blue-600 hover:underline font-medium">Cadastre-se</a>
-                </p>
-            </div>
-        </form>
     </div>
-</div>
-
-{% compress js %}
-<script src="{% static 'js/control/signin.js' %}"></script>
-{% endcompress %}
-
+    {% compress js %}
+        <script src="{% static 'js/control/signin.js' %}"></script>
+    {% endcompress %}
 {% endblock content %}

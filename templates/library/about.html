@@ -1,0 +1,191 @@
+{% extends 'bases/library.html' %}
+{% load static %}
+{% load compress %}
+{% block title %}Sobre Nós{% endblock %}
+{% block head %}
+{% compress css %}
+<link rel="stylesheet"
+      href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/library/about.css' %}" />
+    {% endcompress %}
+{% endblock %}
+{% block content %}
+    <main>
+        <section id="missao">
+            <div class="img">
+                <img src="{% static 'imgs/logo.png' %}" alt="Imagem ilustrativa" />
+            </div>
+            <div class="text">
+                <h2>O que é a MedLib?</h2>
+                <p>
+                    O projeto consiste em um sistema web inovador desenvolvido pelo Núcleo de Informática do SmartBits (<b>NIS</b>) para o gerenciamento eficiente de livros e materiais escolares, com o objetivo de facilitar o acesso e aprimorar a experiência educacional para estudantes.
+                </p>
+            </div>
+            <div style="margin-top: 3rem;">
+                <button class="see-more" id="js-see-more-btn">
+                    <i class="bi bi-arrow-down-circle"></i>
+                </button>
+            </div>
+        </section>
+        <section style="display: flex;justify-content: center;flex-direction: column;">
+            <div style="text-align: center;
+                        margin-top: 8px;
+                        font-size: 30px;
+                        font-weight: 600"
+                 id="js-see">Nossos Oferecimentos</div>
+            <section id="objective">
+                <div class="card-objective">
+                    <div class="card-header">
+                        <img src="{% static 'imgs/manage-books.png' %}"
+                             alt="Gestão de Livros e Materiais Escolares" />
+                    </div>
+                    <div class="card-body">
+                        <h1>Gestão de Livros e Materiais Escolares</h1>
+                        <div class="description">
+                            <p>
+                                O sistema organiza e disponibiliza um catálogo digital de livros e outros recursos escolares, permitindo que os usuários busquem, reservem e acessem os materiais necessários de forma simples e eficiente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-objective">
+                    <div class="card-header">
+                        <img src="{% static 'imgs/curso-video.png' %}" alt="" />
+                    </div>
+                    <div class="card-body">
+                        <h1>Cursos em Vídeo</h1>
+                        <div class="description">
+                            <p>
+                                Uma biblioteca de cursos em vídeo foi integrada ao sistema, com conteúdos voltados para diversas Tecnologias. Esses cursos foram projetados para atender às necessidades de reforço escolar ou aprendizado independente.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-objective">
+                    <div class="card-header">
+                        <img src="{% static 'imgs/incl-tech.png' %}"
+                             alt="Gestão de Livros e Materiais Escolares" />
+                    </div>
+                    <div class="card-body">
+                        <h1>Apoio à Inclusão Tecnológica</h1>
+                        <div class="description">
+                            <p>
+                                O projeto será implementado no laboratório de informática da escola, garantindo que mesmo alunos que não possuem computadores pessoais possam acessar os recursos disponíveis no sistema.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <section style="display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        min-height: 100dvh;
+                        margin-bottom: 20px">
+            <div style="text-align: center;
+                        margin-top: 8px;
+                        font-size: 30px;
+                        font-weight: 600;
+                        margin-bottom: 10px">Aprenda Tecnologias Pertinentes</div>
+            <div class="wrapper">
+                <section id="python-cards-container">
+                    <div class="python-card">
+                        <div class="python-card-body">
+                            <h1>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     x="0px"
+                                     y="0px"
+                                     width="48"
+                                     height="48"
+                                     viewBox="0 0 48 48"
+                                     style="font-size: 2rem;
+                                            margin-right: 10px">
+                                    <path fill="#0277BD" d="M24.047,5c-1.555,0.005-2.633,0.142-3.936,0.367c-3.848,0.67-4.549,2.077-4.549,4.67V14h9v2H15.22h-4.35c-2.636,0-4.943,1.242-5.674,4.219c-0.826,3.417-0.863,5.557,0,9.125C5.851,32.005,7.294,34,9.931,34h3.632v-5.104c0-2.966,2.686-5.896,5.764-5.896h7.236c2.523,0,5-1.862,5-4.377v-8.586c0-2.439-1.759-4.263-4.218-4.672C27.406,5.359,25.589,4.994,24.047,5z M19.063,9c0.821,0,1.5,0.677,1.5,1.502c0,0.833-0.679,1.498-1.5,1.498c-0.837,0-1.5-0.664-1.5-1.498C17.563,9.68,18.226,9,19.063,9z">
+                                    </path>
+                                    <path fill="#FFC107" d="M23.078,43c1.555-0.005,2.633-0.142,3.936-0.367c3.848-0.67,4.549-2.077,4.549-4.67V34h-9v-2h9.343h4.35c2.636,0,4.943-1.242,5.674-4.219c0.826-3.417,0.863-5.557,0-9.125C41.274,15.995,39.831,14,37.194,14h-3.632v5.104c0,2.966-2.686,5.896-5.764,5.896h-7.236c-2.523,0-5,1.862-5,4.377v8.586c0,2.439,1.759,4.263,4.218,4.672C19.719,42.641,21.536,43.006,23.078,43z M28.063,39c-0.821,0-1.5-0.677-1.5-1.502c0-0.833,0.679-1.498,1.5-1.498c0.837,0,1.5,0.664,1.5,1.498C29.563,38.32,28.899,39,28.063,39z">
+                                    </path>
+                                </svg>
+                                Python
+                            </h1>
+                            <div class="python-card-description">
+                                <p>
+                                    Uma linguagem de programação famosa, simples, versátil. Ideal para desenvolvimento web, automação, análise de dados e muito mais.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="python-card">
+                        <div class="python-card-body">
+                            <h1>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     x="0px"
+                                     y="0px"
+                                     width="48"
+                                     height="48"
+                                     viewBox="0 0 48 48"
+                                     style="font-size: 2rem;
+                                            margin-right: 10px">
+                                    <path fill="#ffd600" d="M6,42V6h36v36H6z"></path>
+                                    <path fill="#000001" d="M29.538 32.947c.692 1.124 1.444 2.201 3.037 2.201 1.338 0 2.04-.665 2.04-1.585 0-1.101-.726-1.492-2.198-2.133l-.807-.344c-2.329-.988-3.878-2.226-3.878-4.841 0-2.41 1.845-4.244 4.728-4.244 2.053 0 3.528.711 4.592 2.573l-2.514 1.607c-.553-.988-1.151-1.377-2.078-1.377-.946 0-1.545.597-1.545 1.377 0 .964.6 1.354 1.985 1.951l.807.344C36.452 29.645 38 30.839 38 33.523 38 36.415 35.716 38 32.65 38c-2.999 0-4.702-1.505-5.65-3.368L29.538 32.947zM17.952 33.029c.506.906 1.275 1.603 2.381 1.603 1.058 0 1.667-.418 1.667-2.043V22h3.333v11.101c0 3.367-1.953 4.899-4.805 4.899-2.577 0-4.437-1.746-5.195-3.368L17.952 33.029z">
+                                    </path>
+                                </svg>
+                                JavaScript
+                            </h1>
+                            <div class="python-card-description">
+                                <p>
+                                    A linguagem de programação mais utiliza para desenvolvimento web e também a mais amada por milhares de desenvolvedores
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="python-card">
+                        <div class="python-card-body">
+                            <h1>
+                                <img width="48"
+                                     height="48"
+                                     src="https://img.icons8.com/color/48/wifi-logo.png"
+                                     alt="wifi-logo"
+                                     style="font-size: 2rem;
+                                            margin-right: 10px" />
+                                Redes de Computadores
+                            </h1>
+                            <div class="python-card-description">
+                                <p>Uma tecnologia essencial para a comunicação e troca de recursos entre dispositivos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="python-card">
+                        <div class="python-card-body">
+                            <h1>
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     x="0px"
+                                     y="0px"
+                                     width="48"
+                                     height="48"
+                                     viewBox="0 0 512 512"
+                                     style="font-size: 2rem;
+                                            margin-right: 10px">
+                                    <path fill="#E44D26" d="M71 460L30 0h451l-41 460-185 52" />
+                                    <path fill="#F16529" d="M256 472l149-41 35-394H256" />
+                                    <path fill="#EBEBEB" d="M256 208h-71l-5-55h76v-55H124l1 13 13 144h118zm0 143h-1l-60-16-4-44h-55l7 88 113 31h1z" />
+                                    <path fill="#FFF" d="M256 208v55h65l-6 72-59 16v57l112-31 1-10 12-130 1-13zm0-110v55h134l1-12 3-30 1-13z" />
+                                </svg>
+                                HTML
+                            </h1>
+                            <div class="python-card-description">
+                                <p>
+                                    A principal linguagem de estruturação de código para páginas web. Linguagem de marcação que define a estrutura e o significado do conteúdo da web.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</main>
+{% include 'partials/footer.html' %}
+{% compress js %}
+    <script src="{% static 'js/library/about.js' %}"></script>
+{% endcompress %}
+{% endblock %}

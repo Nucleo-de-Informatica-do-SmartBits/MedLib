@@ -1,40 +1,242 @@
-{% extends "bases/library.html" %}
+{% extends 'bases/library.html' %}
 {% load static %}
 {% load compress %}
-
-{% block title %}Cursos{% endblock title %}
-
+{% block title %}
+  Cursos
+{% endblock %}
 {% block head %}
-      {% compress css %}
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-      <link rel="stylesheet" href="{% static 'css/library/book-details.css' %}" />
-      {% endcompress %}
-{% endblock head %}
-
+  <link rel="stylesheet" href="{% static 'libs/node_modules/plyr/dist/plyr.css' %}" />
+  <link rel="stylesheet" href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
+  {% compress css %}
+  <link rel="stylesheet" href="{% static 'css/courses/view_courses.css' %}" />
+  {% endcompress %}
+{% endblock %}
 {% block content %}
-      <br>
-      <div align="center">
-            <h1 class="comments">{{course|upper}}</h1>
-            <h5>{{course.teacher}}</h5>
+  <div id="videoModal" class="modal hidden">
+    <div class="loader" id="js-loader"></div>
+    <div class="modal-content" id="js-modal-content">
+      <span class="close-button">&times;</span>
+      <h2 id="videoTitle" style="font-size: 30px;font-weight: 600;"></h2>
+      <video id="videoPlayer" class="plyr" controls>
+        <source id="videoSource" src="" type="video/mp4" />Seu navegador não suporta vídeos.
+      </video>
+    </div>
+  </div>
+  <section class="course-info">
+    <div class="info">
+      <p class="breadcrumb" style="padding-bottom: 20px;">
+        <span>Cursos</span> > <span>Categorias</span> > <span>{{ course.get_category_display }}</span>
+      </p>
+      <h1 class="course-title">{{ course.name }}</h1>
+      <p class="course-description">{{ course.description }}</p>
+      <div class="rating" style="margin-bottom: 5px;">
+        <span class="stars" style="color: #F5A623;">{{ course.get_stars_in_percentage }}% <i class="bi bi-star-fill"></i></span>
+        <span class="reviews" style="color: gray;">({{ course.stars.count }} avaliações)</span>
       </div>
-      <hr>
-      <div style="display:flex; width: 100%; cursor: pointer; justify-content: space-evenly;  flex-wrap: wrap; " class="">
-            
-            {% for video in videos %}
-                  <div style="width: 20rem; margin: 5px;" class="bg-white rounded-lg shadow-lg ">
-                        <a href="{% url 'courses_watch' video.slug %}">
-                              <div class="flex-1 space-y-4 rounded-lg" style="width: 100%;">
-                                    <div>
-                                          <video style="height: 200px; width: 100%" src="{{video.path.url}}"></video>
-                                    </div>
-                                    <hr>
-                                    <div class="">
-                                          <h1 align="center">{{video}}</h1>
-                                    </div>
-                              </div>
-                        </a>
-                  </div>
-            {% endfor %}
+      <p class="teacher" style="margin-bottom: 5px;">
+        Criado por <span style="text-decoration: underline;
+              color:rgb(140, 147, 242);
+              cursor: pointer">{{ course.teacher }}</span>
+      </p>
+      <div style="display: flex;justify-content: start; gap: 8px;">
+        <p class="updated-at" style="color:rgb(243, 188, 100);">
+          <i class="bi bi-calendar-date"></i> Última atualização em {{ course.updated_at|date:'m/y' }}
+        </p>
+        <p class="language">
+          <i class="bi bi-globe2"></i> {{ course.get_language_display }}
+        </p>
       </div>
+    </div>
+    <div class="preview">
+      <div class="video-container">
+        <img class="video-thumbnail" src="{{ course.preview.cover.url }}" alt="Capa do curso" />
+        <div class="overlay"></div>
+        <div class="play-button">
+          <i class="bi bi-play-circle-fill"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+  <main>
+    <section class="list-videos">
+      <div style="display: flex;
+                        justify-content: space-between;
+                        align-items: center">
+        <h1 style="color:rgba(29, 30, 39, 0.83);
+                           font-size: 25px;
+                           font-weight: 600">Conteúdos do curso</h1>
+        <ul style="display: flex;
+                           justify-content: start;
+                           gap: 15px;
+                           margin-bottom: 5px">
+          <li>{{ total_videos }} aula(s)</li>
+          <li class="js-duration-master">{{ total_duration }}</li>
+        </ul>
+      </div>
+      <div class="videos">
+        {% for video in videos %}
+          <div class="course-item">
+            <div class="course-info2">
+              <i class="bi bi-play-btn"></i>
+              <a class="course-title2 js-course-title" style="text-decoration: underline;
+                                      color:rgb(106, 71, 194);
+                                      cursor: pointer" data-video-slug="{{ video.slug }}" data-video-uuid="{{ video.uuid }}">{{ video.title }}</a>
+            </div>
+            <div class="course-actions">
+              <span class="duration js-duration" style="color: gray;">{{ video.duration }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+    <section class="faq">
+      <h1 style="color:rgba(29, 30, 39, 0.83);
+                       font-size: 25px;
+                       font-weight: 600">FAQ</h1>
+      <div class="faq-list">
+        {% for faq in faq_list %}
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>{{ faq.question }}</h3>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="faq-answer">{{ faq.answer }}</div>
+          </div>
+        {% empty %}
+          <div class="faq-item">
+            <div class="faq-question">
+              <h3>Sem perguntas frequentes</h3>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+  {% compress js %}
+  <script src="{% static 'libs/node_modules/plyr/dist/plyr.min.js' %}"></script>
+  <script>
+        document.querySelectorAll('.faq-question').forEach((question) => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement
+                faqItem.classList.toggle('active')
 
-{% endblock content %}
+                const icon = question.querySelector('i')
+                if (faqItem.classList.contains('active')) {
+                    icon.classList.remove('bi-chevron-down')
+                    icon.classList.add('bi-chevron-up')
+                } else {
+                    icon.classList.remove('bi-chevron-up')
+                    icon.classList.add('bi-chevron-down')
+                }
+            })
+        })
+
+        function msParaTempoLegivel(ms) {
+            let segundos = Math.floor(ms / 1000)
+
+            let horas = Math.floor(segundos / 3600)
+            segundos %= 3600
+            let minutos = Math.floor(segundos / 60)
+            segundos %= 60
+
+            let resultado = []
+            if (horas > 0) {
+                resultado.push(`${horas}h`)
+            }
+            if (minutos > 0) {
+                resultado.push(`${minutos}m`)
+            }
+            if (segundos > 0 || resultado.length === 0) {
+                resultado.push(`${segundos}s`)
+            }
+
+            return resultado.join(' ')
+        }
+
+        function msParaTempoFormatado(ms) {
+            let segundos = Math.floor(ms / 1000)
+            let minutos = Math.floor(segundos / 60)
+            segundos %= 60
+
+            let horas = 0
+            if (minutos > 59) {
+                horas = Math.floor(minutos / 60)
+                minutos %= 60
+            }
+
+            horas = horas.toString().padStart(2, '0')
+            minutos = minutos.toString().padStart(2, '0')
+            segundos = segundos.toString().padStart(2, '0')
+
+            if (horas !== '00') {
+                return `${horas}:${minutos}:${segundos}`
+            } else {
+                return `${minutos}:${segundos}`
+            }
+        }
+
+        document.querySelectorAll('.js-duration').forEach((e) => {
+            e.innerText = msParaTempoFormatado(e.textContent)
+        })
+
+        const e = document.querySelector('.js-duration-master')
+        e.innerText = msParaTempoLegivel(e.textContent)
+
+        const playerElement = document.getElementById('videoPlayer')
+        const player = new Plyr(playerElement, {
+            controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+            ratio: '16:9'
+        })
+
+        document.querySelectorAll('.js-course-title').forEach((element) => {
+            element.addEventListener('click', async (e) => {
+                e.preventDefault()
+                {% if request.user.is_authenticated %}
+                const loader = document.querySelector('#js-loader')
+                const modelContent = document.querySelector('#js-modal-content')
+                const modal = document.getElementById('videoModal')
+
+                loader.style.display = 'block'
+                modelContent.style.display = 'none'
+                modal.classList.remove('hidden')
+
+                const uuid = element.dataset.videoUuid
+                const slug = element.dataset.videoSlug
+                const link = `/courses/get-video-data/${slug}/${uuid}/`
+
+                try {
+                    const response = await fetch(link)
+                    const data = await response.json()
+
+                    document.getElementById('videoTitle').textContent = data.title
+
+                    loader.style.display = 'none'
+                    modelContent.style.display = 'block'
+
+                    playerElement.setAttribute('poster', data.video_cover_url)
+
+                    player.source = {
+                        type: 'video',
+                        sources: [{
+                            src: data.video_path,
+                            type: 'video/mp4'
+                        }]
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar vídeo:', error)
+                    alert('Erro ao carregar vídeo. Tente novamente.')
+                    modal.classList.add('hidden')
+                }
+
+                modal.querySelector('.close-button').addEventListener('click', () => {
+                    modal.classList.add('hidden')
+                    player.pause()
+                })
+                {% else %}
+                window.location.href = '{% url 'signin' %}?next=' + encodeURIComponent(window.location.pathname);
+                {% endif %}
+            })
+        })
+    </script>
+  {% endcompress %}
+{% endblock %}

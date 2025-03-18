@@ -1,110 +1,85 @@
 {% extends 'bases/control.html' %}
-
 {% load static %}
 {% load compress %}
-
 {% block head %}
-
-{% compress css %}
-<link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
-{% endcompress %}
-
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/control/signup.css' %}">
+    {% endcompress %}
 {% endblock head %}
-
-
 {% block title %}
-Cadastre-se - SmartBits VL
+    Cadastre-se - SmartBits VL
 {% endblock title %}
-
 {% block content %}
-<div class="formbold-main-wrapper rounded" style="scale: 0.999;">
-      <div class="formbold-form-wrapper max-w-sm overflow-hidden rounded shadow-lg formbold-form-input">
+    <div class="formbold-main-wrapper rounded" style="scale: 0.999;">
+        <div class="formbold-form-wrapper max-w-sm overflow-hidden rounded shadow-lg formbold-form-input">
             <div class="div-logo">
-                  <img class="img-logo" src="{% static 'imgs/logo.png' %}">
-                  <div class="text-center mb-6">
-                        <h1 class="text-2xl font-bold text-gray-700">MedLib</h1>
-                        <p class="text-sm text-gray-500">Cadastre-se na nossa Biblioteca Virtual</p>
-                  </div>
+                <img class="img-logo" src="{% static 'imgs/logo.png' %}">
+                <div class="text-center mb-6">
+                    <h1 class="text-2xl font-bold text-gray-700">MedLib</h1>
+                    <p class="text-sm text-gray-500">Cadastre-se na nossa Biblioteca Virtual</p>
+                </div>
             </div>
             <hr>
             <br>
             <form action="{% url 'signup' %}" method="POST">
-                  {% include 'partials/forms_errors.html' with form=form %}
-
-                  {% csrf_token %}
-                  <div class="formbold-input-wrapp formbold-mb-3">
-                        <div>
-                              {{ form.firstname }}
-                              {{ form.lastname }}
+                {% include 'partials/forms_errors.html' with form=form %}
+                {% csrf_token %}
+                <div class="formbold-input-wrapp formbold-mb-3">
+                    <div>
+                        {{ form.firstname }}
+                        {{ form.lastname }}
+                    </div>
+                </div>
+                <div class="formbold-mb-3">{{ form.process_number }}</div>
+                <div class="formbold-input-wrapp formbold-mb-3">
+                    <div>
+                        <select class="formbold-form-input" name="course" id="occupation" required>
+                            <option value="" selected disabled>Selecione o seu curso</option>
+                            <option value="Informática">Informática</option>
+                            <option value="Eletrónica">Eletrónica</option>
+                        </select>
+                        <select class="formbold-form-input" name="grade" id="occupation" required>
+                            <option value="" selected disabled>Selecione a sua classe</option>
+                            <option value="10">10ª classe</option>
+                            <option value="11">11ª classe</option>
+                            <option value="12">12ª classe</option>
+                            <option value="13">13ª classe</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="formbold-mb-3">
+                    <fieldset class="border p-4 rounded-lg">
+                        <legend class="text-lg font-semibold text-gray-800 mb-4"
+                                style="color: #3f4041">
+                            Selecione
+                            a sua turma
+                        </legend>
+                        <div class="flex space-x-6">
+                            {% for radio in form.group %}<div class="flex items-center">{{ radio }}</div>{% endfor %}
                         </div>
-                  </div>
-
-                  <div class="formbold-mb-3">
-                        {{ form.process_number }}
-                  </div>
-
-                  <div class="formbold-input-wrapp formbold-mb-3">
-                        <div>
-                              <select class="formbold-form-input" name="course" id="occupation" required>
-                                    <option value="" selected disabled>Selecione o seu curso</option>
-                                    <option value="Informática">Informática</option>
-                                    <option value="Eletrónica">Eletrónica</option>
-                              </select>
-
-                              <select class="formbold-form-input" name="grade" id="occupation" required>
-                                    <option value="" selected disabled>Selecione a sua classe</option>
-                                    <option value="10">10ª classe</option>
-                                    <option value="11">11ª classe</option>
-                                    <option value="12">12ª classe</option>
-                                    <option value="13">13ª classe</option>
-                              </select>
-                        </div>
-                  </div>
-
-                  <div class="formbold-mb-3">
-                        <fieldset class="border p-4 rounded-lg">
-                              <legend class="text-lg font-semibold text-gray-800 mb-4" style="color: #3f4041;">Selecione
-                                    a sua turma</legend>
-                              <div class="flex space-x-6">
-
-                                    {% for radio in form.group %}
-                                    <div class="flex items-center">
-                                          {{ radio }}
-                                    </div>
-                                    {% endfor %}
-                              </div>
-                        </fieldset>
-                  </div>
-
-                  <div class="formbold-input-flex">
-                        <div>
-                              {{ form.password }}
-                        </div>
-                        <div>
-                              {{ form.confirm_password }}
-                        </div>
-                  </div>
-                  <div class="formbold-mb-3">
-                        <button type="submit"
-                              class="formbold-btn w-full bg-[#3DB1C8] text-white py-2 px-4 rounded-full shadow-lg transition-transform duration-300 transform">
-                              Cadastrar-se
-                        </button>
-                  </div>
-                  <div class="formbold-mb-3">
-                        <p class="text-sm text-gray-600 text-center mb-2">
-                              Já tem conta?
-                              <a href="{% url 'signin' %}" class="text-blue-600 hover:underline font-medium">
-                                    Iniciar Sessão
-                              </a>
-                        </p>
-                  </div>
-
+                    </fieldset>
+                </div>
+                <div class="formbold-input-flex">
+                    <div>{{ form.password }}</div>
+                    <div>{{ form.confirm_password }}</div>
+                </div>
+                <div class="formbold-mb-3">
+                    <button type="submit"
+                            class="formbold-btn w-full bg-[#3DB1C8] text-white py-2 px-4 rounded-full shadow-lg transition-transform duration-300 transform">
+                        Cadastrar-se
+                    </button>
+                </div>
+                <div class="formbold-mb-3">
+                    <p class="text-sm text-gray-600 text-center mb-2">
+                        Já tem conta?
+                        <a href="{% url 'signin' %}"
+                           class="text-blue-600 hover:underline font-medium">Iniciar Sessão</a>
+                    </p>
+                </div>
             </form>
-      </div>
-</div>
-
-{% compress js %}
-<script src="{% static 'js/control/signup.js' %}"></script>
-{% endcompress %}
-
+        </div>
+    </div>
+    {% compress js %}
+        <script src="{% static 'js/control/signup.js' %}"></script>
+    {% endcompress %}
 {% endblock content %}

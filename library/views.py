@@ -12,8 +12,9 @@ from django.views.decorators.http import require_http_methods
 from .forms import BookForm
 from .models import Author, Book, Category, Publisher, Sugestion, Comment
 
+from django.http import HttpResponse
 
-@login_required
+
 def home(request):
     ctx = {}
     template_name = "library/home.html"
@@ -102,7 +103,6 @@ def manageBook(request, slug=None):
     return render(request, "library/book-add.html", ctx)
 
 
-@login_required
 def bookDetails(request, slug, isbn):
     ctx = {}
     template_name = "library/book-details.html"
@@ -117,10 +117,10 @@ def bookDetails(request, slug, isbn):
 def add_suggestion(request):
     try:
         data = json.loads(request.body)
-        text = data.get('content')
-        
+        text = data.get("content")
+
         if not text:
-            raise ValueError('O texto não pode estar vazio')
+            raise ValueError("O texto não pode estar vazio")
 
         Sugestion.objects.create(text=text, user=request.user)
 
@@ -167,4 +167,20 @@ def readBook(request, slug, isbn):
     book = get_object_or_404(Book, slug=slug, isbn=isbn)
 
     ctx["book"] = book
+    return render(request, template_name, ctx)
+
+
+@require_http_methods(["GET"])
+def search_for_books(request):
+    query = request.GET.get('q')
+    
+    books = Book.objects.filter(title__icontains=query).values(
+        "id", "title", "isbn", "slug"
+    )
+    return JsonResponse(list(books), safe=False)
+
+def about(request):
+    template_name = "library/about.html"
+    ctx = {}
+
     return render(request, template_name, ctx)
