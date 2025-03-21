@@ -176,7 +176,7 @@ nav .user-img {
 
 .user-img {
     display: flex;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 #profile-menu ul li a svg {
@@ -196,9 +196,9 @@ nav .user-img {
     padding: 5px;
     border: 1.5px solid gray;
     border-radius: 50%;
-    width: 100%;
-    height: auto;
-    scale: 1.5;
+    width: 40px;
+    height: 40px;
+    scale: 1.1;
 }
 
 @media (max-width: 800px) {
@@ -466,8 +466,8 @@ footer textarea::placeholder {
 }
 
 .real-profile {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff;

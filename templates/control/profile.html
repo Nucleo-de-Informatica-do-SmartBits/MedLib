@@ -3,9 +3,9 @@
 {% load static %}
 {% block title %}{{ request.user.username }} - Perfil{% endblock %}
 {% block head %}
-{% compress css %}
-<link rel="stylesheet"
-      href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
+    {% compress css %}
+        <link rel="stylesheet"
+              href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
         <link rel="stylesheet" href="{% static 'css/control/profile.css' %}" />
     {% endcompress %}
 {% endblock %}

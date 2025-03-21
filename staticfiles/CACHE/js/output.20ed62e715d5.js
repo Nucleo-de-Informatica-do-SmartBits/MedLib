@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll('.alert').forEach(alert=>{setTimeout(()=>{alert.classList.add('opacity-0');setTimeout(function(){alert.remove();},500);},5000);});});;

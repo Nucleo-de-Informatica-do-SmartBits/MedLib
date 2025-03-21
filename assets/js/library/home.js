@@ -20,6 +20,11 @@ function changeImage() {
     text.innerText = frasesArray[currentIndex]
 }
 
+document.querySelector('#profile-img')
+.style.width="40px"
+document.querySelector('#profile-img')
+.style.height="30px"
+
 setInterval(changeImage, 3000);
 
 document.querySelectorAll(".card-book")
