@@ -10,9 +10,8 @@
         <link rel="shortcut icon"
               href="{% static 'imgs/logo.png' %}"
               type="image/x-icon">
-        
         {% compress js %}
-        <script src="{% static 'libs/node_modules/htmx.org/dist/htmx.min.js' %}"></script>
+            <script src="{% static 'libs/node_modules/htmx.org/dist/htmx.min.js' %}"></script>
             <link rel="stylesheet" href="{% static 'css/bases/library.css' %}">
         {% endcompress %}
         {% block head %}

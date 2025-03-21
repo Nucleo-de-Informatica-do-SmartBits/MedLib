@@ -25,6 +25,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "daphne",
+    "jazzmin",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,10 +46,22 @@ INSTALLED_APPS = [
     "courses",
 ]
 
-# Internal IPS
+JAZZMIN_SETTINGS = {
+    "site_title": "Biblioteca Virtual",
+    "site_header": "Biblioteca Virtual",
+    "site_brand": "Biblioteca",
+    "welcome_sign": "Bem-vindo à Biblioteca Virtual",
+    "copyright": "© 2025 Biblioteca Virtual",
+    "logo": 'imgs/logo.png',
+    "login_logo": 'imgs/logo.png',
+    "topmenu_links": [
+        {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
+    ],
+}
+
 
 INTERNAL_IPS = [
-    "127.0.0.1",
+    "192.168.134.192",
 ]
 
 # Crispy Configuration

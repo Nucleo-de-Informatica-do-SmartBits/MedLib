@@ -3,10 +3,10 @@
 {% load compress %}
 {% block title %}Sobre Nós{% endblock %}
 {% block head %}
-{% compress css %}
-<link rel="stylesheet"
-      href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/library/about.css' %}" />
+    {% compress css %}
+        <link rel="stylesheet"
+              href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/library/about.css' %}" />
     {% endcompress %}
 {% endblock %}
 {% block content %}

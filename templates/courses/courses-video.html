@@ -5,9 +5,9 @@
   Cursos
 {% endblock %}
 {% block head %}
+  {% compress css %}
   <link rel="stylesheet" href="{% static 'libs/node_modules/plyr/dist/plyr.css' %}" />
   <link rel="stylesheet" href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
-  {% compress css %}
   <link rel="stylesheet" href="{% static 'css/courses/view_courses.css' %}" />
   {% endcompress %}
 {% endblock %}
@@ -51,7 +51,7 @@
       <div class="video-container">
         <img class="video-thumbnail" src="{{ course.preview.cover.url }}" alt="Capa do curso" />
         <div class="overlay"></div>
-        <div class="play-button">
+        <div class="play-button" id="js-button-video-preview-controler" data-video-slug="{{ course.preview.slug }}" data-video-uuid="{{ course.preview.uuid }}">
           <i class="bi bi-play-circle-fill"></i>
         </div>
       </div>
@@ -115,6 +115,53 @@
   {% compress js %}
   <script src="{% static 'libs/node_modules/plyr/dist/plyr.min.js' %}"></script>
   <script>
+    const previewElement = document.querySelector('#js-button-video-preview-controler')
+    previewElement.addEventListener('click', async () => {
+        {% if request.user.is_authenticated %}
+          const loader = document.querySelector('#js-loader')
+          const modelContent = document.querySelector('#js-modal-content')
+          const modal = document.getElementById('videoModal')
+
+          loader.style.display = 'block'
+          modelContent.style.display = 'none'
+          modal.classList.remove('hidden')
+
+          const uuid = previewElement.dataset.videoUuid
+          const slug = previewElement.dataset.videoSlug
+          const link = `/courses/get-video-data/${slug}/${uuid}/`
+
+          try {
+              const response = await fetch(link)
+              const data = await response.json()
+
+              document.getElementById('videoTitle').textContent = data.title || 'Preview Video'
+
+              loader.style.display = 'none'
+              modelContent.style.display = 'block'
+
+              playerElement.setAttribute('poster', data.video_cover_url)
+
+              player.source = {
+                  type: 'video',
+                  sources: [{
+                      src: data.video_path,
+                      type: 'video/mp4'
+                  }]
+              }
+          } catch (error) {
+              console.error('Erro ao carregar vídeo:', error)
+              alert('Erro ao carregar vídeo. Tente novamente.')
+              modal.classList.add('hidden')
+          }
+
+          modal.querySelector('.close-button').addEventListener('click', () => {
+              modal.classList.add('hidden')
+              player.pause()
+          })
+          {% else %}
+          window.location.href = '{% url 'signin' %}?next=' + encodeURIComponent(window.location.pathname);
+          {% endif %}
+        })
         document.querySelectorAll('.faq-question').forEach((question) => {
             question.addEventListener('click', () => {
                 const faqItem = question.parentElement
@@ -237,6 +284,8 @@
                 {% endif %}
             })
         })
-    </script>
+
+        
+        </script>
   {% endcompress %}
 {% endblock %}

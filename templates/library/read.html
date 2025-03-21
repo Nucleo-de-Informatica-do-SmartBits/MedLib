@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="{% static 'css/library/read.css' %}" />
   {% endcompress %}
   {% compress js %}
-  <script src="{% static 'libs/node_modules/pdfjs-dist/build/pdf.min.mjs' %}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="{% static 'libs/node_modules/sweetalert2/dist/sweetalert2.all.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'libs/node_modules/@fontawesome/fontawesome/css/all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'libs/node_modules/@fontawesome/fontawesome-free/css/all.min.css' %}" />
   {% endcompress %}
 {% endblock %}
 {% block content %}

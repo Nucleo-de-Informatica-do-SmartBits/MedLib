@@ -3,9 +3,9 @@
 {% load compress %}
 {% block title %}Cursos{% endblock %}
 {% block head %}
-{% compress css %}
-    <link rel="stylesheet"
-        href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
+    {% compress css %}
+        <link rel="stylesheet"
+              href="{% static 'libs/node_modules/bootstrap-icons/font/bootstrap-icons.min.css' %}" />
         <link rel="stylesheet" href="{% static 'css/courses/courses-list.css' %}" />
     {% endcompress %}
 {% endblock %}
@@ -44,7 +44,7 @@
             <hr style="margin-top: 15px;" />
         </div>
         <div id="loader" class="loader"></div>
-        <article id="courses-view" style="margin-bottom: 40px;">{% include 'partials/courses_list.html' %}</article>
+        <article id="courses-view" style="margin-bottom: 40px;display: flex;flex-wrap: wrap;gap: 15px;justify-content: center;">{% include 'partials/courses_list.html' %}</article>
     </main>
     {% include 'partials/footer.html' %}
     <script>

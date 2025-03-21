@@ -39,7 +39,7 @@ class Author(models.Model):
 
     @property
     def get_full_name(self):
-        return f"{self.first_name.capitalize()} {self.last_name.capitalize()}".strip()
+        return f"{self.first_name.strip().title()} {self.last_name.strip().title()}".strip()
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -111,8 +111,8 @@ class Book(models.Model):
         related_name="books",
     )
 
-    publication_date = models.DateField(
-        verbose_name="Data de Publicação",
+    publication_date = models.CharField(
+        max_length=50, verbose_name="Data de Publicação", blank=True, null=True
     )
 
     document = models.FileField(
@@ -133,6 +133,7 @@ class Book(models.Model):
         verbose_name="Edição",
         null=True,
         blank=True,
+        default=1,
         help_text="Por padrão o sistema registra como a primeira edição livro",
     )
 
